@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <RelativeLayout
+        android:id="@+id/no_data_id"
+        android:visibility="gone"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+
+            android:src="@drawable/img_no_data"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView_nodata" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="很抱歉没有数据"
+            android:textAlignment="center"
+            android:textColor="@color/line_hot_all"
+            android:textSize="15sp"
+            android:layout_below="@+id/imageView_nodata" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

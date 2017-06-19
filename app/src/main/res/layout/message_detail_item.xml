@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+
+    android:layout_marginRight="60dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:padding="15dp"
+    android:background="@drawable/rounded_message_detail"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/detail_title_id"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+android:layout_alignParentTop="true"
+        android:layout_marginRight="15dp"
+
+        android:text="您有一个订单没有关闭，请及时关闭"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/detail_content_id"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail_title_id"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:text="订单将于【2017-01-06 12:00:00】分关闭，请及时处理。支付失败、支付困难，请拨打帮助电话400-011-9980."
+        android:textAlignment="center"
+        android:textColor="@color/line_hot_all"
+        android:textSize="13sp" />
+    <TextView
+        android:id="@+id/detail_date_id"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+android:layout_below="@+id/detail_content_id"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+
+        android:text="2017-01-05"
+        android:textAlignment="center"
+        android:textColor="@color/font_titie2"
+        android:textSize="13sp" />
+
+</RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

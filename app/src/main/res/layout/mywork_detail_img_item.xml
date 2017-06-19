@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:id="@+id/img_time_id"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="03月20日"
+
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="9dp"
+
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="4px"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+
+        <ImageView
+
+            android:id="@+id/view_yuan_not_0"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/view_yuan" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+
+        android:layout_marginLeft="10dp"
+        android:background="@color/work_detail_line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="30dp"
+
+        android:background="@color/white">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_src_id"
+
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="35dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/cartest" />
+
+
+            <ImageView
+                android:id="@+id/animation_button_id"
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@+id/img_src_id"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/img_play" />
+
+
+            <com.makeramen.RoundedImageView
+                android:id="@+id/img_avar_id"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/cartest"
+                app:riv_border_color="@color/white_alpha20"
+                app:riv_border_width="2dp"
+                app:riv_corner_radius="30dip"
+                app:riv_oval="true" />
+
+
+            <TextView
+                android:id="@+id/img_name_id"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:text="Magic"
+                android:textAlignment="center"
+                android:textColor="@color/font_titie2"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="360dp"
+	android:background="#00000000"
+	android:padding="1dip">
+
+	<RelativeLayout
+		android:id="@+id/image_frame"
+
+		android:background="@color/white"
+		android:layout_width="match_parent"
+		android:layout_height="320dp"
+		>
+
+
+
+		<uk.co.senab.photoview.PhotoView
+			android:id="@+id/image"
+			android:layout_width="match_parent"
+			android:layout_height="220dp"
+			android:scaleType="fitXY"
+			android:adjustViewBounds="true"
+			android:contentDescription="@string/descr_image"
+
+			/>
+
+		<ImageView
+			android:id="@+id/animation_button_id"
+
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentLeft="true"
+			android:layout_marginBottom="110dp"
+			android:layout_marginLeft="20dp"
+			android:src="@drawable/img_play" />
+
+		<TextView
+			android:id="@+id/address_comment"
+			android:layout_below="@+id/image"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_marginTop="5dp"
+			android:layout_centerHorizontal="true"
+			android:text="上海市黄浦区"
+			android:textColor="@color/line_hot_all"
+			android:textSize="17sp" />
+
+		<TextView
+			android:id="@+id/time_comment"
+			android:layout_below="@+id/address_comment"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_marginTop="5dp"
+			android:layout_centerHorizontal="true"
+			android:text="2016.12.20 19:20:02"
+			android:textColor="@color/font_titie2"
+			android:textSize="13sp" />
+
+<LinearLayout
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_below="@+id/time_comment"
+	android:layout_marginTop="5dp"
+android:layout_centerHorizontal="true"
+	android:gravity="center"
+	android:orientation="horizontal"
+	>
+	<ImageView
+		android:layout_width="15dp"
+		android:layout_height="15dp"
+		android:layout_gravity="center"
+android:layout_marginRight="5dp"
+		android:src="@drawable/picture_icon"
+		/>
+
+	<TextView
+		android:id="@+id/com_comment"
+		android:layout_below="@+id/address_comment"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:layout_gravity="center"
+		android:text="图片11张"
+		android:textColor="@color/font_titie2"
+		android:textSize="13sp" />
+
+</LinearLayout>
+
+		<ImageView
+			android:id="@+id/design_room_img_3d"
+			android:layout_width="105dp"
+			android:layout_gravity="center"
+			android:layout_height="75dp"
+			android:visibility="gone"
+			android:scaleType="fitXY" />
+	</RelativeLayout>
+
+
+
+
+	<ProgressBar
+		android:id="@+id/loading"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:visibility="gone" />
+
+
+</RelativeLayout>

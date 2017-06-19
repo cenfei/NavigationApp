@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/mine_frg_header" />
+
+
+
+
+
+    <com.makeramen.RoundedImageView
+        android:id="@+id/mine_avar_id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="57dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/cartest"
+        app:riv_border_color="@color/white"
+        app:riv_border_width="2dp"
+        app:riv_corner_radius="30dip"
+        app:riv_oval="true" />
+
+    
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        >
+        <EditText
+android:id="@+id/mobile_info_id"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+android:phoneNumber="true"
+            android:maxLength="11"
+            android:hint="手机号码"
+            android:textAlignment="center"
+            android:background="#00ffffff"
+            android:textColorHint="@color/font_titie2"
+            android:textSize="13sp" />
+
+
+
+        <TextView
+android:id="@+id/get_code_id"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:background="@drawable/rounded_gray_wallet"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="获取验证码"
+android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/font_titie2"
+            android:textSize="10sp" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/font_titie2"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+    />
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        >
+        <EditText
+            android:id="@+id/code_msg_id"
+
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:phoneNumber="true"
+            android:hint="输入验证码"
+            android:maxLength="8"
+            android:textAlignment="center"
+            android:background="#00ffffff"
+            android:textColorHint="@color/font_titie2"
+            android:textSize="13sp" />
+
+
+
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/font_titie2"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        />
+
+    <RelativeLayout
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/can_not_get_code_id"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="无法获取验证码?"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/line_hot_all"
+            android:textSize="10sp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/logining_btn_rel_id"
+
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_blackbutton_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+android:layout_centerInParent="true"
+            android:text="登   录"
+
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

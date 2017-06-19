@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/video_background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/animation_drawable_id"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+
+        />
+
+    <ImageView
+        android:id="@+id/animation_drawable_id_left"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+
+        />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/video_title2_background"/>
+    <include layout="@layout/index_title" />
+
+
+</FrameLayout>
+
+    <ImageView
+        android:id="@+id/animation_button_id"
+
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/img_play" />
+
+    <LinearLayout
+        android:id="@+id/country_line"
+
+        android:layout_width="136dp"
+        android:layout_height="match_parent"
+
+        android:layout_alignParentRight="true"
+        android:background="#000000">
+
+        <com.yj.navigation.wheelview.WheelView
+            android:id="@+id/country"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/break_rules_button_id"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:src="@drawable/img_report" />
+
+        <TextView
+            android:id="@+id/address_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="违章举报"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/report_next"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+android:visibility="gone"
+        android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@drawable/rounded_next"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
+
+</RelativeLayout>

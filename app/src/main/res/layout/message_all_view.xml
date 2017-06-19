@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical">
+
+    <include layout="@layout/mine_frg_header" />
+
+
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/listview_design"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="#00000000"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:gravity="left"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true"
+            ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+    <RelativeLayout
+        android:id="@+id/no_data_id"
+        android:visibility="gone"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+
+            android:src="@drawable/img_no_data"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView_nodata" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="很抱歉没有数据"
+            android:textAlignment="center"
+            android:textColor="@color/line_hot_all"
+            android:textSize="15sp"
+            android:layout_below="@+id/imageView_nodata" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="70dp"
+
+            android:layout_height="70dp">
+
+            <com.makeramen.RoundedImageView
+                android:id="@+id/job_avar_id"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/cartest"
+                app:riv_border_color="@color/white_alpha20"
+                app:riv_border_width="2dp"
+                app:riv_corner_radius="30dip"
+                app:riv_oval="true" />
+
+
+            <TextView
+                android:id="@+id/job_state_id"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignEnd="@+id/job_avar_id"
+                android:layout_alignRight="@+id/job_avar_id"
+                android:layout_alignTop="@+id/job_avar_id"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/rounded_dot"
+                android:gravity="center"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/font_titie2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <RelativeLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/job_address_id"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="left"
+                        android:gravity="center"
+                        android:text="订单"
+                        android:textAlignment="center"
+                        android:textColor="@color/line_hot_all"
+
+                        android:textSize="17sp" />
+
+
+                    <TextView
+                        android:id="@+id/job_take_time_id"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:text="2016.02.20"
+                        android:textAlignment="center"
+                        android:textColor="@color/font_titie2"
+                        android:textSize="13sp" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/job_address_pro_id"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="订单将于【2017-1-2 09:08:00】关闭"
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/font_titie2" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

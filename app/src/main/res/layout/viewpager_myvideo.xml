@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#00000000"
+    >
+
+
+    <TextView
+        android:id="@+id/img_position"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+       android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:textColor="@color/white"
+        />
+
+    <com.yj.navigation.component.HackyViewPager
+        android:id="@+id/pager"
+        android:layout_centerInParent="true"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="360dp" />
+
+    <RelativeLayout
+        android:id="@+id/no_data_id"
+        android:visibility="gone"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+
+            android:src="@drawable/img_no_data"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView_nodata" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="很抱歉没有数据"
+            android:textAlignment="center"
+            android:textColor="@color/font_titie2"
+            android:textSize="15sp"
+            android:layout_below="@+id/imageView_nodata" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/img_content"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>

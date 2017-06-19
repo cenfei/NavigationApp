@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/reg_background_gray"
+    android:orientation="vertical"
+    android:paddingBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/gallery_b"
+        android:orientation="vertical"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/index_title" />
+
+
+            <com.yj.navigation.gallery.GalleryView
+                android:id="@+id/mygallery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:spacing="20dp"
+
+                android:unselectedAlpha="128" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:gravity="center"
+                android:text="违章照片"
+                android:layout_gravity="center_horizontal"
+
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/img_count_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+android:layout_marginTop="5dp"
+android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="1/5"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@color/reg_background_gray"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+
+                android:background="@color/font_titie2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="车牌号"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/cardno_info_id"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="#00ffffff"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入车牌号"
+                    android:maxLength="200"
+                    android:textAlignment="center"
+                    android:textColor="@color/line_hot_all"
+                    android:textColorHint="@color/font_titie2"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+
+                android:background="@color/font_titie2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@color/white"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:id="@+id/addr_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="所在地"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/address_comment_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="right"
+                    android:textAlignment="center"
+                    android:textColor="@color/line_hot_all"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+                android:background="@color/font_titie2" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
+            android:background="@color/reg_background_gray"
+
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+
+                android:background="@color/white"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="违章内容"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="15sp" />
+
+
+                <EditText
+                    android:id="@+id/password_info_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="#00ffffff"
+                    android:gravity="center_vertical|right"
+                    android:hint="违章内容"
+                    android:maxLength="200"
+                    android:textAlignment="center"
+                    android:textColor="@color/line_hot_all"
+                    android:textColorHint="@color/font_titie2"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+
+                android:background="@color/font_titie2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:background="@color/white"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="时间"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="15sp" />
+
+
+                <TextView
+                    android:id="@+id/time_comment_id"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:text="2016年12月3日"
+                    android:textAlignment="center"
+                    android:textColor="@color/line_hot_all"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+
+                android:background="@color/font_titie2" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/logining_btn_rel_id"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounded_blackbutton2_wallet">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+
+                android:text="@string/register_submit_comment"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

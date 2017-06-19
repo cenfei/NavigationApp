@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/reg_background_gray">
+
+    <include layout="@layout/mine_frg_header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="74dp"
+
+        android:background="@color/white"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/font_titie2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="50dp"
+android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="手机"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+            <EditText
+                android:id="@+id/mobile_info_id"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:layout_height="40dp"
+                android:background="#00ffffff"
+                android:maxLength="11"
+                android:textColor="@color/font_titie2"
+
+                android:phoneNumber="true"
+                android:textAlignment="center"
+                android:textColorHint="@color/font_titie2"
+                android:textSize="15sp" />
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+
+            android:background="@color/font_titie2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="验证码"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+            <EditText
+                android:id="@+id/code_msg_id"
+
+                android:layout_width="150dp"
+                android:layout_marginLeft="15dp"
+                android:layout_height="40dp"
+              android:gravity="center_vertical"
+                android:background="#00ffffff"
+                android:maxLength="8"
+                android:phoneNumber="true"
+                android:textAlignment="center"
+                android:textColor="@color/font_titie2"
+                android:textColorHint="@color/font_titie2"
+                android:textSize="15sp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/get_code_id"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/rounded_gray_img_white"
+                android:gravity="center"
+                android:text="发送验证码"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/font_titie2" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/logining_btn_rel_id"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/rounded_blackbutton_wallet">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+
+            android:text="@string/register_comment"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/morning_background"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@drawable/index_background"
+
+        >
+
+        <include layout="@layout/index_title" />
+
+
+        <TextView
+            android:id="@+id/mine_integral_content"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="54dp"
+            android:gravity="center"
+            android:text="我的积分"
+            android:textAlignment="center"
+            android:textColor="@color/mycount_font"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/mine_integral"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mine_integral_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/mycount_font"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/mine_account_background">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/listview_design"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="#00000000"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:gravity="left"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true"
+            ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+        <RelativeLayout
+            android:id="@+id/no_data_id"
+            android:visibility="gone"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+
+                android:src="@drawable/img_no_data"
+                android:scaleType="fitXY"
+                android:id="@+id/imageView_nodata" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="很抱歉没有数据"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp"
+                android:layout_below="@+id/imageView_nodata" />
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/logining_btn_rel_id"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/rounded_accountbutton_wallet"
+            android:gravity="center"
+            android:text="兑换"
+            android:textAlignment="center"
+            android:textColor="@color/mycount_font_button"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</LinearLayout>

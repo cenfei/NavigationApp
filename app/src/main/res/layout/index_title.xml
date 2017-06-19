@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_title_id"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dim_88px"
+    android:background="#ffffff">
+
+
+    <LinearLayout
+        android:id="@+id/left_title_line"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="left|center_vertical">
+
+
+
+        <ImageView
+            android:id="@+id/left_title_icon"
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:tint="@color/new_blue"
+            android:visibility="gone"
+
+            android:src="@drawable/back" />
+
+
+        <TextView
+            android:id="@+id/left_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+
+android:textColor="@color/new_blue"
+            android:textSize="15sp"
+           />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/left_message_dot"
+        android:layout_width="@dimen/dim_16px"
+        android:layout_height="@dimen/dim_16px"
+        android:layout_marginLeft="@dimen/dim_70px"
+        android:layout_marginTop="@dimen/dim_26px"
+        android:background="@drawable/message_dot"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:singleLine="true"
+        android:visibility="gone"
+
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+
+    <LinearLayout
+        android:id="@+id/right_title_line"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+
+            android:text="筛选"
+            android:layout_marginRight="15dp"
+android:visibility="gone"
+            android:textColor="@color/line_hot_all"
+            android:textSize="@dimen/dim_font_input"
+           />
+
+
+        <ImageView
+            android:id="@+id/right_title_icon"
+            android:layout_width="20dp"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:src="@drawable/topbar_btn"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/right_title_icon2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:src="@drawable/title_no"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/title_line_id"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/font_titie2"
+        android:visibility="gone" />
+
+</RelativeLayout>

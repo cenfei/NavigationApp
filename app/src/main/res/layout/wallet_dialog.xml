@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="330dp"
+    android:layout_height="220dp"
+    
+    android:background="@color/white"
+    android:orientation="vertical"
+     >
+ <LinearLayout
+        
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+         android:background="@color/wallet_dialog_comment"
+         android:gravity="center_vertical"
+         android:orientation="vertical" >
+
+      <TextView
+           android:id="@+id/alert_comment"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="15dp"
+             android:textColor="@color/white"
+             android:textSize="@dimen/body_size_big" />
+     </LinearLayout>
+     
+
+ 
+      <TextView
+           android:id="@+id/alert_content_comment"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="35dp"
+             android:layout_marginLeft="20dp"
+             android:layout_marginRight="20dp"
+             android:layout_marginBottom="35dp"
+             android:visibility="gone"
+             android:textColor="@color/black"
+             android:textSize="@dimen/font_size_small" />
+      
+      <LinearLayout 
+            android:id="@+id/alert_content_line"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+              android:layout_marginTop="35dp"
+             android:layout_marginLeft="20dp"
+             android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="gone"
+             android:orientation="vertical"
+          >
+          
+          <TextView
+           android:id="@+id/alert_content_comment1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+            
+           
+             android:textColor="@color/black"
+             android:textSize="@dimen/font_size_small" />
+          
+          <TextView
+           android:id="@+id/alert_content_comment2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+            
+           android:layout_marginTop="5dp"
+             android:textSize="@dimen/font_size_x_small" />
+          
+          
+      </LinearLayout>
+      
+      
+      
+      
+<LinearLayout
+         android:id="@+id/alert_setname_line"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         android:layout_marginLeft="20dp"
+         android:layout_marginRight="20dp"
+           android:visibility="gone"
+         android:layout_marginBottom="10dp"
+         android:gravity="center_vertical"
+         android:orientation="vertical" >
+  <EditText
+           android:id="@+id/alert_setname_edit"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+           android:maxLength="8"
+             android:textColor="@color/black"
+             android:textSize="@dimen/my_hard_titile" />
+        
+    <TextView
+           android:id="@+id/alert_setname_comment"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+           android:layout_marginTop="10dp"
+             android:textSize="@dimen/my_hard_titile" />
+     </LinearLayout>
+    
+<LinearLayout
+        
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+       
+         android:layout_marginLeft="20dp"
+         android:layout_marginRight="20dp"
+         android:gravity="center_vertical"
+         android:orientation="horizontal" >
+<LinearLayout
+        
+         android:layout_width="0dp"
+         android:layout_height="50dp"
+         android:layout_marginRight="5dp"
+           
+         android:layout_weight="1"
+         >
+      <TextView
+            android:id="@+id/alert_cancle_button"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/alert_rounded_cancle"
+             android:gravity="center"
+             android:textColor="@color/white"
+             android:textSize="@dimen/body_size" />
+      </LinearLayout>
+      <LinearLayout
+        
+         android:layout_width="0dp"
+         android:layout_height="50dp"
+         android:layout_marginLeft="5dp"
+       
+         android:layout_weight="1"
+         >
+      <TextView
+            android:id="@+id/alert_ok_button"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+                android:gravity="center"
+               android:background="@drawable/alert_rounded_ok"
+             android:textColor="@color/white"
+             android:textSize="@dimen/body_size" />
+      </LinearLayout>
+     </LinearLayout>
+</LinearLayout>

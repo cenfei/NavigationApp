@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/main_title_id"
+android:background="#e7e7e7"
+    android:layout_height="44sp">
+
+
+    <LinearLayout
+        android:id="@+id/left_title_line"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:gravity="left|center_vertical">
+
+
+
+        <ImageView
+            android:id="@+id/left_title_icon"
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:src="@drawable/topbar_btn_bank" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="绑定设备"
+        android:singleLine="true"
+        android:textColor="#2d2d34"
+        android:textSize="20sp" />
+
+
+    <View
+        android:id="@+id/title_line_id"
+
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="#a8a8b1" />
+
+</RelativeLayout><!-- From: file:/E:/fox_work/NavigationApp/QRCodeScan/src/main/res/layout/mine_frg_header.xml --><!-- From: file:/E:/fox_work/NavigationApp/QRCodeScan/build/intermediates/bundles/debug/res/layout/mine_frg_header.xml -->

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:id="@+id/end_time_id"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="03月20日"
+
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="9dp"
+
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="4px"
+            android:layout_height="5dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+
+        <ImageView
+
+            android:id="@+id/view_yuan_not_0"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/view_yuan" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="35dp"
+
+        android:layout_marginLeft="10dp"
+        android:background="@color/work_detail_end_line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="30dp"
+
+        android:background="@color/white">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp">
+
+
+            <com.makeramen.RoundedImageView
+                android:id="@+id/end_avar_id"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/cartest"
+                app:riv_border_color="@color/white_alpha20"
+                app:riv_border_width="2dp"
+                app:riv_corner_radius="30dip"
+                app:riv_oval="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/end_name_id"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="审核管理员"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/end_content_id"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="您提交了一个违章工单,您的工单被驳回，原因如下：照片不清晰"
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

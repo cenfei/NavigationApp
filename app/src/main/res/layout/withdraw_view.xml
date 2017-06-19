@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/reg_background_gray">
+
+    <include layout="@layout/mine_frg_header" />
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+android:visibility="gone"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/font_titie2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/change_mine_info_line"
+
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp">
+
+            <ImageView
+
+                android:id="@+id/image_avar_id"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+android:layout_gravity="center"
+                android:src="@drawable/jiazai"
+                />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="修改头像"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+
+
+
+
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/font_titie2" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
+android:layout_below="@+id/line1"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/font_titie2" />
+
+        <RelativeLayout
+            android:id="@+id/change_pwd_id"
+            android:layout_width="match_parent"
+
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="可用现金"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:text="$3.00"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+
+            android:background="@color/font_titie2" />
+
+        <RelativeLayout
+            android:id="@+id/change_info_id"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="提取金额"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+
+
+            <EditText
+                android:id="@+id/name_info_id"
+
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="#00ffffff"
+                android:gravity="center_vertical|right"
+                android:numeric="integer"
+                android:hint="请输入提现金额"
+                android:maxLength="20"
+                android:textAlignment="center"
+                android:textColor="@color/font_titie2"
+                android:textColorHint="@color/font_titie2"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+
+            android:background="@color/font_titie2" />
+
+        <RelativeLayout
+            android:id="@+id/change_money_pwd_id"
+            android:layout_width="match_parent"
+
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="存入银行卡"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:text="请绑定银行卡"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
+
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/font_titie2" />
+
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/logining_btn_rel_id"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/rounded_blackbutton2_wallet">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+
+            android:text="确定"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

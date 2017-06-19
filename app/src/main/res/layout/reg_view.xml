@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/index_background"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/index_title" />
+
+
+            <LinearLayout
+                android:id="@+id/head_ifno_line"
+android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_above="@+id/login_user_line"
+                android:layout_marginBottom="30dp"
+                >
+
+                <com.makeramen.RoundedImageView
+                    android:id="@+id/mine_avar_id"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center_horizontal"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:scaleType="fitXY"
+                    android:src="@drawable/avar_mine_init"
+                    app:riv_border_color="@color/head_circle"
+                    app:riv_border_width="2dp"
+                    app:riv_corner_radius="30dip"
+                    app:riv_oval="true" />
+
+
+                <TextView
+                    android:id="@+id/mine_name_info_id"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:gravity="center"
+                    android:text="Fox_cen"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_alpha60"
+                    android:textSize="22sp" />
+
+
+            </LinearLayout>
+
+
+<LinearLayout
+    android:id="@+id/login_user_line"
+
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_alignParentBottom="true"
+
+    android:layout_height="wrap_content">
+            <EditText
+
+                android:id="@+id/username_id"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+              android:layout_above="@+id/pwd_id"
+                android:background="@drawable/rounded_login_wallet"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical|left"
+                android:hint="用户名"
+                android:maxLength="11"
+                android:phoneNumber="true"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="15sp" />
+
+            <EditText
+
+                android:id="@+id/pwd_id"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/rounded_login_wallet"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:password="true"
+                android:paddingLeft="10dp"
+                android:gravity="center_vertical|left"
+                android:hint="密码"
+                android:maxLength="20"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="15sp" />
+</LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+
+                android:id="@+id/logining_btn_rel_id"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_regbutton_wallet"
+                android:gravity="center"
+                android:text="登录"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+
+                <TextView
+                    android:id="@+id/register_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+
+                    android:text="新用户注册"
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/forget_id"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="忘记密码"
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

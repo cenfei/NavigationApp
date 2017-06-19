@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
+        android:layout_width="80dp"
+android:layout_marginLeft="5dp"
+        android:layout_height="80dp">
+
+
+        <RelativeLayout
+            android:layout_width="62dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_gray_img_white"
+            android:layout_height="42dp">
+        <ImageView
+            android:id="@+id/mine_avar_id"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/cartest"
+            />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_work_all_sheng"
+            android:gravity="center"
+            android:text="升级"
+android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+             android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:text="导航-轻仪版本"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+
+                android:textSize="20sp" />
+
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/loading_dot" />
+
+
+                <TextView
+                    android:id="@+id/device_content_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="设备号23844981111"
+                    android:textAlignment="center"
+                    android:textColor="@color/font_titie2"
+                    android:textSize="13sp" />
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="1dp"
+            android:visibility="gone"
+            android:background="@color/font_titie2" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
