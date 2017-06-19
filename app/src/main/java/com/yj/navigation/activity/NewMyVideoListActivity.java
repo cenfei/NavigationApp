@@ -40,6 +40,11 @@ public class NewMyVideoListActivity extends BaseFragmentActivity {
     @ViewById(R.id.work_doing_title_id)
     LinearLayout workDoingTitleId;
 
+    @ViewById(R.id.video_list_title2_id)
+    TextView video_list_title2_id;
+    @ViewById(R.id.video_list_title1_id)
+    TextView video_list_title1_id;
+
     @Click(R.id.left_title_line)
     void onLeftTitleLine() {
 
@@ -53,6 +58,9 @@ public class NewMyVideoListActivity extends BaseFragmentActivity {
         Util.setBackgroundOfVersion(workAllTitleId, getResources().getDrawable(R.drawable.rounded_work_left_choosewallet));
 
         Util.setBackgroundOfVersion(workDoingTitleId, getResources().getDrawable(R.drawable.rounded_work_right_wallet));
+        video_list_title1_id.setTextColor(getResources().getColor(R.color.white));
+
+        video_list_title2_id.setTextColor(getResources().getColor(R.color.new_blue));
 
 //        workDoingTitleId.setBackgroundColor(getResources().getColor(R.color.work_title2_unchoose_color));
 //        Util.setBackgroundOfVersion(workOkTitleId, getResources().getDrawable(R.drawable.rounded_work_right_wallet));
@@ -64,7 +72,9 @@ public class NewMyVideoListActivity extends BaseFragmentActivity {
     void onwork_doing_title_id() {
         Util.setBackgroundOfVersion(workAllTitleId, getResources().getDrawable(R.drawable.rounded_work_left_wallet));
         Util.setBackgroundOfVersion(workDoingTitleId, getResources().getDrawable(R.drawable.rounded_work_right_choose_wallet));
+        video_list_title2_id.setTextColor(getResources().getColor(R.color.white));
 
+        video_list_title1_id.setTextColor(getResources().getColor(R.color.new_blue));
 
 //        workDoingTitleId.setBackgroundColor(getResources().getColor(R.color.work_title2_choose_color));
 //        Util.setBackgroundOfVersion(workOkTitleId, getResources().getDrawable(R.drawable.rounded_work_right_wallet));
@@ -130,12 +140,13 @@ public class NewMyVideoListActivity extends BaseFragmentActivity {
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-//        main_title_id.setBackgroundColor(getResources().getColor(R.color.work_title_color));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
         TextView left_title = (TextView) findViewById(R.id.left_title);
         left_title.setVisibility(View.VISIBLE);
+        left_title.setText("返回");
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
 

@@ -1,10 +1,12 @@
 package com.yj.navigation.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.makeramen.RoundedImageView;
@@ -80,24 +82,27 @@ public class NewAdapterUpVideoListView extends BaseAdapter {
             viewholder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.new_up_video_item, null);
             convertView.setTag(viewholder);
-            viewholder.job_avar_id = (RoundedImageView) convertView.findViewById(R.id.job_avar_id);
-            viewholder.job_state_id = (TextView) convertView.findViewById(R.id.job_state_id);
+            viewholder.upvideo_img_id = (ImageView) convertView.findViewById(R.id.upvideo_img_id);
+            viewholder.upvideo_title_id = (TextView) convertView.findViewById(R.id.upvideo_title_id);
 
-            viewholder.job_address_id = (TextView) convertView.findViewById(R.id.job_address_id);
+            viewholder.upvideo_staus_id = (TextView) convertView.findViewById(R.id.upvideo_staus_id);
 
-            viewholder.job_address_pro_id = (TextView) convertView.findViewById(R.id.job_address_pro_id);
+            viewholder.upvideo_time_id = (TextView) convertView.findViewById(R.id.upvideo_time_id);
 
-            viewholder.job_take_time_id = (TextView) convertView.findViewById(R.id.job_take_time_id);
         } else {
             viewholder = (ViewHolder) convertView.getTag();
         }
 
+        if(!TextUtils.isEmpty(personalRanking.address)){
+            viewholder.upvideo_title_id.setText(personalRanking.address);
 
-        if(personalRanking.state.equals("1")){
-            viewholder.job_state_id.setText("一审");
+        }
+        if(!TextUtils.isEmpty(personalRanking.takedt)){
+            viewholder.upvideo_time_id.setText(personalRanking.takedt+"");
 
-        }else{
-            viewholder.job_state_id.setText("二审");
+        }
+        if(!TextUtils.isEmpty(personalRanking.state)){
+            viewholder.upvideo_staus_id.setText("等待筛选");
 
         }
 
@@ -105,31 +110,63 @@ public class NewAdapterUpVideoListView extends BaseAdapter {
         List<JobImageJson> jobImageJsonList=personalRanking.images;
         JobImageJson jobImageJsonOk=null;
         if(jobImageJsonList!=null){
-        for(JobImageJson jobImageJson :jobImageJsonList){
-            jobImageJsonOk=jobImageJson;
-            break;
+            for(JobImageJson jobImageJson :jobImageJsonList){
+                jobImageJsonOk=jobImageJson;
+                break;
+
+            }
+
+            imageLoader.displayImage(personalRanking.remoteBaseUrl+jobImageJsonOk.minPicUrl, viewholder.upvideo_img_id, options);
 
         }
 
-        imageLoader.displayImage(personalRanking.remoteBaseUrl+jobImageJsonOk.minPicUrl, viewholder.job_avar_id, options);
 
-        }
-        viewholder.job_address_id.setText(personalRanking.address);
 
-        viewholder.job_address_pro_id.setText(personalRanking.province+personalRanking.area);
 
-        viewholder.job_take_time_id.setText(personalRanking.takedt+"");
+
+
+
+
+
+
+
+
+//        if(personalRanking.state.equals("1")){
+//            viewholder.job_state_id.setText("一审");
+//
+//        }else{
+//            viewholder.job_state_id.setText("二审");
+//
+//        }
+//
+//
+//        List<JobImageJson> jobImageJsonList=personalRanking.images;
+//        JobImageJson jobImageJsonOk=null;
+//        if(jobImageJsonList!=null){
+//        for(JobImageJson jobImageJson :jobImageJsonList){
+//            jobImageJsonOk=jobImageJson;
+//            break;
+//
+//        }
+//
+//        imageLoader.displayImage(personalRanking.remoteBaseUrl+jobImageJsonOk.minPicUrl, viewholder.job_avar_id, options);
+//
+//        }
+//        viewholder.job_address_id.setText(personalRanking.address);
+//
+//        viewholder.job_address_pro_id.setText(personalRanking.province+personalRanking.area);
+//
+//        viewholder.job_take_time_id.setText(personalRanking.takedt+"");
 
 
         return convertView;
     }
 
     private static class ViewHolder {
-        RoundedImageView job_avar_id;
-        TextView job_state_id;
-        TextView job_address_id;
-        TextView job_address_pro_id;
-        TextView     job_take_time_id;
+        ImageView upvideo_img_id;
+        TextView upvideo_title_id;
+        TextView upvideo_staus_id;
+        TextView upvideo_time_id;
 
     }
 }

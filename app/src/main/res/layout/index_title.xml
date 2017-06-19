@@ -3,7 +3,7 @@
     android:id="@+id/main_title_id"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dim_88px"
-    android:background="#ffffff">
+    android:background="#00000000">
 
 
     <LinearLayout

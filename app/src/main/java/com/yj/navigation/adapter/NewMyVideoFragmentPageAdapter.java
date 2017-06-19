@@ -10,6 +10,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yj.navigation.fragment.AllDeviceFragment_;
+import com.yj.navigation.fragment.NewAccidentVideoFragment;
+import com.yj.navigation.fragment.NewAccidentVideoFragment_;
+import com.yj.navigation.fragment.NewUploadVideoFragment_;
 import com.yj.navigation.fragment.UpdateDeviceFragment_;
 
 /**
@@ -31,9 +34,9 @@ public class NewMyVideoFragmentPageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new AllDeviceFragment_();
+                return new NewUploadVideoFragment_();
             case 1:
-                return new UpdateDeviceFragment_();
+                return new NewAccidentVideoFragment_();
 
             default:
                 return null;

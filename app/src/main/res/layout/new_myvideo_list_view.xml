@@ -31,6 +31,8 @@
 
 
             <TextView
+                android:id="@+id/video_list_title1_id"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -57,6 +59,8 @@
 
 
             <TextView
+                android:id="@+id/video_list_title2_id"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 

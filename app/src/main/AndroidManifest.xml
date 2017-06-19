@@ -195,7 +195,9 @@
             android:name="com.yj.navigation.gallery.Grallery3DActivity"
        />
 
-
+        <activity
+            android:name=".activity.NewMyVideoListActivity_"
+            android:screenOrientation="portrait" />
 
 
 

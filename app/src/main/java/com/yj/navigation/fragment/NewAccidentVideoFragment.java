@@ -22,7 +22,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yj.navigation.R;
 import com.yj.navigation.activity.ShowVideoActivity;
-import com.yj.navigation.adapter.AdapterWorkAllListView;
 import com.yj.navigation.adapter.NewAdapterUpVideoListView;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
@@ -47,7 +46,7 @@ import java.util.List;
  */
 @EFragment(R.layout.new_upvideo_list_view)
 
-public class NewUploadVideoFragment extends Fragment {
+public class NewAccidentVideoFragment extends Fragment {
 
 
     @Pref
@@ -178,15 +177,20 @@ public class NewUploadVideoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
                 final JobJson imageInfo = designRoomInfos.get(position);
 
                 MainApp mainApp = (MainApp) getActivity().getApplicationContext();
-                mainApp.jobImageJsonList = imageInfo.images;
-                mainApp.remoteBaseUrl = imageInfo.remoteBaseUrl;
-                mainApp.jobJson = imageInfo;
+                mainApp.jobImageJsonList=imageInfo.images;
+                mainApp.remoteBaseUrl=imageInfo.remoteBaseUrl;
+
+
+
 
                 Intent intent = new Intent(getActivity(), ShowVideoActivity.class);
+                intent.putExtra("FromVideoSecondFragment",true);
                 getActivity().startActivity(intent);
+
 //                Intent intent = new Intent(getActivity(), MyWorkDetailActivity_.class);
 //                JobJson jobJson = (JobJson) adapterHomeDesignListView.getItem(position-1);
 //                intent.putExtra("SN", jobJson.sn);
@@ -198,7 +202,6 @@ public class NewUploadVideoFragment extends Fragment {
 
             }
         });
-
         pageNum = 1;
 
         getDataFromServer();
@@ -235,15 +238,15 @@ public class NewUploadVideoFragment extends Fragment {
     int pageNum = 1;
 
     public void getJobListFromServerForMsg() {
+
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(getActivity(), "加载中...");
         String beginD = "20161201";
         String endD = MyStringUtils.getNowTimeFormata(new Date());
         String params = "0";//0全部 1 审核 2通过
         Integer rows = 20;
-        ProtocolUtil.myVideoListFunction(getActivity(), new MyJobListHandler(), configPref.userToken().get(), beginD
+        ProtocolUtil.myAccidentListFunction(getActivity(), new MyJobListHandler(), configPref.userToken().get(), beginD
                 , endD, params, null, pageNum, rows);//devno 空表示所有
-
 
     }
 

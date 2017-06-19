@@ -62,7 +62,7 @@ public class IndexActivity extends BaseActivity {
     void onindex_video_info_line() {//我的视频
 
 
-        Util.startActivity(IndexActivity.this, MyVideoListActivity_.class);
+        Util.startActivity(IndexActivity.this, NewMyVideoListActivity_.class);
 
 
 
