@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="80dp"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:paddingTop="10dp">
+    >
 
     <RelativeLayout
         android:layout_width="80dp"
-android:layout_marginLeft="5dp"
+android:layout_marginLeft="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:layout_height="80dp">
 
-
+        <ImageView
+            android:id="@+id/mine_avar_id"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/cartest"
+            />
         <RelativeLayout
+            android:visibility="gone"
             android:layout_width="62dp"
             android:layout_centerInParent="true"
             android:background="@drawable/rounded_gray_img_white"
             android:layout_height="42dp">
         <ImageView
-            android:id="@+id/mine_avar_id"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_centerInParent="true"
@@ -33,6 +42,7 @@ android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_work_all_sheng"
             android:gravity="center"
+            android:visibility="gone"
             android:text="升级"
 android:paddingLeft="2dp"
             android:paddingRight="2dp"
@@ -50,7 +60,9 @@ android:paddingLeft="2dp"
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp">
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="103dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -65,11 +77,11 @@ android:paddingLeft="2dp"
 
                 android:layout_gravity="left"
                 android:gravity="center"
-                android:text="导航-轻仪版本"
+                android:text="智能行车助手-X1"
                 android:textAlignment="center"
-                android:textColor="@color/line_hot_all"
+                android:textColor="@color/black_alpha80"
 
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <LinearLayout
 
@@ -82,6 +94,7 @@ android:paddingLeft="2dp"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:src="@drawable/loading_dot" />
 
 
@@ -90,13 +103,12 @@ android:paddingLeft="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
+
                     android:layout_marginRight="20dp"
                     android:gravity="center"
-                    android:text="设备号23844981111"
                     android:textAlignment="center"
-                    android:textColor="@color/font_titie2"
-                    android:textSize="13sp" />
+                    android:textColor="@color/black_alpha60"
+                    android:textSize="12sp" />
 
 
 
@@ -105,16 +117,41 @@ android:paddingLeft="2dp"
         </LinearLayout>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="1dp"
-            android:visibility="gone"
-            android:background="@color/font_titie2" />
+
+
+        <TextView
+            android:id="@+id/unbind_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+
+            android:text="解绑"
+            android:textSize="13sp"
+            android:background="@color/red"
+            android:textColor="@color/white"
+            />
 
 
     </RelativeLayout>
 
 
-</LinearLayout>
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
+
+        android:background="@color/new_index_btn_line_color" />
+</RelativeLayout>

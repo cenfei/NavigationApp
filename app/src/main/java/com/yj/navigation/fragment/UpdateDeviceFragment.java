@@ -132,10 +132,10 @@ public class UpdateDeviceFragment extends Fragment implements IXListViewListener
 
         mListView = (PullToRefreshSwipeMenuListView) chatView.findViewById(R.id.listView);
 
-        mListView.setViewPager(myDeviceListActivity.mPager);
+//        mListView.setViewPager(myDeviceListActivity.mPager);
 
         mAppList=new ArrayList<DeviceJson>();
-        mAdapter = new MyDeviceAllListAdapter(getActivity(), mAppList);
+        mAdapter = new MyDeviceAllListAdapter(getActivity(), mAppList,configPref.userToken().get());
         mListView.setAdapter(mAdapter);
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);

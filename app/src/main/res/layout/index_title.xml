@@ -102,6 +102,16 @@ android:visibility="gone"
             android:visibility="gone" />
 
         <ImageView
+            android:id="@+id/right_title_icon3"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/right_title_icon2"
             android:layout_width="30dp"
             android:layout_height="30dp"

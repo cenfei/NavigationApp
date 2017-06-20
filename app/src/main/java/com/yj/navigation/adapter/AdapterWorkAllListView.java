@@ -81,7 +81,7 @@ public class AdapterWorkAllListView extends BaseAdapter {
             viewholder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.work_all_item, null);
             convertView.setTag(viewholder);
-            viewholder.job_avar_id = (RoundedImageView) convertView.findViewById(R.id.job_avar_id);
+            viewholder.job_avar_id = (ImageView) convertView.findViewById(R.id.job_avar_id);
             viewholder.job_state_id = (TextView) convertView.findViewById(R.id.job_state_id);
 
             viewholder.job_address_id = (TextView) convertView.findViewById(R.id.job_address_id);
@@ -126,7 +126,7 @@ public class AdapterWorkAllListView extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        RoundedImageView job_avar_id;
+        ImageView job_avar_id;
         TextView job_state_id;
         TextView job_address_id;
         TextView job_address_pro_id;

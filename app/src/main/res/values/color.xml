@@ -63,7 +63,11 @@
     <color name="black_alpha30">#3F000000</color>
     <color name="black_alpha10">#1F000000</color>
     <color name="black_alpha04">#06000000</color>
+    <color name="black_alpha70">#aF000000</color>
+    <color name="black_alpha60">#9F000000</color>
 
+    <color name="black_alpha80">#bF000000</color>
+    <color name="black_alpha90">#dF000000</color>
 
     <!-- button background color-->
     <color name="btn_background_40">@color/white_alpha40</color>

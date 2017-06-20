@@ -2,104 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/work_title_color"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
     <include layout="@layout/index_title" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
-        android:background="#00000000"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/work_all_title_id"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@drawable/rounded_work_left_choosewallet"
-            android:gravity="center">
-
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
- android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="全部"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/work_doing_title_id"
-
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:clickable="true"
-            android:background="@color/work_title2_unchoose_color">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="center"
-                    android:text="审核中"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:id="@+id/work_ok_title_id"
-
-            android:background="@drawable/rounded_work_right_wallet"
-            android:gravity="center"
-            >
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="center"
-                    android:text="通过"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-
-        </LinearLayout>
-
-
-</LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vPager"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/listview_design"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:flipInterval="30"
-        android:persistentDrawingCache="animation" />
+        android:layout_weight="1"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:gravity="left"
+        android:headerDividersEnabled="false"
+        android:smoothScrollbar="true"
+        ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+
+
+
+    <RelativeLayout
+        android:id="@+id/no_data_id"
+        android:visibility="gone"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+
+            android:src="@drawable/img_no_data"
+            android:scaleType="fitXY"
+            android:id="@+id/imageView_nodata" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="很抱歉没有数据"
+            android:textAlignment="center"
+            android:textColor="@color/line_hot_all"
+            android:textSize="15sp"
+            android:layout_below="@+id/imageView_nodata" />
+
+    </RelativeLayout>
 
 
 
