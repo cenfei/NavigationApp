@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
@@ -116,7 +115,7 @@ public class NewAdapterUpVideoListView extends BaseAdapter {
 
             }
 
-            imageLoader.displayImage(personalRanking.remoteBaseUrl+jobImageJsonOk.minPicUrl, viewholder.upvideo_img_id, options);
+            imageLoader.displayImage(personalRanking.remoteBaseUrl+jobImageJsonOk.bigPicUrl, viewholder.upvideo_img_id, options);
 
         }
 

@@ -178,7 +178,7 @@ public class NewAccidentVideoFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                final JobJson imageInfo = designRoomInfos.get(position);
+                final JobJson imageInfo = designRoomInfos.get(position-1);
 
                 MainApp mainApp = (MainApp) getActivity().getApplicationContext();
                 mainApp.jobImageJsonList=imageInfo.images;

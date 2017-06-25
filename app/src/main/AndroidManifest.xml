@@ -199,6 +199,10 @@
             android:name=".activity.NewMyVideoListActivity_"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.BankListActivity_"
+            android:screenOrientation="portrait" />
+
 
 
 

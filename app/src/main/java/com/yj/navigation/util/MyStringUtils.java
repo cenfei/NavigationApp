@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -36,7 +37,103 @@ import java.util.Date;
 @SuppressLint("SimpleDateFormat")
 public class MyStringUtils {
 
-	
+
+	public static String  getOpesTypeTitle(String opentypeStr){
+		String description=null;
+
+		Integer opentype=0;
+		try {
+			opentype=Integer.valueOf(opentypeStr);
+
+		}catch (Exception e){
+
+			return "";
+		}
+
+
+		switch (opentype){
+
+			case 1:
+				description = "一审中";
+				break;
+			case 2:
+				description ="一审打回";
+				break;
+			case 3:
+				description = "二审中";
+				break;
+			case 4:
+				description = "二审打回";
+				break;
+			case 5:
+				description = "复核中";
+				break;
+			case 6:
+				description = "复核打回";
+				break;
+			case 7:
+				description = "复核通过";
+				break;
+			default:
+				break;
+		}
+
+		return description;
+
+
+
+
+	}
+
+
+
+	public static String  getOpesTypeContent(String opentypeStr,String operator,String remark){
+		String description=null;
+		if(TextUtils.isEmpty(operator)) operator="某某";
+		if(TextUtils.isEmpty(remark)) remark="不详";
+		Integer opentype=0;
+			try {
+				opentype=Integer.valueOf(opentypeStr);
+
+			}catch (Exception e){
+
+				return "";
+			}
+
+
+		switch (opentype){
+
+		case 1:
+		description = "您已经提交了一个工单,正在等待审核";
+		break;
+		case 2:
+		description ="您的工单在初次审核中被审核员:"+operator+"驳回，原因如下："+ remark;
+		break;
+		case 3:
+		description = "您工单被审核员:"+operator+"通过，等待二审";
+		break;
+		case 4:
+		description = "您的工单在二次审核中被审核员:"+operator+"驳回，原因如下："+ remark;
+		break;
+		case 5:
+		description = "您工单在二次审核中被审核员:"+operator+"通过，等待复核";
+		break;
+		case 6:
+		description = "您的工单在复核中被审核员:"+operator+"驳回，原因如下："+remark;
+		break;
+		case 7:
+		description = "复核通过，等待交警结算资金";
+		break;
+		default:
+		break;
+	}
+
+	return description;
+
+
+
+
+	}
 	
 	
 	public static Bitmap decodeStreamBitmap(Context context,int drawId){

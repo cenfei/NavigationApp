@@ -132,7 +132,7 @@
     <!-- carhelper color  -->
     <color name="reg_background_title">#e7e7e7</color>
 
-    <color name="reg_background_gray">#e2e2e2</color>
+    <color name="reg_background_gray">#eef2f8</color>
     <color name="reg_button">#3fccae</color>
 
     <color name="reg_button2">#3767be</color>
@@ -180,5 +180,13 @@
     <color name="new_index_text_line_color">#e4f1fe</color>
     <color name="new_index_btn_line_color">#e9e9e9</color>
     <color name="new_blue">#005bd7</color>
+    <color name="work_detail_line">#ebebeb</color>
+    <color name="work_detail_text">#b9b9b9</color>
+    <color name="work_detail_btn">#a5a5a5</color>
+
+    <color name="work_detail_dot">#3ab9fc</color>
+
+    <color name="work_list_statu">#58dc6c</color>
+    <color name="work_detail_btn_use">#71c5ec</color>
 
 </resources>

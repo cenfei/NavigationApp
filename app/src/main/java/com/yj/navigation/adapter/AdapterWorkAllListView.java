@@ -1,6 +1,7 @@
 package com.yj.navigation.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.object.JobImageJson;
 import com.yj.navigation.object.JobJson;
 import com.yj.navigation.util.ImageLoaderUtil;
+import com.yj.navigation.util.MyStringUtils;
 
 import java.util.List;
 
@@ -94,15 +95,15 @@ public class AdapterWorkAllListView extends BaseAdapter {
         }
 
 
-        if(personalRanking.state.equals("1")){
-            viewholder.job_state_id.setText("一审");
+//        if(personalRanking.state.equals("1")){
+//            viewholder.job_state_id.setText("一审");
+//
+//        }else{
+//            viewholder.job_state_id.setText("二审");
+//
+//        }
 
-        }else{
-            viewholder.job_state_id.setText("二审");
-
-        }
-
-
+        viewholder.job_state_id.setText(MyStringUtils.getOpesTypeTitle(personalRanking.state));
         List<JobImageJson> jobImageJsonList=personalRanking.images;
         JobImageJson jobImageJsonOk=null;
         if(jobImageJsonList!=null){
@@ -115,9 +116,14 @@ public class AdapterWorkAllListView extends BaseAdapter {
         imageLoader.displayImage(personalRanking.remoteBaseUrl+jobImageJsonOk.minPicUrl, viewholder.job_avar_id, options);
 
         }
-        viewholder.job_address_id.setText(personalRanking.address);
 
-        viewholder.job_address_pro_id.setText(personalRanking.province+personalRanking.area);
+        if(TextUtils.isEmpty(personalRanking.address)){
+            viewholder.job_address_id.setText("无具体位置");
+
+        }else {
+            viewholder.job_address_id.setText(personalRanking.address);
+        }
+        viewholder.job_address_pro_id.setText(personalRanking.province);
 
         viewholder.job_take_time_id.setText(personalRanking.takedt+"");
 

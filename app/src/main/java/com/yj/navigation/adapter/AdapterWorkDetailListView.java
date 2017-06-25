@@ -14,10 +14,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.activity.ShowVideoActivity;
-import com.yj.navigation.base.MainApp;
 import com.yj.navigation.object.OpesJson;
 import com.yj.navigation.util.ImageLoaderUtil;
-import com.yj.navigation.util.Util;
+import com.yj.navigation.util.MyStringUtils;
 
 import java.util.List;
 
@@ -96,7 +95,7 @@ public class AdapterWorkDetailListView extends BaseAdapter {
 
             end_name_id.setText(personalRanking.opeMan);
 
-            end_content_id.setText(personalRanking.remark);
+            end_content_id.setText(MyStringUtils.getOpesTypeContent(personalRanking.opeType,personalRanking.opeMan,personalRanking.remark));
             imageLoader.displayImage(headImg,end_avar_id,options);
 
             //YYMMDD HH:MM:SS  2016-12-24 23:54:20
@@ -120,8 +119,9 @@ public class AdapterWorkDetailListView extends BaseAdapter {
 
 
             common_name_id.setText(personalRanking.opeMan);
+            common_content_id.setText(MyStringUtils.getOpesTypeContent(personalRanking.opeType,personalRanking.opeMan,personalRanking.remark));
 
-            common_content_id.setText(personalRanking.remark);
+//            common_content_id.setText(personalRanking.remark);
             imageLoader.displayImage(headImg,common_avar_id,options);
 
             //YYyyMMDD HH:MM:SS  20161224 23:54:20

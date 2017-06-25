@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/reg_background_gray">
 
-    <include layout="@layout/mine_frg_header" />
+    <include layout="@layout/index_title" />
 
     <LinearLayout
         android:id="@+id/line1"
@@ -109,7 +109,7 @@ android:layout_below="@+id/line1"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:gravity="center"
-                android:text="$3.00"
+                android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
                 android:textSize="15sp" />
@@ -222,9 +222,9 @@ android:layout_below="@+id/line1"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/rounded_blackbutton2_wallet">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_apply_use">
 
         <TextView
 

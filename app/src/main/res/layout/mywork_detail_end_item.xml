@@ -7,19 +7,22 @@
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="30dp"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:paddingLeft="5dp">
+
+        >
 
         <TextView
             android:id="@+id/end_time_id"
-            android:layout_width="25dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
             android:text="03月20日"
+            android:layout_marginTop="15dp"
 
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/work_detail_text"
             android:textSize="10sp" />
 
 
@@ -32,10 +35,10 @@
         android:layout_height="match_parent">
 
         <View
-            android:layout_width="4px"
+            android:layout_width="4dp"
             android:layout_height="5dp"
             android:layout_centerHorizontal="true"
-            android:background="@color/white" />
+            android:background="@color/work_detail_line" />
 
 
         <ImageView
@@ -47,6 +50,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:scaleType="fitXY"
+            android:tint="@color/work_detail_dot"
+
             android:src="@drawable/view_yuan" />
 
     </RelativeLayout>
@@ -56,15 +61,17 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="35dp"
-
-        android:layout_marginLeft="10dp"
+android:visibility="gone"
+        android:layout_marginLeft="20dp"
         android:background="@color/work_detail_end_line_color" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+
         android:layout_marginBottom="35dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="15dp"
 
         android:background="@color/white">
 
@@ -105,7 +112,7 @@
                     android:text="审核管理员"
 
                     android:textAlignment="center"
-                    android:textColor="@color/font_titie2"
+                    android:textColor="@color/work_detail_text"
                     android:textSize="13sp" />
 
                 <TextView
@@ -116,7 +123,7 @@
                     android:layout_marginTop="3dp"
                     android:text="您提交了一个违章工单,您的工单被驳回，原因如下：照片不清晰"
                     android:textAlignment="center"
-                    android:textColor="@color/font_titie2"
+                    android:textColor="@color/work_detail_text"
                     android:textSize="15sp" />
 
             </LinearLayout>

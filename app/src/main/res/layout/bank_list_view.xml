@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/new_index_back_color"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    tools:context="${relativePackage}.${activityClass}"
+   >
 
 
     <include layout="@layout/index_title" />
 
-
-    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/listview_design"
+    <edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView
+        android:id="@+id/listView"
+        android:layout_marginTop="44dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:divider="#00000000"
-        android:dividerHeight="0dp"
-        android:layout_marginTop="8dp"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:gravity="left"
-        android:headerDividersEnabled="false"
-        android:smoothScrollbar="true"
-        ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
-
+        android:layout_height="match_parent" />
 
 
     <RelativeLayout
@@ -59,6 +49,4 @@
 
 
 
-
-
-</LinearLayout>
+</RelativeLayout>

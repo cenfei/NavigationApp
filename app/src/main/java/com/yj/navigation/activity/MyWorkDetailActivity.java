@@ -2,6 +2,7 @@ package com.yj.navigation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -91,21 +92,31 @@ public class MyWorkDetailActivity extends BaseActivity {
 
     }
 
-
+TextView apply_report_id;
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        // main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("工单");
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
 
+        TextView right_title = (TextView) findViewById(R.id.right_title);
+
+        right_title.setVisibility(View.GONE);
+//        right_title.setTextColor(getResources().getColor(R.color.white));
+
+
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
-        title.setText("详情");
-        title.setTextColor(getResources().getColor(R.color.white));
+        String  snno=getIntent().getStringExtra("SN");
+        title.setText(snno);
+//        title.setTextColor(getResources().getColor(R.color.white));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
 
@@ -120,6 +131,8 @@ public class MyWorkDetailActivity extends BaseActivity {
             }
         });
 
+
+         apply_report_id = (TextView) findViewById(R.id.apply_report_id);
 
         pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.listview_design);
 
@@ -302,6 +315,33 @@ private String  jobImageUrl=null;
 
                     jobImageUrl = baseJson.remoteBaseUrl + jobImageJsonOk.bigPicUrl;
                     adapterHomeDesignListView.setJobImageUrl(jobImageUrl);
+
+
+
+
+
+
+                }
+
+                //status 2  4  6的时候需要审核  其他不用  7的时候消失
+                if(!TextUtils.isEmpty(baseJson.state)){
+                    Integer stateint=Integer.valueOf(baseJson.state);
+                    if(stateint==2||stateint==4||stateint==6){
+                        apply_report_id.setClickable(true);
+                        apply_report_id.setBackgroundResource(R.drawable.rounded_apply_use);
+                    }
+                    else if(stateint==7){
+                        apply_report_id.setVisibility(View.GONE);
+                    }
+                    else{
+                        apply_report_id.setClickable(false);
+                        apply_report_id.setBackgroundResource(R.drawable.rounded_apply);
+
+
+                    }
+
+
+
                 }
                 if (baseJson.opes != null && baseJson.opes.size() > 0) {//列表
 

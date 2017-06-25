@@ -9,14 +9,14 @@
 
     <RelativeLayout
         android:layout_width="9dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="65dp"
         android:layout_height="50dp">
 
         <View
-            android:layout_width="4px"
+            android:layout_width="4dp"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:background="@color/white" />
+            android:background="@color/work_detail_line" />
 
 
         <ImageView
@@ -27,6 +27,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
+            android:tint="@color/work_detail_line"
+
             android:src="@drawable/view_yuan" />
 
     </RelativeLayout>

@@ -2,6 +2,7 @@ package com.yj.navigation.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,6 +18,7 @@ import com.yj.navigation.util.Util;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 /**
@@ -36,9 +38,63 @@ public class BindCardActivity extends BaseActivity {
 
     }
 
+
+    @ViewById(R.id.choose_cardname_id)
+    TextView choose_cardname_id;
+    @ViewById(R.id.cardno_id)
+    EditText cardno_id;
+
+    @ViewById(R.id.truename_info_id)
+    EditText truename_info_id;
+    @ViewById(R.id.idcard_info_id)
+    EditText idcard_info_id;
+
+    String bankcode=null;
+
     @Click(R.id.logining_btn_rel_id)
     void onLoginingBtnRelId() {
-        Util.startActivity(BindCardActivity.this,MyAccountActivity_.class);
+
+
+        String mobile = cardno_id.getText().toString();
+
+        if (mobile == null || mobile.equals("")) {
+
+            Util.Toast(BindCardActivity.this, "请输入卡号");
+            return;
+        }
+
+        String truename_info_id_V = truename_info_id.getText().toString();
+
+        if (truename_info_id_V == null || truename_info_id_V.equals("")) {
+
+            Util.Toast(BindCardActivity.this, "请输入真实姓名");
+            return;
+        }
+        String idcard_info_id_v = idcard_info_id.getText().toString();
+
+        if (idcard_info_id_v == null || idcard_info_id_v.equals("")) {
+
+            Util.Toast(BindCardActivity.this, "请输入身份证号");
+            return;
+        }
+
+        String choose_cardname_id_V = choose_cardname_id.getText().toString();
+
+        if (choose_cardname_id_V == null &&choose_cardname_id_V.contains("选择")) {
+
+            Util.Toast(BindCardActivity.this, "请选择银行");
+            return;
+        }
+
+
+        bindCard(choose_cardname_id_V,bankcode,truename_info_id_V,mobile,idcard_info_id_v);
+
+    }
+
+
+    @Click(R.id.choose_cardname_id)
+    void onchoose_cardname_id() {
+        Util.startActivity(BindCardActivity.this,BankListActivity_.class);
     }
 
 
@@ -58,7 +114,7 @@ public class BindCardActivity extends BaseActivity {
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
@@ -67,8 +123,11 @@ public class BindCardActivity extends BaseActivity {
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
-        title.setText("绑定银行卡");
-        title.setTextColor(getResources().getColor(R.color.line_hot_all));
+        title.setText("添加银行卡");
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("选择银行卡");
+//        title.setTextColor(getResources().getColor(R.color.line_hot_all));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
 
@@ -151,11 +210,12 @@ public class BindCardActivity extends BaseActivity {
     }
 
 
-    public void getDataFromServerForMsg(String mobile) {
+    public void bindCard(String bankname,String bankcode,String truename,String cardno,String idcard) {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(this, "加载中...");
 
-        ProtocolUtil.getPhoneMsg(this, new GetPhoneMsginfoHandler(), mobile);
+        ProtocolUtil.bindCardFunction(this, new GetPhoneMsginfoHandler(), configPref.userToken().get(), bankcode
+                , bankname, cardno, truename,idcard);
 
 
     }
@@ -172,8 +232,8 @@ public class BindCardActivity extends BaseActivity {
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(BindCardActivity.this, "验证码已发送，注意查收");
-
+            Util.Toast(BindCardActivity.this, "绑定成功");
+finish();
 
         }
     }

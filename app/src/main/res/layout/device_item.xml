@@ -16,11 +16,11 @@ android:layout_marginLeft="8dp"
 
         <ImageView
             android:id="@+id/mine_avar_id"
-            android:layout_width="80dp"
-            android:layout_height="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
-            android:src="@drawable/cartest"
+            android:src="@drawable/device_icon"
             />
         <RelativeLayout
             android:visibility="gone"

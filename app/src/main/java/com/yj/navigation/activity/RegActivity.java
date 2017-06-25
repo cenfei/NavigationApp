@@ -60,6 +60,9 @@ public class RegActivity extends BaseActivity {
             loginFromServerForMsg(mobile, pwd);
 
         } else {
+            username_id.setText("18502101596");//test----fox
+            pwdId.setText("123456");//test--fox
+
 
             Util.Toast(RegActivity.this, "请输入密码");
 
@@ -87,7 +90,6 @@ public class RegActivity extends BaseActivity {
     @Click(R.id.changeuser_id)
     void onchangeuser_id() {
         if (needChangeUser) {
-
             username_rel_id.setVisibility(View.VISIBLE);
             mine_name_info_id.setVisibility(View.GONE);
             needChangeUser = false;

@@ -22,7 +22,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yj.navigation.R;
 import com.yj.navigation.activity.ShowVideoActivity;
-import com.yj.navigation.adapter.AdapterWorkAllListView;
 import com.yj.navigation.adapter.NewAdapterUpVideoListView;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
@@ -178,7 +177,7 @@ public class NewUploadVideoFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                final JobJson imageInfo = designRoomInfos.get(position);
+                final JobJson imageInfo = designRoomInfos.get(position-1);
 
                 MainApp mainApp = (MainApp) getActivity().getApplicationContext();
                 mainApp.jobImageJsonList = imageInfo.images;

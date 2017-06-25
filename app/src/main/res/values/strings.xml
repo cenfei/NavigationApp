@@ -35,7 +35,7 @@
 
     <string name="design_add_pic">点击上传户型平面图</string>
 
-    <string name="bind_comment">绑定</string>
+    <string name="bind_comment">提交</string>
 
     <string name="register_comment">注册</string>
     <string name="register_submit_comment">提交</string>

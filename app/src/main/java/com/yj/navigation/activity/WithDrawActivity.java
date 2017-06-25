@@ -1,51 +1,23 @@
 package com.yj.navigation.activity;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.ContentUris;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
-import com.yj.navigation.component.SZ_PayPopwindow_Avar;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
-import com.yj.navigation.object.BaseJson;
-import com.yj.navigation.object.ImageAvarJson;
-import com.yj.navigation.object.RegisterCompleteson;
 import com.yj.navigation.prefs.ConfigPref_;
-import com.yj.navigation.util.Base64Util;
-import com.yj.navigation.util.Constant;
-import com.yj.navigation.util.FileUtil;
-import com.yj.navigation.util.ImageLoaderUtil;
 import com.yj.navigation.util.Util;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-
-import java.io.File;
 
 /**
  * Created by zhang on 2015/8/7.
@@ -101,7 +73,7 @@ public class WithDrawActivity extends BaseActivity {
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
@@ -109,9 +81,12 @@ public class WithDrawActivity extends BaseActivity {
         right_title_icon.setVisibility(View.GONE);
 
         TextView title = (TextView) findViewById(R.id.title);
-        title.setVisibility(View.VISIBLE);
+        title.setVisibility(View.GONE);
         title.setText("提现");
-        title.setTextColor(getResources().getColor(R.color.line_hot_all));
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("返回");
+//        title.setTextColor(getResources().getColor(R.color.line_hot_all));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
 
@@ -127,7 +102,7 @@ public class WithDrawActivity extends BaseActivity {
         });
 
 
-
+        uploadAvar();
     }
 
     @AfterViews
@@ -157,12 +132,12 @@ public class WithDrawActivity extends BaseActivity {
     //**********获取筛选的后的list***************/
     FoxProgressbarInterface foxProgressbarInterface;
 
-    public void uploadAvar(String file, String fileSuffix) {
+    public void uploadAvar() {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(this, "加载中...");
 
 
-        ProtocolUtil.uploadAvarFunction(this, new UploadAvarHandler(), configPref.userToken().get(), file, fileSuffix, "1");
+        ProtocolUtil.myCardListFunction(this, new UploadAvarHandler(), configPref.userToken().get());
 
 
     }
@@ -181,18 +156,18 @@ public class WithDrawActivity extends BaseActivity {
         if (resp != null && !resp.equals("")) {
 
 
-            ImageAvarJson baseJson = new Gson().fromJson(resp, ImageAvarJson.class);
-            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Log.d("path:", baseJson.data.path);
-
-                Log.d("url:", baseJson.data.url);
-                //保存token
-                configPref.userHeadImg().put(baseJson.data.url);//是url还是path
-
-
-//                Util.startActivity(MineInfoActivity.this, RegActivity_.class);
-//                finish();
-            }
+//            ImageAvarJson baseJson = new Gson().fromJson(resp, ImageAvarJson.class);
+//            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
+//                Log.d("path:", baseJson.data.path);
+//
+//                Log.d("url:", baseJson.data.url);
+//                //保存token
+//                configPref.userHeadImg().put(baseJson.data.url);//是url还是path
+//
+//
+////                Util.startActivity(MineInfoActivity.this, RegActivity_.class);
+////                finish();
+//            }
 
         }
     }

@@ -147,7 +147,7 @@ public interface API {
     public String UNBIND_CARD_URL = serverApp + "/acct/ bankcard/unbind";
 
     /**
-     * 解绑银行卡
+     * 银行卡列表
      */
     public String MY_CARDLIST_URL = serverApp + "/acct/bankcard/list";
 
