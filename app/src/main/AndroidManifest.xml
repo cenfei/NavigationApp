@@ -203,6 +203,9 @@
             android:name=".activity.BankListActivity_"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.MyBankCardListActivity_"
+            android:screenOrientation="portrait" />
 
 
 

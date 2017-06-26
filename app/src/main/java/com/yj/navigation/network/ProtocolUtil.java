@@ -684,6 +684,36 @@ public class ProtocolUtil {
     }
 
 
+    public static void unbindCardFunction(Context context,
+                                        Protocol.CallBack callBack,
+                                        String token,Integer id
+
+
+    ) {
+        Map<String, Object> parmaMap = new HashMap<String, Object>();
+        parmaMap.put("token", token);
+
+        parmaMap.put("id", id);
+
+
+
+//公共参数
+        MainApp mainApp = (MainApp) context.getApplicationContext();
+        Map<String, String> mapCommon = mainApp.getAppInfo();
+        String appname = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+        Log.d("appname:", appname);
+        parmaMap.put("appName", mapCommon.get("appName"));
+
+        parmaMap.put("platform", mapCommon.get("platform"));
+        parmaMap.put("version", mapCommon.get("version"));
+
+        parmaMap.put("deviceNo", mapCommon.get("deviceNo"));
+
+
+        new Protocol(context, API.UNBIND_CARD_URL, parmaMap, callBack);
+    }
+
+
     /**
      *  绑定银行卡
      * @param context
@@ -757,6 +787,44 @@ public class ProtocolUtil {
 
 
         new Protocol(context, API.MY_CARDLIST_URL, parmaMap, callBack);
+    }
+
+
+
+    /**
+     *  银行列表
+     * @param context
+     * @param callBack
+     * @param token
+     * @param listmap
+     */
+    public static void mybankListFunction(Context context,
+                                          Protocol.CallBack callBack,
+                                          String token
+
+
+    ) {
+        Map<String, Object> parmaMap = new HashMap<String, Object>();
+        parmaMap.put("token", token);
+
+
+
+
+
+//公共参数
+        MainApp mainApp = (MainApp) context.getApplicationContext();
+        Map<String, String> mapCommon = mainApp.getAppInfo();
+        String appname = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+        Log.d("appname:", appname);
+        parmaMap.put("appName", mapCommon.get("appName"));
+
+        parmaMap.put("platform", mapCommon.get("platform"));
+        parmaMap.put("version", mapCommon.get("version"));
+
+        parmaMap.put("deviceNo", mapCommon.get("deviceNo"));
+
+
+        new Protocol(context, API.MY_BANKLIST_URL, parmaMap, callBack);
     }
 
 

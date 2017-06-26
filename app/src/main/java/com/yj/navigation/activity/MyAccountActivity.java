@@ -15,7 +15,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yj.navigation.R;
 import com.yj.navigation.adapter.AdapterMineAccountListView;
-import com.yj.navigation.adapter.AdapterWorkDetailListView;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
@@ -73,7 +72,7 @@ public class MyAccountActivity extends BaseActivity {
 
          Util.startActivity(this, WithDrawActivity_.class);
 
-        finish();
+//        finish();
     }
 
 

@@ -3,15 +3,15 @@ package com.yj.navigation.base;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.StrictMode;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.webkit.WebView;
 
+import com.yj.navigation.object.BankCardInfoJson;
+import com.yj.navigation.object.BankInfoJson;
 import com.yj.navigation.object.JobImageJson;
 import com.yj.navigation.object.JobJson;
-import com.yj.navigation.object.JobListJson;
 import com.yj.navigation.util.ImageLoaderUtil;
 
 import java.util.HashMap;
@@ -36,6 +36,10 @@ public class MainApp extends Application {
     public    List<JobImageJson> jobImageJsonList;
     public    String  remoteBaseUrl;
 public JobJson jobJson;
+    public BankInfoJson choosebankInfoJson;
+
+    public BankCardInfoJson chooseBankCardInfoJson;
+
     public Map<String, String> getAppInfo() {
 
         if (parmaMap == null) {

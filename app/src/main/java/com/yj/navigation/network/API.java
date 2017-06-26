@@ -144,13 +144,17 @@ public interface API {
     /**
      * 解绑银行卡
      */
-    public String UNBIND_CARD_URL = serverApp + "/acct/ bankcard/unbind";
+    public String UNBIND_CARD_URL = serverApp + "/acct/bankcard/unbind";
 
     /**
      * 银行卡列表
      */
     public String MY_CARDLIST_URL = serverApp + "/acct/bankcard/list";
 
+    /**
+     * 银行列表
+     */
+    public String MY_BANKLIST_URL = serverApp + "/acct/bank/list";
 
 
     /**

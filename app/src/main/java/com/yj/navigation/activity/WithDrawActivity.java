@@ -1,5 +1,6 @@
 package com.yj.navigation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,16 +8,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.yj.navigation.R;
+import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
+import com.yj.navigation.object.BankCardInfoJson;
+import com.yj.navigation.object.BankCardListJson;
 import com.yj.navigation.prefs.ConfigPref_;
+import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.Util;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 /**
@@ -29,6 +36,8 @@ public class WithDrawActivity extends BaseActivity {
     ConfigPref_ configPref;
 
 
+    @ViewById(R.id.change_money_pwd_id)
+    TextView change_money_pwd_id;
 
     @Click(R.id.left_title_line)
     void onLeftTitleLine() {
@@ -40,9 +49,16 @@ public class WithDrawActivity extends BaseActivity {
 
     @Click(R.id.change_money_pwd_id)
     void onchange_money_pwd_id() {
-        Util.startActivity(this, BindCardActivity_.class);
 
-        finish();
+        if(hadBindCard){
+            Util.startActivity(this, MyBankCardListActivity_.class);
+
+        }else {
+            Intent intent = new Intent(this,BindCardActivity_.class);
+            intent.putExtra("FromWithDraw",true);
+            startActivity(intent);
+
+        }
 
     }
 
@@ -122,10 +138,17 @@ public class WithDrawActivity extends BaseActivity {
 //            mainPage.setBackgroundDrawable(BgTransitionUtil.bgDrawable);
 //        }
     }
-
+BankCardInfoJson bankCardInfoJsonC=null;
     @Override
     protected void onResume() {
         super.onResume();
+
+        MainApp mainApp=(MainApp) getApplicationContext();
+if(mainApp.chooseBankCardInfoJson!=null){
+    bankCardInfoJsonC=mainApp.chooseBankCardInfoJson;
+    change_money_pwd_id.setText(bankCardInfoJsonC.bankcardno);
+}
+
     }
 
 
@@ -150,24 +173,32 @@ public class WithDrawActivity extends BaseActivity {
         }
     }
 
-
+boolean hadBindCard=false;
     public void uploadAvarHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
 
 
-//            ImageAvarJson baseJson = new Gson().fromJson(resp, ImageAvarJson.class);
-//            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-//                Log.d("path:", baseJson.data.path);
-//
-//                Log.d("url:", baseJson.data.url);
-//                //保存token
-//                configPref.userHeadImg().put(baseJson.data.url);//是url还是path
-//
-//
-////                Util.startActivity(MineInfoActivity.this, RegActivity_.class);
-////                finish();
-//            }
+            BankCardListJson baseJson = new Gson().fromJson(resp, BankCardListJson.class);
+            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
+
+
+
+                if (baseJson.data != null && baseJson.data.size() > 0) {//列表
+
+                    hadBindCard=true;
+                    change_money_pwd_id.setText("请选择银行卡");
+
+
+                }else{
+                    hadBindCard=false;
+                    change_money_pwd_id.setText("请添加银行卡");
+
+                }
+
+
+
+            }
 
         }
     }

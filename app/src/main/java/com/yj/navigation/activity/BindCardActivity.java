@@ -9,9 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yj.navigation.R;
+import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
+import com.yj.navigation.object.BankCardInfoJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Util;
 
@@ -94,7 +96,7 @@ public class BindCardActivity extends BaseActivity {
 
     @Click(R.id.choose_cardname_id)
     void onchoose_cardname_id() {
-        Util.startActivity(BindCardActivity.this,BankListActivity_.class);
+        Util.startActivity(BindCardActivity.this, BankListActivity_.class);
     }
 
 
@@ -141,8 +143,10 @@ public class BindCardActivity extends BaseActivity {
                 finish();
             }
         });
+        FromWithDraw=getIntent().getBooleanExtra("FromWithDraw",false);
     }
 
+    boolean FromWithDraw=false;
     @AfterViews
     void init() {
         initUi();
@@ -164,6 +168,13 @@ public class BindCardActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MainApp mainApp=(MainApp) getApplicationContext();
+if(mainApp.choosebankInfoJson!=null){
+
+    choose_cardname_id.setText(mainApp.choosebankInfoJson.bankname);
+    bankcode=mainApp.choosebankInfoJson.bankcode;
+}
+
 
     }
 
@@ -209,10 +220,17 @@ public class BindCardActivity extends BaseActivity {
         }
     }
 
-
+BankCardInfoJson bankCardInfoJson=null;
     public void bindCard(String bankname,String bankcode,String truename,String cardno,String idcard) {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(this, "加载中...");
+
+        bankCardInfoJson=new BankCardInfoJson();
+        bankCardInfoJson.bankcardno=cardno;
+        bankCardInfoJson.bankname=bankname;
+        bankCardInfoJson.bankcode=bankcode;
+        bankCardInfoJson.realname=truename;
+        bankCardInfoJson.cardno=idcard;
 
         ProtocolUtil.bindCardFunction(this, new GetPhoneMsginfoHandler(), configPref.userToken().get(), bankcode
                 , bankname, cardno, truename,idcard);
@@ -233,6 +251,11 @@ public class BindCardActivity extends BaseActivity {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
             Util.Toast(BindCardActivity.this, "绑定成功");
+            if(FromWithDraw){
+                MainApp mainApp=(MainApp) getApplicationContext();
+                mainApp.chooseBankCardInfoJson=bankCardInfoJson;
+            }
+
 finish();
 
         }

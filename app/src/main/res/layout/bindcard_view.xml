@@ -87,8 +87,10 @@
                 android:gravity="center_vertical|right"
                 android:hint="请输入卡号"
                 android:maxLength="20"
+                android:inputType="number"
+                android:digits="1234567890"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/line_hot_all"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -146,9 +148,8 @@
                 android:gravity="center_vertical|right"
                 android:hint="请输入姓名"
                 android:maxLength="20"
-                android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/line_hot_all"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -190,10 +191,11 @@
                 android:background="#00ffffff"
                 android:gravity="center_vertical|right"
                 android:hint="请输入身份证"
+                android:inputType="number"
+                android:digits="1234567890"
                 android:maxLength="20"
-                android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/line_hot_all"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 

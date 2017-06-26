@@ -1,43 +1,28 @@
 package com.yj.navigation.activity;
 
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.format.DateUtils;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.qr_codescan.MipcaActivityCapture;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yj.navigation.R;
-import com.yj.navigation.adapter.AdapterWorkAllListView;
-import com.yj.navigation.adapter.MyDeviceAllListAdapter;
+import com.yj.navigation.adapter.AdapterBankItemView;
+import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
-import com.yj.navigation.object.BaseJson;
-import com.yj.navigation.object.DeviceJson;
-import com.yj.navigation.object.DeviceListJson;
-import com.yj.navigation.object.JobJson;
-import com.yj.navigation.object.JobListJson;
+import com.yj.navigation.object.BankInfoJson;
+import com.yj.navigation.object.BankListJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Constant;
-import com.yj.navigation.util.MyStringUtils;
 import com.yj.navigation.util.Util;
 
 import org.androidannotations.annotations.AfterViews;
@@ -46,20 +31,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView;
-import edu.swu.pulltorefreshswipemenulistview.library.pulltorefresh.interfaces.IXListViewListener;
-import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.bean.SwipeMenu;
-import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.bean.SwipeMenuItem;
-import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.interfaces.OnMenuItemClickListener;
-import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.interfaces.OnSwipeListener;
-import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.interfaces.SwipeMenuCreator;
-import edu.swu.pulltorefreshswipemenulistview.library.util.RefreshTime;
 
 /**
  * Created by zhang on 2015/8/7.
@@ -82,9 +55,9 @@ public class BankListActivity extends BaseActivity   {
 
     private PullToRefreshListView pullToRefreshListView;
 
-    private AdapterWorkAllListView adapterHomeDesignListView;
+    private AdapterBankItemView adapterHomeDesignListView;
 
-    private List<JobJson> designRoomInfos;
+    private List<BankInfoJson> designRoomInfos;
 
     private RelativeLayout design_choose_line;
 
@@ -184,9 +157,9 @@ public class BankListActivity extends BaseActivity   {
 
 
 
-        designRoomInfos = new ArrayList<JobJson>();
+        designRoomInfos = new ArrayList<BankInfoJson>();
 
-        adapterHomeDesignListView = new AdapterWorkAllListView(this, designRoomInfos);
+        adapterHomeDesignListView = new AdapterBankItemView(this, designRoomInfos);
 
         pullToRefreshListView.setAdapter(adapterHomeDesignListView);
 
@@ -242,12 +215,20 @@ public class BankListActivity extends BaseActivity   {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                //选中的银行卡 还code
+
+                BankInfoJson bankInfoJson=designRoomInfos.get(position-1);
+
+                MainApp mainApp=(MainApp) getApplicationContext();
+                mainApp.choosebankInfoJson=bankInfoJson;
+
+finish();
 //                Util.startActivity(getActivity(), MyWorkDetailActivity_.class);
 
-                Intent intent = new Intent(BankListActivity.this, MyWorkDetailActivity_.class);
-                JobJson jobJson = (JobJson) adapterHomeDesignListView.getItem(position-1);
-                intent.putExtra("SN", jobJson.sn);
-                startActivity(intent);
+//                Intent intent = new Intent(BankListActivity.this, MyWorkDetailActivity_.class);
+//                JobJson jobJson = (JobJson) adapterHomeDesignListView.getItem(position-1);
+//                intent.putExtra("SN", jobJson.sn);
+//                startActivity(intent);
 //                Intent intent = new Intent(getActivity(), HomeAllDetailActivity_.class);
 //				intent.putExtra(Constant.CASE_HOME_ID,adapterHomeDesignListView.getItem(position-1).id);
 //                intent.putExtra(Constant.CASE_HOME_NAME,adapterHomeDesignListView.getItem(position-1).name);
@@ -290,12 +271,11 @@ public class BankListActivity extends BaseActivity   {
     public void getJobListFromServerForMsg() {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(BankListActivity.this, "加载中...");
-        String beginD = "20161201";
-        String endD = MyStringUtils.getNowTimeFormata(new Date());
-        String params = "0";//0全部 1 审核 2通过
-        Integer rows = 20;
-        ProtocolUtil.myJobListFunction(BankListActivity.this, new MyJobListHandler(), configPref.userToken().get(), beginD
-                , endD, params, null, pageNum, rows);//devno 空表示所有
+//        String beginD = "20161201";
+//        String endD = MyStringUtils.getNowTimeFormata(new Date());
+//        String params = "0";//0全部 1 审核 2通过
+//        Integer rows = 20;
+        ProtocolUtil.mybankListFunction(BankListActivity.this, new MyJobListHandler(), configPref.userToken().get());
 
 
     }
@@ -314,7 +294,7 @@ public class BankListActivity extends BaseActivity   {
         if (resp != null && !resp.equals("")) {
 
 
-            JobListJson baseJson = new Gson().fromJson(resp, JobListJson.class);
+            BankListJson baseJson = new Gson().fromJson(resp, BankListJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
 
                 //测试数据
