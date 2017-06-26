@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,13 +15,17 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qr_codescan.MipcaActivityCapture;
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yj.navigation.R;
+import com.yj.navigation.adapter.AdapterWorkAllListView;
 import com.yj.navigation.adapter.MyDeviceAllListAdapter;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
@@ -28,8 +33,11 @@ import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BaseJson;
 import com.yj.navigation.object.DeviceJson;
 import com.yj.navigation.object.DeviceListJson;
+import com.yj.navigation.object.JobJson;
+import com.yj.navigation.object.JobListJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Constant;
+import com.yj.navigation.util.MyStringUtils;
 import com.yj.navigation.util.Util;
 
 import org.androidannotations.annotations.AfterViews;
@@ -56,46 +64,55 @@ import edu.swu.pulltorefreshswipemenulistview.library.util.RefreshTime;
 /**
  * Created by zhang on 2015/8/7.
  */
-@EActivity(R.layout.mydevice_list_view)
-public class BankListActivity extends BaseActivity implements IXListViewListener {
+@EActivity(R.layout.bank_list_view)
+public class BankListActivity extends BaseActivity   {
+
 
     @Pref
     ConfigPref_ configPref;
+
+
+    //    @ViewById(R.id.hot_network_no_id)
+    LinearLayout hotNetworkNoId;
+
+
     @ViewById(R.id.no_data_id)
     RelativeLayout no_data_id;
 
-    private List<DeviceJson> mAppList;
-    private MyDeviceAllListAdapter mAdapter;
-    private PullToRefreshSwipeMenuListView mListView;
-    private Handler mHandler;
 
+    private PullToRefreshListView pullToRefreshListView;
 
+    private AdapterWorkAllListView adapterHomeDesignListView;
+
+    private List<JobJson> designRoomInfos;
+
+    private RelativeLayout design_choose_line;
+
+    int y = 0;
     int limit = 10;
+
+
+
+
+    int pageNum = 1;
+
+    int i = 0;
+
+
     @Click(R.id.left_title_line)
     void onLeftTitleLine() {
 
         finish();
 
     }
-
-
-    @AfterViews
-    void init() {
-        initUi();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        setContentView(R.layout.design_personal);
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-//        initUi();
 
 
+//        init();
     }
-
-
 
     @Override
     protected void initActivityName() {
@@ -107,25 +124,26 @@ public class BankListActivity extends BaseActivity implements IXListViewListener
 
     }
 
-    int pageNum = 1;
-
-    int i = 0;
-    int positionIndex = 0;
 
     /**
      * 测试数据
      */
     public void getDataFromServer() {
-        getDeviceListFromServerForMsg();
+
+//
+
+        getJobListFromServerForMsg();
 
 
     }
-
-    BankListActivity myDeviceListActivity;
-
-
+    @AfterViews
+    void init() {
+        initUi();
+    }
 
     void initUi() {
+
+        pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.listview_design);
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
         main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
@@ -134,9 +152,9 @@ public class BankListActivity extends BaseActivity implements IXListViewListener
         left_title_icon.setVisibility(View.VISIBLE);
         TextView left_title = (TextView) findViewById(R.id.left_title);
         left_title.setVisibility(View.VISIBLE);
-        left_title.setText("返回");
+        left_title.setText("添加银行卡");
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon3);
-        right_title_icon.setVisibility(View.VISIBLE);
+        right_title_icon.setVisibility(View.GONE);
         Util.setBackgroundOfVersion(right_title_icon, getResources().getDrawable(R.drawable.new_add_code));
 
         TextView right_title = (TextView) findViewById(R.id.right_title);
@@ -148,7 +166,7 @@ public class BankListActivity extends BaseActivity implements IXListViewListener
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
-        title.setText("我的设备");
+        title.setText("请选择银行");
 //        title.setTextColor(getResources().getColor(R.color.white));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
@@ -160,195 +178,88 @@ public class BankListActivity extends BaseActivity implements IXListViewListener
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(BankListActivity.this, MipcaActivityCapture.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+
             }
         });
 
 
 
-        mListView = (PullToRefreshSwipeMenuListView) findViewById(R.id.listView);
+        designRoomInfos = new ArrayList<JobJson>();
 
+        adapterHomeDesignListView = new AdapterWorkAllListView(this, designRoomInfos);
 
-        mAppList=new ArrayList<DeviceJson>();
-        mAdapter = new MyDeviceAllListAdapter(this, mAppList,configPref.userToken().get());
-        mListView.setAdapter(mAdapter);
-        mListView.setPullRefreshEnable(true);
-        mListView.setPullLoadEnable(true);
-        mListView.setXListViewListener(this);
-        mHandler = new Handler();
+        pullToRefreshListView.setAdapter(adapterHomeDesignListView);
 
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);// 设置底部下拉刷新模式
+        pullToRefreshListView.getLoadingLayoutProxy(true, false)
+                .setLastUpdatedLabel("下拉刷新");
+        pullToRefreshListView.getLoadingLayoutProxy(true, false)
+                .setPullLabel("");
+        pullToRefreshListView.getLoadingLayoutProxy(true, false)
+                .setRefreshingLabel("正在刷新");
+        pullToRefreshListView.getLoadingLayoutProxy(true, false)
+                .setReleaseLabel("放开以刷新");
+
+        pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-                Log.d("onScrollStateChanged","onScrollStateChanged");
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                String label = DateUtils.formatDateTime(
+                        BankListActivity.this,
+                        System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_TIME
+                                | DateUtils.FORMAT_SHOW_DATE
+                                | DateUtils.FORMAT_ABBREV_ALL);
+
+                refreshView.getLoadingLayoutProxy()
+                        .setLastUpdatedLabel(label);
+
+                y = 0;
                 getDataFromServer();
-
             }
 
             @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-                Log.d("onScroll","onScroll");
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                if (adapterHomeDesignListView.mPersonal.size() < limit) {
+                    pageNum = 1;
+                } else {
+                    pageNum++;
 
-            }
-        });
-
-        // step 1. create a MenuCreator
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(BankListActivity.this);
-                // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9, 0xCE)));
-                // set item width
-                openItem.setWidth(dp2px(90));
-                // set item title
-                openItem.setTitle("解绑");
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.RED);
-                // add to menu
-                menu.addMenuItem(openItem);
-
-                // create "delete" item
-//                SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
-//                // set item background
-//                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
-//                // set item width
-//                deleteItem.setWidth(dp2px(90));
-//                // set a icon
-//                deleteItem.setIcon(R.drawable.ic_delete);
-//                // add to menu
-//                menu.addMenuItem(deleteItem);
-            }
-        };
-        // set creator
-        mListView.setMenuCreator(creator);
-
-        // step 2. listener item click event
-        mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-                DeviceJson item = (DeviceJson) mAppList.get(position);
-                switch (index) {
-
-                    case 0:
-                        // delete
-                        // delete(item);
-                        //解绑操作
-
-                        //当前deviceId有问题
-                        positionIndex = position;
-
-                        unBindDeviceFromServerForMsg(item.devNo);
-
-                        break;
                 }
-            }
-        });
+                if (!refreshView.isHeaderShown()) {
+                    y = adapterHomeDesignListView.mPersonal.size();
+                } else {
+                    // 得到上一次滚动条的位置，让加载后的页面停在上一次的位置，便于用户操作
+                    // y = adapter.list.size();
 
-        // set SwipeListener
-        mListView.setOnSwipeListener(new OnSwipeListener() {
-
-            @Override
-            public void onSwipeStart(int position) {
-                Log.d("onSwipeStart","onSwipeStart");
-            }
-
-            @Override
-            public void onSwipeEnd(int position) {
-                Log.d("onSwipeEnd","onSwipeEnd");
-            }
-        });
-
-        // other setting
-        // listView.setCloseInterpolator(new BounceInterpolator());
-
-        // test item long click
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(BankListActivity.this, position + " long click", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-
-
-
-    }
-
-    private final static int SCANNIN_GREQUEST_CODE = 1;
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case SCANNIN_GREQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    Bundle bundle = data.getExtras();
-                    Log.d("capture result:", bundle.getString("result"));
-
-                    String deviceNo = "";
-                    String deviceToken = "123456";
-
-                    //假设返回的结果-----
-                    bindDevice(null,deviceToken);
-
-//                    Util.startActivity(IndexActivity.this, MyDeviceListActivity_.class);
-
-
-//                    mTextView.setText(bundle.getString("result"));
-//                    mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
                 }
-                break;
-        }
-    }
+                getDataFromServer();
+            }
+        });
 
+        // 点击详单
+        pullToRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
 
-    public void bindDevice(String deviceNo, String deviceToken) {
-        foxProgressbarInterface = new FoxProgressbarInterface();
-        foxProgressbarInterface.startProgressBar(this, "加载中...");
+//                Util.startActivity(getActivity(), MyWorkDetailActivity_.class);
 
-
-        //扫描绑定 0 设备号绑定1
-        ProtocolUtil.bindDeviceFunction(this, new BindDeviceHandler(), configPref.userToken().get(), "0", deviceNo, deviceToken);
-
-
-    }
-
-
-    private class BindDeviceHandler extends RowMessageHandler {
-        @Override
-        protected void handleResp(String resp) {
-            bindDeviceHandler(resp);
-        }
-    }
-
-
-    public void bindDeviceHandler(String resp) {
-        foxProgressbarInterface.stopProgressBar();
-        if (resp != null && !resp.equals("")) {
-
-
-            BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
-            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-
-                //保存token
-
-//                Util.startActivity(MyDeviceListActivity.this, MyDeviceListActivity_.class);
+                Intent intent = new Intent(BankListActivity.this, MyWorkDetailActivity_.class);
+                JobJson jobJson = (JobJson) adapterHomeDesignListView.getItem(position-1);
+                intent.putExtra("SN", jobJson.sn);
+                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), HomeAllDetailActivity_.class);
+//				intent.putExtra(Constant.CASE_HOME_ID,adapterHomeDesignListView.getItem(position-1).id);
+//                intent.putExtra(Constant.CASE_HOME_NAME,adapterHomeDesignListView.getItem(position-1).name);
+//
+//                startActivity(intent);
 
             }
+        });
 
-        }
     }
+
+
     @Override
     public void onDestroy() {
         //退出activity前关闭菜单
@@ -368,174 +279,73 @@ public class BankListActivity extends BaseActivity implements IXListViewListener
         super.onResume();
 
         pageNum = 1;
+
         getDataFromServer();
     }
-
-
-    private void onLoad() {
-        mListView.setRefreshTime(RefreshTime.getRefreshTime(BankListActivity.this));
-        mListView.stopRefresh();
-
-        mListView.stopLoadMore();
-
-    }
-
-    public void onRefresh() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SimpleDateFormat df = new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault());
-                RefreshTime.setRefreshTime(getApplicationContext(), df.format(new Date()));
-                onLoad();
-            }
-        }, 2000);
-    }
-
-    public void onLoadMore() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onLoad();
-            }
-        }, 2000);
-    }
-
-    private void delete(ApplicationInfo item) {
-        // delete app
-        try {
-            Intent intent = new Intent(Intent.ACTION_DELETE);
-            intent.setData(Uri.fromParts("package", item.packageName, null));
-            startActivity(intent);
-        } catch (Exception e) {
-        }
-    }
-
-    private void open(String item) {
-        // open app
-//        Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
-//        resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-//        resolveIntent.setPackage(item.packageName);
-//        List<ResolveInfo> resolveInfoList = getActivity().getPackageManager().queryIntentActivities(resolveIntent, 0);
-//        if (resolveInfoList != null && resolveInfoList.size() > 0) {
-//            ResolveInfo resolveInfo = resolveInfoList.get(0);
-//            String activityPackageName = resolveInfo.activityInfo.packageName;
-//            String className = resolveInfo.activityInfo.name;
-//
-//            Intent intent = new Intent(Intent.ACTION_MAIN);
-//            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-//            ComponentName componentName = new ComponentName(activityPackageName, className);
-//
-//            intent.setComponent(componentName);
-//            startActivity(intent);
-//        }
-    }
-
-    private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
-    }
-
-
-    //***********************接口***************************
 
 
     //**********获取筛选的后的list***************/
     FoxProgressbarInterface foxProgressbarInterface;
 
-    public void getDeviceListFromServerForMsg() {
+    public void getJobListFromServerForMsg() {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(BankListActivity.this, "加载中...");
-
-
-        ProtocolUtil.deviceListFunction(BankListActivity.this, new DeviceListHandler(), configPref.userToken().get());
+        String beginD = "20161201";
+        String endD = MyStringUtils.getNowTimeFormata(new Date());
+        String params = "0";//0全部 1 审核 2通过
+        Integer rows = 20;
+        ProtocolUtil.myJobListFunction(BankListActivity.this, new MyJobListHandler(), configPref.userToken().get(), beginD
+                , endD, params, null, pageNum, rows);//devno 空表示所有
 
 
     }
 
 
-    private class DeviceListHandler extends RowMessageHandler {
+    private class MyJobListHandler extends RowMessageHandler {
         @Override
         protected void handleResp(String resp) {
-            deviceListHandler(resp);
+            myJobListHandler(resp);
         }
     }
 
 
-    public void deviceListHandler(String resp) {
+    public void myJobListHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
 
 
-            DeviceListJson baseJson = new Gson().fromJson(resp, DeviceListJson.class);
+            JobListJson baseJson = new Gson().fromJson(resp, JobListJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
 
+                //测试数据
+//                baseJson.data = (ArrayList<JobJson>) setTestData();
 
 
                 if (baseJson.data != null && baseJson.data.size() > 0) {//列表
 
                     if (pageNum == 1) {
-                        mAppList.clear();
-                        mAppList.addAll(baseJson.data);
+                        designRoomInfos.clear();
+                        designRoomInfos.addAll(baseJson.data);
                     } else {
-                        mAppList.addAll(baseJson.data);
+                        designRoomInfos.addAll(baseJson.data);
                     }
 
                 }
 
 
-                if (mAppList.size() <= 0 && pageNum == 1) {
+                if (designRoomInfos.size() <= 0 && pageNum == 1) {
                     no_data_id.setVisibility(View.VISIBLE);
-                    mListView.setVisibility(View.GONE);
+                    pullToRefreshListView.setVisibility(View.GONE);
                 } else {
                     no_data_id.setVisibility(View.GONE);
-                    mListView.setVisibility(View.VISIBLE);
-
-                    mAdapter.notifyDataSetChanged();
+                    pullToRefreshListView.setVisibility(View.VISIBLE);
+                    adapterHomeDesignListView.notifyDataSetChanged();
                     // Call onRefreshComplete when the list has been refreshed.
-//                    mListView.onRefreshComplete();
-//                    mListView.getRefreshableView().setSelection(y);
+                    pullToRefreshListView.onRefreshComplete();
+                    pullToRefreshListView.getRefreshableView().setSelection(y);
 
 
                 }
-            }
-
-        }
-    }
-
-
-    public void unBindDeviceFromServerForMsg(String deviceId) {
-        foxProgressbarInterface = new FoxProgressbarInterface();
-        foxProgressbarInterface.startProgressBar(BankListActivity.this, "加载中...");
-
-
-        ProtocolUtil.unbindDeviceFunction(BankListActivity.this, new UnBindDeviceHandler(), configPref.userToken().get(), deviceId);
-
-
-    }
-
-
-    private class UnBindDeviceHandler extends RowMessageHandler {
-        @Override
-        protected void handleResp(String resp) {
-            unBindDeviceHandler(resp);
-        }
-    }
-
-
-    public void unBindDeviceHandler(String resp) {
-        foxProgressbarInterface.stopProgressBar();
-        if (resp != null && !resp.equals("")) {
-
-
-            BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
-            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(BankListActivity.this, "解绑成功");
-                mAppList.remove(positionIndex);
-                mAdapter.notifyDataSetChanged();
-                //保存token
-//                configPref.userToken().put(baseJson.token);
-//                configPref.userMobile().put(mobile);
-//                Util.startActivity(LoginActivity.this, MineActivity_.class);
-//                finish();
             }
 
         }

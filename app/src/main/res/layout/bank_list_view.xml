@@ -3,18 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="@color/new_index_back_color"
     tools:context="${relativePackage}.${activityClass}"
    >
 
 
     <include layout="@layout/index_title" />
 
-    <edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView
-        android:id="@+id/listView"
-        android:layout_marginTop="44dp"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/listview_design"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:gravity="left"
+        android:headerDividersEnabled="false"
+        android:smoothScrollbar="true"
+        ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 
     <RelativeLayout

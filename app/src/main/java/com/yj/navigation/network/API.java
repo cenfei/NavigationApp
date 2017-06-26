@@ -268,4 +268,17 @@ public interface API {
     public String MESSAGE_Update_Read = serverMsg + "/pushusercount/updateCount";
 
 
+
+
+
+
+
+
+
+
+
+    public String BANK_LIST_URL = serverApp + "/acct/bankcard/list";
+
+
+
 }
