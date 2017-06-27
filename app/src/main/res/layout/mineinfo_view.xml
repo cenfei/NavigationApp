@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/reg_background_gray">
+    android:background="@color/new_index_back_color">
 
-    <include layout="@layout/mine_frg_header" />
+    <include layout="@layout/index_title" />
 
     <LinearLayout
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="54dp"
 
         android:background="@color/white"
         android:orientation="vertical">
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,8 +37,8 @@
                 <ImageView
 
                     android:id="@+id/image_avar_id"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:src="@drawable/avar_mine_init" />
 
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
     </LinearLayout>
 
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:id="@+id/change_pwd_id"
@@ -130,7 +130,7 @@
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:id="@+id/change_info_id"
@@ -169,7 +169,7 @@
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:id="@+id/change_money_pwd_id"
@@ -209,7 +209,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
     </LinearLayout>
 
@@ -228,7 +228,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -267,19 +267,68 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/line4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+        android:layout_height="wrap_content"
         android:layout_below="@+id/line3"
         android:layout_marginTop="15dp"
-        android:background="@color/white">
+
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/font_titie2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="数据维护"
+                android:textAlignment="center"
+                android:textColor="@color/line_hot_all"
+                android:textSize="15sp" />
 
 
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/zhankai" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+
+            android:background="@color/new_index_text_line_color" />
     </LinearLayout>
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_below="@+id/line4"
+    android:background="@color/white"
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/logining_btn_rel_id"
 
@@ -305,5 +354,5 @@
 
 
     </RelativeLayout>
-
+</RelativeLayout>
 </RelativeLayout>

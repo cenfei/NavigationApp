@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/reg_background_gray">
 
-    <include layout="@layout/mine_frg_header" />
+    <include layout="@layout/index_title" />
 
     <LinearLayout
         android:id="@+id/line1"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:text="密码"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
-                android:textSize="15sp" />
+                android:textSize="17sp" />
 
             <EditText
                 android:id="@+id/password_info_id"
@@ -63,7 +63,7 @@
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                 android:text="重复密码"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
-                android:textSize="15sp" />
+                android:textSize="17sp" />
 
             <EditText
                 android:id="@+id/again_password_info_id"
@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
     </LinearLayout>
 

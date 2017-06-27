@@ -17,6 +17,7 @@ import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BankCardInfoJson;
 import com.yj.navigation.object.BankCardListJson;
 import com.yj.navigation.prefs.ConfigPref_;
+import com.yj.navigation.util.BankCardCheck;
 import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.Util;
 
@@ -38,6 +39,10 @@ public class WithDrawActivity extends BaseActivity {
 
     @ViewById(R.id.change_money_pwd_id)
     TextView change_money_pwd_id;
+    @ViewById(R.id.name_info_id)
+    TextView name_info_id;
+
+
 
     @Click(R.id.left_title_line)
     void onLeftTitleLine() {
@@ -66,9 +71,33 @@ public class WithDrawActivity extends BaseActivity {
     @Click(R.id.logining_btn_rel_id)
     void onLoginingBtnRelId() {
 
-//退出登录
-        finish();
 
+        String name_info_id_V = name_info_id.getText().toString();
+
+        if (name_info_id_V == null || name_info_id_V.equals("")) {
+
+            Util.Toast(WithDrawActivity.this, "请输入金额");
+            return;
+        }
+
+        //验证卡号
+
+        String change_money_pwd_id_v = change_money_pwd_id.getText().toString();
+
+        if (change_money_pwd_id_v == null || change_money_pwd_id_v.equals("")) {
+
+            Util.Toast(WithDrawActivity.this, "请输入卡号");
+            return;
+        }else if(!BankCardCheck.luhmCheck(change_money_pwd_id_v).equals("true")){
+
+            Util.Toast(WithDrawActivity.this, "银行卡不符合规则");
+            return;
+
+
+        }
+
+//提现操作----fox
+        applyCash(bankCardInfoJsonC.id,Integer.valueOf(change_money_pwd_id_v));
     }
 
 
@@ -203,7 +232,46 @@ boolean hadBindCard=false;
         }
     }
 
+    public void applyCash(Integer cardid,Integer cashnum) {
+        foxProgressbarInterface = new FoxProgressbarInterface();
+        foxProgressbarInterface.startProgressBar(this, "加载中...");
 
+
+        ProtocolUtil.applycashFunction(this, new ApplyCashHandler(), configPref.userToken().get(),cardid,cashnum);
+
+
+    }
+
+
+    private class ApplyCashHandler extends RowMessageHandler {
+        @Override
+        protected void handleResp(String resp) {
+            applyCashHandler(resp);
+        }
+    }
+
+    public void applyCashHandler(String resp) {
+        foxProgressbarInterface.stopProgressBar();
+        if (resp != null && !resp.equals("")) {
+
+
+            Util.Toast(WithDrawActivity.this, "提现成功");
+
+
+            finish();
+
+//            BankCardListJson baseJson = new Gson().fromJson(resp, BankCardListJson.class);
+//            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
+//
+//
+//
+//
+//
+//
+//            }
+
+        }
+    }
 
 
 }

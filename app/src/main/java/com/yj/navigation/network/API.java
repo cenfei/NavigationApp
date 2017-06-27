@@ -151,6 +151,10 @@ public interface API {
      */
     public String MY_CARDLIST_URL = serverApp + "/acct/bankcard/list";
 
+
+
+    public String MY_APPLYCASH_URL = serverApp + "/acct/query/applyCash";
+
     /**
      * 银行列表
      */

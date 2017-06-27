@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/reg_background_gray">
+    android:background="@color/new_index_back_color">
 
     <include layout="@layout/index_title" />
 
@@ -157,6 +157,8 @@ android:layout_below="@+id/line1"
                 android:numeric="integer"
                 android:hint="请输入提现金额"
                 android:maxLength="20"
+                android:inputType="number"
+                android:digits="1234567890"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
                 android:textColorHint="@color/font_titie2"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/reg_background_gray">
 
-    <include layout="@layout/mine_frg_header" />
+    <include layout="@layout/index_title" />
 
     <LinearLayout
         android:id="@+id/line1"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -63,7 +63,7 @@
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
     </LinearLayout>
 
@@ -127,7 +127,7 @@ android:layout_below="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -171,7 +171,7 @@ android:layout_below="@+id/line1"
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -214,7 +214,7 @@ android:layout_below="@+id/line1"
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 android:visibility="gone"
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:id="@+id/address_rel"
@@ -257,7 +257,7 @@ android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
     </LinearLayout>
 
@@ -277,7 +277,7 @@ android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
 
-        android:background="@color/font_titie2" />
+        android:background="@color/new_index_text_line_color" />
 
     <RelativeLayout
         android:id="@+id/safe_question_rel"
@@ -307,7 +307,7 @@ android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
 
-        android:background="@color/font_titie2" />
+        android:background="@color/new_index_text_line_color" />
     </LinearLayout>
     <RelativeLayout
         android:id="@+id/logining_btn_rel_id"

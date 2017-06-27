@@ -788,6 +788,43 @@ public class ProtocolUtil {
 
         new Protocol(context, API.MY_CARDLIST_URL, parmaMap, callBack);
     }
+    /**
+     *  银行卡列表
+     * @param context
+     * @param callBack
+     * @param token
+     * @param listmap
+     */
+    public static void applycashFunction(Context context,
+                                          Protocol.CallBack callBack,
+                                          String token,Integer id ,Integer applyScore
+
+
+    ) {
+        Map<String, Object> parmaMap = new HashMap<String, Object>();
+        parmaMap.put("token", token);
+
+        parmaMap.put("id", id);
+
+        parmaMap.put("applyScore", applyScore);
+
+
+
+//公共参数
+        MainApp mainApp = (MainApp) context.getApplicationContext();
+        Map<String, String> mapCommon = mainApp.getAppInfo();
+        String appname = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+        Log.d("appname:", appname);
+        parmaMap.put("appName", mapCommon.get("appName"));
+
+        parmaMap.put("platform", mapCommon.get("platform"));
+        parmaMap.put("version", mapCommon.get("version"));
+
+        parmaMap.put("deviceNo", mapCommon.get("deviceNo"));
+
+
+        new Protocol(context, API.MY_APPLYCASH_URL, parmaMap, callBack);
+    }
 
 
 

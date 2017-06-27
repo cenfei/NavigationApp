@@ -56,7 +56,7 @@ import edu.swu.pulltorefreshswipemenulistview.library.util.RefreshTime;
 /**
  * Created by zhang on 2015/8/7.
  */
-@EActivity(R.layout.mydevice_list_view)
+@EActivity(R.layout.bank_list_view)
 public class MyBankCardListActivity extends BaseActivity implements IXListViewListener {
 
     @Pref

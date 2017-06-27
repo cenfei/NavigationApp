@@ -120,10 +120,14 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
+
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("个人中心");
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
 
@@ -147,14 +151,20 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
         passwordView = (EditText) findViewById(R.id.password_info_id);
         againPasswordView = (EditText) findViewById(R.id.again_password_info_id);
 
-        nameView = (EditText) findViewById(R.id.name_info_id);
+        nameView = (TextView) findViewById(R.id.name_info_id);
         cardnoView = (EditText) findViewById(R.id.cardno_info_id);
+
+
+        if(configPref.userNickname()!=null){
+            nameView.setText(configPref.userNickname()+"");
+
+        }
 
 
     }
 
-
-    EditText passwordView, againPasswordView, nameView, cardnoView;
+    TextView nameView;
+    EditText passwordView, againPasswordView , cardnoView;
 
     @AfterViews
     void init() {

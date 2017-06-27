@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.component.SZ_PayPopwindow_Avar;
+import com.yj.navigation.component.SZ_PayPopwindow_Common;
 import com.yj.navigation.gridpasswordview.GridPasswordView;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
@@ -137,7 +138,27 @@ public class MineInfoActivity extends BaseActivity {
 
     @Click(R.id.change_money_pwd_id)
     void onChangeMoneyPwdId() {
-        Util.startActivity(this, ChangeSafePwdChooseActivity_.class);
+
+        new SZ_PayPopwindow_Common().showPopwindow(this, image_avar_id,"修改提现密码","回答密保，修改提现密码", new SZ_PayPopwindow_Common.CallBackPayWindow() {
+            @Override
+            public void handleCallBackPayWindowFromCamara() {
+//需要新的页面 类似  改密码
+
+
+            }
+
+            @Override
+            public void handleCallBackPayWindowFromLib() {
+                Intent intent = new Intent(MineInfoActivity.this, SafeQuestionActivity_.class);
+                intent.putExtra("FromChangeSafePwdChooseActivity", true);
+
+                startActivity(intent);
+
+            }
+        });
+
+
+//        Util.startActivity(this, ChangeSafePwdChooseActivity_.class);
 
 //        finish();
 
@@ -187,10 +208,15 @@ public class MineInfoActivity extends BaseActivity {
         options = ImageLoaderUtil.getAvatarOptionsInstance();
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
+
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("返回");
+
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
 

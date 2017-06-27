@@ -15,6 +15,7 @@ import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BankCardInfoJson;
 import com.yj.navigation.prefs.ConfigPref_;
+import com.yj.navigation.util.BankCardCheck;
 import com.yj.navigation.util.Util;
 
 import org.androidannotations.annotations.AfterViews;
@@ -63,6 +64,10 @@ public class BindCardActivity extends BaseActivity {
 
             Util.Toast(BindCardActivity.this, "请输入卡号");
             return;
+        }else if(!BankCardCheck.luhmCheck(mobile).equals("true")){
+            Util.Toast(BindCardActivity.this, "卡号不符合规则");
+            return;
+
         }
 
         String truename_info_id_V = truename_info_id.getText().toString();
@@ -78,6 +83,10 @@ public class BindCardActivity extends BaseActivity {
 
             Util.Toast(BindCardActivity.this, "请输入身份证号");
             return;
+        }else if(!BankCardCheck.personIdValidation(idcard_info_id_v)){
+            Util.Toast(BindCardActivity.this, "身份证不符合规则");
+            return;
+
         }
 
         String choose_cardname_id_V = choose_cardname_id.getText().toString();
