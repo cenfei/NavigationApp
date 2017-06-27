@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -70,7 +71,9 @@ this.img_count_id=img_count_id;
 		img_count_id.setText(""+(position+1)+"/"+jobImageJsonList.size());
 
 		ImageView imageView = new ImageView(mContext);
-		imageView.setBackground(mContext.getDrawable(R.drawable.rounded_image_gallery));
+//		imageView.setBackground(mContext.getDrawable(R.drawable.rounded_image_gallery));
+		imageView.setBackgroundDrawable(ContextCompat.getDrawable(mContext,R.drawable.rounded_image_gallery));
+
 		// 设置倒影图片
 //		imageView.setImageBitmap(miniBitmap);
 		imageView.setLayoutParams(new GalleryView.LayoutParams((int)(Width),

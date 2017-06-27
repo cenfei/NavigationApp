@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,6 +28,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -192,6 +194,11 @@ public class ShowVideoActivity extends Activity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.gc();
+    }
 
     @Override
     protected void onResume() {
@@ -218,7 +225,30 @@ public class ShowVideoActivity extends Activity {
         );
 
     }
-String remoteBaseUrl;
+
+
+    public static Bitmap getBitmap(Bitmap bitmap, int screenWidth,
+                                   int screenHight)
+    {
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+        Matrix matrix = new Matrix();
+        float scale = (float) screenWidth / w;
+        float scale2 = (float) screenHight / h;
+        // scale = scale < scale2 ? scale : scale2;
+
+        Log.e("getBitmap","scale:"+scale+",scale2:"+scale2);
+
+        matrix.postScale(scale, scale);
+        Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+        if (bitmap != null && !bitmap.equals(bmp) && !bitmap.isRecycled())
+        {
+            bitmap.recycle();
+            bitmap = null;
+        }
+        return bmp;// Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+    }
+    String remoteBaseUrl;
     LinearLayout country_line;
     Integer scrollFirst=0;
     public void startAnimationDrawable() {
@@ -318,12 +348,24 @@ String remoteBaseUrl;
 
                     Bitmap bitmap = imageLoader.loadImageSync(remoteBaseUrl + jobImageJson.bigPicUrl, options);
 
+                    DisplayMetrics metric = new DisplayMetrics();
+                    getWindowManager().getDefaultDisplay().getMetrics(metric);
+                    int width = metric.widthPixels;     // 屏幕宽度（像素）
+                    int height = metric.heightPixels;   // 屏幕高度（像素）
+                   Log.e("DisplayMetrics","width:"+width+",height:"+height);
+Bitmap smallBitmap=getBitmap(bitmap,width,height);
+
+
+
+
                     imageLoader.loadImageSync(remoteBaseUrl + jobImageJson.minPicUrl, options);
 
 //                    bitmap=Util.compressImage(bitmap);
-                    Drawable drawable = new BitmapDrawable(bitmap);
+                    Drawable drawable = new BitmapDrawable(smallBitmap);
                     animationDrawable.addFrame(drawable, duration);
                     Log.d("run:", "run:" + i++);
+
+//                    bitmap.recycle();
 
 
                 }
