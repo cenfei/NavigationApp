@@ -191,9 +191,7 @@
             android:name=".activity.MessageDetailActivity_"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="com.yj.navigation.gallery.Grallery3DActivity"
-       />
+
 
         <activity
             android:name=".activity.NewMyVideoListActivity_"
@@ -207,7 +205,9 @@
             android:name=".activity.MyBankCardListActivity_"
             android:screenOrientation="portrait" />
 
-
+        <activity
+            android:name=".activity.ChangeCashMoneyPwdActivity_"
+            android:screenOrientation="portrait" />
 
 
 

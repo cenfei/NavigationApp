@@ -8,14 +8,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BankCardInfoJson;
+import com.yj.navigation.object.BaseJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.BankCardCheck;
+import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.Util;
 
 import org.androidannotations.annotations.AfterViews;
@@ -259,14 +262,24 @@ BankCardInfoJson bankCardInfoJson=null;
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(BindCardActivity.this, "绑定成功");
-            if(FromWithDraw){
-                MainApp mainApp=(MainApp) getApplicationContext();
-                mainApp.chooseBankCardInfoJson=bankCardInfoJson;
+
+
+
+
+            BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
+            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
+                Util.Toast(BindCardActivity.this, "绑定成功");
+                if (FromWithDraw) {
+                    MainApp mainApp = (MainApp) getApplicationContext();
+                    mainApp.chooseBankCardInfoJson = bankCardInfoJson;
+                }
+
+                finish();
+            }else{
+                Util.Toast(BindCardActivity.this, ""+baseJson.retMsg);
+
+
             }
-
-finish();
-
         }
     }
 

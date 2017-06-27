@@ -39,6 +39,10 @@ public class WithDrawActivity extends BaseActivity {
 
     @ViewById(R.id.change_money_pwd_id)
     TextView change_money_pwd_id;
+//    @ViewById(R.id.cash_money_id)
+    TextView cash_money_id;
+
+
     @ViewById(R.id.name_info_id)
     TextView name_info_id;
 
@@ -74,13 +78,33 @@ public class WithDrawActivity extends BaseActivity {
 
         String name_info_id_V = name_info_id.getText().toString();
 
+
+        String cash_money_id_v = cash_money_id.getText().toString();
+
+
         if (name_info_id_V == null || name_info_id_V.equals("")) {
 
             Util.Toast(WithDrawActivity.this, "请输入金额");
             return;
-        }
+        }else{
+            Integer moneynum=Integer.valueOf(name_info_id_V);
+            Integer havemoney=Integer.valueOf(cash_money_id_v);
 
-        //验证卡号
+
+            if(havemoney==0){
+                Util.Toast(WithDrawActivity.this, "积分为0,无法提现");
+                return;
+            }
+            if(moneynum==0||moneynum>havemoney){
+                Util.Toast(WithDrawActivity.this, "提现金额不正确");
+                return;
+            }
+
+
+
+    }
+
+    //验证卡号
 
         String change_money_pwd_id_v = change_money_pwd_id.getText().toString();
 
@@ -97,7 +121,7 @@ public class WithDrawActivity extends BaseActivity {
         }
 
 //提现操作----fox
-        applyCash(bankCardInfoJsonC.id,Integer.valueOf(change_money_pwd_id_v));
+        applyCash(bankCardInfoJsonC.id, Integer.valueOf(name_info_id_V));
     }
 
 
@@ -146,9 +170,15 @@ public class WithDrawActivity extends BaseActivity {
             }
         });
 
+        String useScore=getIntent().getStringExtra("useScore");
+         cash_money_id = (TextView) findViewById(R.id.cash_money_id);
+
+        cash_money_id.setText(useScore);
+
 
         uploadAvar();
     }
+
 
     @AfterViews
     void init() {
@@ -177,6 +207,7 @@ if(mainApp.chooseBankCardInfoJson!=null){
     bankCardInfoJsonC=mainApp.chooseBankCardInfoJson;
     change_money_pwd_id.setText(bankCardInfoJsonC.bankcardno);
 }
+        uploadAvar();
 
     }
 
@@ -216,8 +247,11 @@ boolean hadBindCard=false;
                 if (baseJson.data != null && baseJson.data.size() > 0) {//列表
 
                     hadBindCard=true;
-                    change_money_pwd_id.setText("请选择银行卡");
 
+                    MainApp mainApp=(MainApp) getApplicationContext();
+                    if(mainApp.chooseBankCardInfoJson==null) {
+                        change_money_pwd_id.setText("请选择银行卡");
+                    }
 
                 }else{
                     hadBindCard=false;

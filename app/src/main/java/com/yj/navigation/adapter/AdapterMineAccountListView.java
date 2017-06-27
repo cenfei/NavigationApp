@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -13,6 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.object.AccountDetailJson;
 import com.yj.navigation.util.ImageLoaderUtil;
+import com.yj.navigation.util.MyStringUtils;
 
 import java.util.List;
 
@@ -75,8 +75,10 @@ public class AdapterMineAccountListView extends BaseAdapter {
            if(position==0){
                convertView = mInflater.inflate(R.layout.myaccount_first_item, null);
 
-//                           viewholder.design_room_title = (TextView) convertView.findViewById(R.id.design_room_content);
+                           viewholder.account_open_time = (TextView) convertView.findViewById(R.id.account_open_time);
 
+               viewholder.account_open_score = (TextView) convertView.findViewById(R.id.account_open_score);
+               viewholder.account_open_content = (TextView) convertView.findViewById(R.id.account_open_content);
 
 
 
@@ -86,13 +88,24 @@ public class AdapterMineAccountListView extends BaseAdapter {
             }
             else if(position==mPersonal.size()-1){
                 convertView = mInflater.inflate(R.layout.myaccount_end_item, null);
-                convertView.setTag(viewholder);
+               viewholder.account_open_time = (TextView) convertView.findViewById(R.id.account_open_time);
+
+               viewholder.account_open_score = (TextView) convertView.findViewById(R.id.account_open_score);
+               viewholder.account_open_content = (TextView) convertView.findViewById(R.id.account_open_content);
+
+               convertView.setTag(viewholder);
             }
 
            else {
                convertView = mInflater.inflate(R.layout.myaccount_common_item, null);
+               viewholder.account_open_time = (TextView) convertView.findViewById(R.id.account_open_time);
+
+               viewholder.account_open_score = (TextView) convertView.findViewById(R.id.account_open_score);
+               viewholder.account_open_content = (TextView) convertView.findViewById(R.id.account_open_content);
+
                convertView.setTag(viewholder);
             }
+
 
 
 
@@ -109,6 +122,24 @@ public class AdapterMineAccountListView extends BaseAdapter {
             viewholder = (ViewHolder) convertView.getTag();
         }
 
+
+        String    monthDate = personalRanking.opeDt.substring(5, 10);
+        monthDate = monthDate.replace("-", "月") + "日";
+        viewholder.account_open_time.setText(monthDate);
+
+        if(personalRanking.opeType.equals("2")){
+            viewholder.account_open_score.setText("+ "+personalRanking.opeScore);
+        }else     if(personalRanking.opeType.equals("3")){
+            viewholder.account_open_score.setText("- "+personalRanking.opeScore);
+        }else{
+            viewholder.account_open_score.setText(""+personalRanking.opeScore);
+
+        }
+
+
+        viewholder.account_open_content.setText(MyStringUtils.getOpesTypeContent(personalRanking.bizType, null, null));
+
+
 //        viewholder.design_room_title.setText(personalRanking.name);
 //        imageLoader.displayImage(personalRanking.pic, viewholder.design_room_img, options);
 //        viewholder.design_room_designer.setText(personalRanking.designer);
@@ -122,11 +153,9 @@ public class AdapterMineAccountListView extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        TextView design_room_title;
-        TextView design_room_designer;
-        TextView design_look_num;
-        TextView design_like_num;
+        TextView account_open_time;
+        TextView account_open_score;
+        TextView account_open_content;
 
-        ImageView design_room_img;
     }
 }

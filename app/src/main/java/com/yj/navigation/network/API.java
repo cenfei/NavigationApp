@@ -66,6 +66,7 @@ public interface API {
     public String FORGET_UPDATE_URL = server + "/user/loginPwd/authVCode";
 
 
+    public String LOGINPWD_UPDATE_URL = server + "/user/loginPwd/update";
 
     /**
      * 忘记密码---第三步  重设密码

@@ -155,7 +155,7 @@ public class SafeQuestionActivity extends BaseActivity {
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
@@ -197,6 +197,11 @@ public class SafeQuestionActivity extends BaseActivity {
 
         fromChangeSafePwdChooseActivityBool = getIntent().getBooleanExtra("FromChangeSafePwdChooseActivity", false);
         if (fromChangeSafePwdChooseActivityBool) {
+
+            TextView left_title = (TextView) findViewById(R.id.left_title);
+            left_title.setVisibility(View.VISIBLE);
+            left_title.setText("个人中心");
+
             right_title.setVisibility(View.GONE);
         }
 
@@ -351,16 +356,16 @@ public class SafeQuestionActivity extends BaseActivity {
                 for (Question question : questionList) {
                     if (i == 1) {
                         question_one_rel_id.setVisibility(View.VISIBLE);
-                        question_one_id.setText(question.question);
+                        question_one_id.setText("问题一："+question.question);
                     } else if (i == 2) {
                         question_two_rel_id.setVisibility(View.VISIBLE);
-                        question_two_id.setText(question.question);
+                        question_two_id.setText("问题二："+question.question);
 
 
                     } else if (i == 3) {
 
                         question_three_rel_id.setVisibility(View.VISIBLE);
-                        question_three_id.setText(question.question);
+                        question_three_id.setText("问题三："+question.question);
 
 
                     }

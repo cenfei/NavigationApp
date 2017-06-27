@@ -21,14 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.component.SZ_PayPopwindow_Avar;
 import com.yj.navigation.component.SZ_PayPopwindow_Common;
-import com.yj.navigation.gridpasswordview.GridPasswordView;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BaseJson;
@@ -38,7 +36,6 @@ import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Base64Util;
 import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.FileUtil;
-import com.yj.navigation.util.FoxShuashuaPayPasswordInterface;
 import com.yj.navigation.util.ImageLoaderUtil;
 import com.yj.navigation.util.Util;
 
@@ -143,16 +140,16 @@ public class MineInfoActivity extends BaseActivity {
             @Override
             public void handleCallBackPayWindowFromCamara() {
 //需要新的页面 类似  改密码
+                Intent intent = new Intent(MineInfoActivity.this, SafeQuestionActivity_.class);
+                intent.putExtra("FromChangeSafePwdChooseActivity", true);
 
+                startActivity(intent);
 
             }
 
             @Override
             public void handleCallBackPayWindowFromLib() {
-                Intent intent = new Intent(MineInfoActivity.this, SafeQuestionActivity_.class);
-                intent.putExtra("FromChangeSafePwdChooseActivity", true);
 
-                startActivity(intent);
 
             }
         });

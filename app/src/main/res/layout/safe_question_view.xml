@@ -4,22 +4,43 @@
     android:layout_height="match_parent"
     android:background="@color/reg_background_gray">
 
-    <include layout="@layout/mine_frg_header" />
+    <include layout="@layout/index_title" />
+
+
+
 
     <LinearLayout
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="44dp"
 
         android:background="@color/white"
         android:orientation="vertical">
 
-        <View
+        <LinearLayout
+            android:id="@+id/line01"
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="30dp"
+            android:gravity="center_vertical|left"
+            android:background="@color/question_back"
+            android:orientation="horizontal">
 
-            android:background="@color/font_titie2" />
+
+            <TextView
+                android:id="@+id/question_one_id"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:text="问题一：您的出生地"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/question_one_rel_id"
@@ -30,14 +51,13 @@
             android:layout_marginLeft="15dp">
 
             <TextView
-                android:id="@+id/question_one_id"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="您的出生地"
+                android:text="答案"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
                 android:textSize="15sp" />
@@ -46,27 +66,43 @@
                 android:id="@+id/answer_one_id"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_alignParentRight="true"
+                android:layout_marginLeft="150dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_alignParentLeft="true"
                 android:background="#00ffffff"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|left"
                 android:hint="请输入"
-                android:maxLength="20"
+                android:maxLength="40"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/line_hot_all"
                 android:textColorHint="@color/font_titie2"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="15dp"
-                android:background="@color/font_titie2" />
+
 
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical|left"
+            android:background="@color/question_back"
+            android:orientation="horizontal">
 
+
+            <TextView
+                android:id="@+id/question_two_id"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:text="问题一：您的出生地"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/question_two_rel_id"
@@ -77,14 +113,13 @@
             android:layout_marginLeft="15dp">
 
             <TextView
-                android:id="@+id/question_two_id"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="您的最喜欢的人"
+                android:text="答案"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
                 android:textSize="15sp" />
@@ -94,27 +129,43 @@
 
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_alignParentRight="true"
+                android:layout_marginLeft="150dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_alignParentLeft="true"
                 android:background="#00ffffff"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|left"
                 android:hint="请输入"
-                android:maxLength="20"
+                android:maxLength="40"
                 android:textAlignment="center"
                 android:textColor="@color/font_titie2"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginLeft="15dp"
-android:layout_alignParentBottom="true"
-                android:background="@color/font_titie2" />
+
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical|left"
+            android:background="@color/question_back"
+            android:orientation="horizontal">
 
+
+            <TextView
+                android:id="@+id/question_three_id"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:text="问题一：您的出生地"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/question_three_rel_id"
@@ -125,14 +176,13 @@ android:layout_alignParentBottom="true"
             android:layout_marginLeft="15dp">
 
             <TextView
-                android:id="@+id/question_three_id"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="您的初中学校"
+                android:text="答案"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
                 android:textSize="15sp" />
@@ -142,13 +192,13 @@ android:layout_alignParentBottom="true"
 
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_alignParentRight="true"
+                android:layout_marginLeft="150dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_alignParentLeft="true"
                 android:background="#00ffffff"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|left"
                 android:hint="请输入"
-                android:maxLength="20"
+                android:maxLength="40"
                 android:textAlignment="center"
                 android:textColor="@color/font_titie2"
                 android:textColorHint="@color/font_titie2"
@@ -157,7 +207,8 @@ android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
 android:layout_alignParentBottom="true"
-                android:background="@color/font_titie2" />
+                android:layout_marginLeft="15dp"
+                android:background="@color/new_index_text_line_color" />
 
         </RelativeLayout>
 
@@ -173,9 +224,9 @@ android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/rounded_blackbutton2_wallet">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_apply_use">
 
         <TextView
 

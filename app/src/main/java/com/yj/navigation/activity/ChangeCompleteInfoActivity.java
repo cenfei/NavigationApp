@@ -156,7 +156,7 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
 
 
         if(configPref.userNickname()!=null){
-            nameView.setText(configPref.userNickname()+"");
+            nameView.setText(configPref.userNickname().get()+"");
 
         }
 

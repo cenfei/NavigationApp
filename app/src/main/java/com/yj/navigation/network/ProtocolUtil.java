@@ -280,6 +280,38 @@ public class ProtocolUtil {
     }
 
 
+    public static void loginpwdUpdateFunction(Context context,
+                                               Protocol.CallBack callBack,
+                                               String token,String nowpwd,String pwd
+
+
+    ) {
+        Map<String, Object> parmaMap = new HashMap<String, Object>();
+        parmaMap.put("token", token);
+        parmaMap.put("oldPassword", nowpwd);
+
+        parmaMap.put("newPassword", pwd);
+
+
+
+
+//公共参数
+        MainApp mainApp = (MainApp) context.getApplicationContext();
+        Map<String, String> mapCommon = mainApp.getAppInfo();
+        String appname = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+        Log.d("appname:", appname);
+        parmaMap.put("appName", mapCommon.get("appName"));
+
+        parmaMap.put("platform", mapCommon.get("platform"));
+        parmaMap.put("version", mapCommon.get("version"));
+
+        parmaMap.put("deviceNo", mapCommon.get("deviceNo"));
+
+
+        new Protocol(context, API.LOGINPWD_UPDATE_URL, parmaMap, callBack);
+    }
+
+
 
     public static void updateSafePwdFunction(Context context,
                                                Protocol.CallBack callBack,
@@ -693,7 +725,7 @@ public class ProtocolUtil {
         Map<String, Object> parmaMap = new HashMap<String, Object>();
         parmaMap.put("token", token);
 
-        parmaMap.put("id", id);
+        parmaMap.put("cardId", id);
 
 
 
@@ -804,7 +836,7 @@ public class ProtocolUtil {
         Map<String, Object> parmaMap = new HashMap<String, Object>();
         parmaMap.put("token", token);
 
-        parmaMap.put("id", id);
+        parmaMap.put("cardId", id);
 
         parmaMap.put("applyScore", applyScore);
 

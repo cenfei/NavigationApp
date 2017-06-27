@@ -28,6 +28,18 @@
             android:visibility="gone"
 
             android:src="@drawable/back" />
+        <ImageView
+            android:id="@+id/left_title_icon2"
+            android:layout_width="8dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:tint="@color/white"
+            android:visibility="gone"
+
+            android:src="@drawable/back" />
 
 
         <TextView
@@ -41,6 +53,9 @@
 android:textColor="@color/new_blue"
             android:textSize="15sp"
            />
+
+
+
 
     </LinearLayout>
 

@@ -56,7 +56,7 @@ import edu.swu.pulltorefreshswipemenulistview.library.util.RefreshTime;
 /**
  * Created by zhang on 2015/8/7.
  */
-@EActivity(R.layout.bank_list_view)
+@EActivity(R.layout.bankcard_list_view)
 public class MyBankCardListActivity extends BaseActivity implements IXListViewListener {
 
     @Pref
@@ -182,7 +182,6 @@ public class MyBankCardListActivity extends BaseActivity implements IXListViewLi
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
                 Log.d("onScrollStateChanged", "onScrollStateChanged");
-                getDataFromServer();
 
             }
 
@@ -232,7 +231,7 @@ public class MyBankCardListActivity extends BaseActivity implements IXListViewLi
         mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-                BankCardInfoJson item = (BankCardInfoJson) mAppList.get(position);
+                BankCardInfoJson item = (BankCardInfoJson) mAppList.get(position-1);
                 switch (index) {
 
                     case 0:
@@ -241,7 +240,7 @@ public class MyBankCardListActivity extends BaseActivity implements IXListViewLi
                         //解绑操作
 
                         //当前deviceId有问题
-                        positionIndex = position;
+                        positionIndex = position-1;
 
                         unBindDeviceFromServerForMsg(item.id);
 
@@ -282,6 +281,7 @@ public class MyBankCardListActivity extends BaseActivity implements IXListViewLi
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+
                 BankCardInfoJson bankCardInfoJson = mAppList.get(i - 1);
 
                 MainApp mainApp = (MainApp) getApplicationContext();
@@ -290,6 +290,7 @@ public class MyBankCardListActivity extends BaseActivity implements IXListViewLi
 
             }
         });
+
 
     }
 
@@ -510,9 +511,11 @@ public class MyBankCardListActivity extends BaseActivity implements IXListViewLi
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
                 Util.Toast(MyBankCardListActivity.this, "解绑成功");
-                mAppList.remove(positionIndex);
-                mAdapter.notifyDataSetChanged();
+                getDeviceListFromServerForMsg();
+//                mAppList.remove(positionIndex);
+//                mAdapter.notifyDataSetChanged();
                 //保存token
+
 //                configPref.userToken().put(baseJson.token);
 //                configPref.userMobile().put(mobile);
 //                Util.startActivity(LoginActivity.this, MineActivity_.class);

@@ -1,5 +1,6 @@
 package com.yj.navigation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -24,7 +25,6 @@ import com.yj.navigation.object.AccountListJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.MyStringUtils;
-import com.yj.navigation.util.Util;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -68,9 +68,11 @@ public class MyAccountActivity extends BaseActivity {
 
     @Click(R.id.logining_btn_rel_id)
     void onLoginingBtnRelId() {
+        Intent intent = new Intent(this, WithDrawActivity_.class);
+        intent.putExtra("useScore",baseJson.useScore);
+        startActivity(intent);
 
-
-         Util.startActivity(this, WithDrawActivity_.class);
+//         Util.startActivity(this, WithDrawActivity_.class);
 
 //        finish();
     }
@@ -95,7 +97,13 @@ public class MyAccountActivity extends BaseActivity {
        // main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
-        left_title_icon.setVisibility(View.VISIBLE);
+        left_title_icon.setVisibility(View.GONE);
+
+        ImageView left_title_icon2 = (ImageView) findViewById(R.id.left_title_icon2);
+        left_title_icon2.setVisibility(View.VISIBLE);
+
+
+
 
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
@@ -269,16 +277,16 @@ public class MyAccountActivity extends BaseActivity {
         if (resp != null && !resp.equals("")) {
 
 
-            AccountInFOJson baseJson = new Gson().fromJson(resp, AccountInFOJson.class);
+             baseJson = new Gson().fromJson(resp, AccountInFOJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                mine_integral.setText(((baseJson.totalScore==null||"".equals(baseJson.totalScore))?"0":baseJson.totalScore)+"");
+                mine_integral.setText(((baseJson.totalScore==null||"".equals(baseJson.totalScore))?"¥0.00":"¥"+MyStringUtils.getDoubleDecimal(Double.valueOf(baseJson.totalScore),"0.00"))+"");
 
                 getDataFromServer();
             }
 
         }
     }
-
+    AccountInFOJson baseJson=null;
 
     public void QueryAccountDetailListFromServerForMsg() {
         foxProgressbarInterface = new FoxProgressbarInterface();

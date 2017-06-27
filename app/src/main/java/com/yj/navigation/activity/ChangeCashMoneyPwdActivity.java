@@ -27,7 +27,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
  * Created by zhang on 2015/8/7.
  */
 @EActivity(R.layout.change_money_pwd_view)
-public class ChangeMoneyPwdActivity extends BaseActivity {
+public class ChangeCashMoneyPwdActivity extends BaseActivity {
 
     @Pref
     ConfigPref_ configPref;
@@ -136,7 +136,7 @@ public class ChangeMoneyPwdActivity extends BaseActivity {
 
     @Override
     protected void initActivityName() {
-        activityName = ChangeMoneyPwdActivity.class.getName();
+        activityName = ChangeCashMoneyPwdActivity.class.getName();
     }
 
     @Override
@@ -161,7 +161,7 @@ public class ChangeMoneyPwdActivity extends BaseActivity {
         foxProgressbarInterface.startProgressBar(this, "加载中...");
 
 
-        ProtocolUtil.loginpwdUpdateFunction(this, new LoginInfoHandler(), configPref.userToken().get(), nowpwd, pwd);
+        ProtocolUtil.forgetNowUpdateFunction(this, new LoginInfoHandler(), configPref.userToken().get(), nowpwd, pwd);
 
 
     }
@@ -182,7 +182,7 @@ public class ChangeMoneyPwdActivity extends BaseActivity {
 
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(ChangeMoneyPwdActivity.this, "登录密码修改成功");
+                Util.Toast(ChangeCashMoneyPwdActivity.this, "登录密码修改成功");
 
 //                Util.startActivity(ChangeMoneyPwdActivity.this, IndexActivity_.class);
                 finish();

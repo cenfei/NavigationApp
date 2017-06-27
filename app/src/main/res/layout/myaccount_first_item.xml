@@ -15,20 +15,23 @@
     android:orientation="horizontal"
     android:layout_height="wrap_content">
     <RelativeLayout
-        android:layout_width="30dp"
-        android:layout_marginLeft="15dp"
+        android:layout_width="65dp"
 
         android:layout_height="wrap_content"
-        android:paddingLeft="5dp">
+        >
 
         <TextView
-            android:layout_width="25dp"
+            android:id="@+id/account_open_time"
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:text="03月20日"
-
+            android:layout_marginTop="15dp"
             android:textAlignment="center"
-            android:textColor="@color/white"
+
+            android:textColor="@color/work_detail_text"
             android:textSize="10sp" />
 
 
@@ -68,7 +71,7 @@
         android:layout_marginBottom="35dp"
 
         android:layout_alignParentLeft="true"
-        android:background="@color/work_detail_line_color" />
+        android:background="@color/new_blue" />
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -95,15 +98,18 @@ android:layout_marginBottom="30dp"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/account_open_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+ 30.0"
 
         android:textAlignment="center"
-        android:textColor="@color/mycount_font_list_money"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/account_open_content"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="您提交了一个违章工单"
