@@ -1,7 +1,10 @@
 package com.yj.navigation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,10 +25,12 @@ import com.yj.navigation.object.JobJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.Util;
+import com.yj.navigation.wheelviewdialog.DialogWheelArrayInfo;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.List;
@@ -38,12 +43,32 @@ public class UpdateJobInfoActivity extends BaseActivity {
 
     @Pref
     ConfigPref_ configPref;
-
+    @ViewById(R.id.password_info_id)
+    TextView password_info_id;
 
     @Click(R.id.left_title_line)
     void onLeftTitleLine() {
 
         finish();
+
+    }
+    String chooseDistrict="1";
+String[] districtsArray={"1","2","3"};
+    @Click(R.id.password_info_id)
+    void onAreaLineId() {
+
+        final DialogWheelArrayInfo wheelDialog = new DialogWheelArrayInfo(UpdateJobInfoActivity.this, R.style.mypopwindow_anim_style, "所在地", chooseDistrict, districtsArray,
+                new DialogWheelArrayInfo.IWheelCallBack() {
+                    @Override
+                    public void getWheelCallBack(String chooseValue) {
+                        chooseDistrict = chooseValue;
+//
+                        password_info_id.setText(chooseValue);
+                        Log.e("chooseValue", chooseValue);
+//                        Util.Toast(DesignPersonalActivity.this, "" + chooseValue);
+                    }
+                });
+        wheelDialog.showDialog();
 
     }
 
@@ -111,17 +136,19 @@ public class UpdateJobInfoActivity extends BaseActivity {
         boolFromVideoSecondFragment = getIntent().getBooleanExtra("FromVideoSecondFragment", false);
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-//        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
-
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("我的上传视频");
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
         title.setText("完善信息");
-        title.setTextColor(getResources().getColor(R.color.white));
+//        title.setTextColor(getResources().getColor(R.color.white));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
 
@@ -140,7 +167,7 @@ public class UpdateJobInfoActivity extends BaseActivity {
         TextView time_comment_id = (TextView) findViewById(R.id.time_comment_id);
 
         cardno_info_id = (EditText) findViewById(R.id.cardno_info_id);
-        password_info_id = (EditText) findViewById(R.id.password_info_id);
+//        password_info_id = (EditText) findViewById(R.id.password_info_id);
 
         MainApp mainApp = (MainApp) getApplication();
 
@@ -168,10 +195,20 @@ public class UpdateJobInfoActivity extends BaseActivity {
 //        ImageAdapter imageAdapter=new ImageAdapter(this);
 //        imageAdapter.createReflectedImages();
         galleryView.setAdapter(galleryImageAdapter);
+
+        galleryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(UpdateJobInfoActivity.this, ShowVideoActivity.class);
+                intent.putExtra("FromVideoSecondFragment", true);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private JobJson jobJson = null;
-    private EditText cardno_info_id, password_info_id;
+    private EditText cardno_info_id;
 
     @AfterViews
     void init() {

@@ -1,9 +1,6 @@
 package com.yj.navigation.gallery;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +16,7 @@ import com.yj.navigation.base.MainApp;
 import com.yj.navigation.object.JobImageJson;
 import com.yj.navigation.util.ImageLoaderUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GalleryImageAdapter extends BaseAdapter
 {
@@ -84,6 +78,18 @@ this.img_count_id=img_count_id;
 		String remoteBaseUrl = mainApp.remoteBaseUrl;
 
 		imageLoader.displayImage(remoteBaseUrl+jobImageJsonList.get(position).bigPicUrl,imageView,options);
+
+
+//		imageView.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				Intent intent = new Intent(mContext, ShowVideoActivity.class);
+//				intent.putExtra("FromVideoSecondFragment", true);
+//				mContext.startActivity(intent);
+//
+//			}
+//		});
+
 
 		return imageView;		// 显示倒影图片（当前获取焦点）
 	}

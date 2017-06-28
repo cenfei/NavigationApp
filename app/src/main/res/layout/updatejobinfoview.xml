@@ -9,17 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="7"
         android:background="@color/gallery_b"
         android:orientation="vertical"
 
         >
+        <include layout="@layout/index_title" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/index_title" />
 
 
             <com.yj.navigation.gallery.GalleryView
@@ -71,7 +71,7 @@ android:layout_gravity="center_horizontal"
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="6"
         android:orientation="vertical">
 
 
@@ -216,7 +216,7 @@ android:paddingTop="15dp"
                     android:textSize="15sp" />
 
 
-                <EditText
+                <TextView
                     android:id="@+id/password_info_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -227,8 +227,8 @@ android:paddingTop="15dp"
                     android:layout_marginRight="15dp"
                     android:background="#00ffffff"
                     android:gravity="center_vertical|right"
-                    android:hint="违章内容"
                     android:maxLength="200"
+                    android:text="请选择违章内容"
                     android:textAlignment="center"
                     android:textColor="@color/line_hot_all"
                     android:textColorHint="@color/font_titie2"
@@ -296,10 +296,10 @@ android:paddingTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/rounded_blackbutton2_wallet">
+            android:background="@drawable/rounded_apply_use">
 
             <TextView
 
@@ -311,7 +311,7 @@ android:paddingTop="15dp"
                 android:text="@string/register_submit_comment"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
 
         </RelativeLayout>

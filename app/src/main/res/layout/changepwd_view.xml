@@ -10,7 +10,7 @@
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="59dp"
 
         android:background="@color/white"
         android:orientation="vertical">
@@ -36,7 +36,7 @@
                 android:text="密码"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
-                android:textSize="17sp" />
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/password_info_id"
@@ -51,7 +51,7 @@
                 android:maxLength="20"
                 android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -80,7 +80,7 @@
                 android:text="重复密码"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
-                android:textSize="17sp" />
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/again_password_info_id"
@@ -96,7 +96,7 @@
                 android:maxLength="20"
                 android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -121,9 +121,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/rounded_blackbutton2_wallet">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_apply_use">
 
         <TextView
 
@@ -135,7 +135,7 @@
             android:text="@string/register_submit2_comment"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
 
     </RelativeLayout>

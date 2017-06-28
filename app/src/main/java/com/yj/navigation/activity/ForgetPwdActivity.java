@@ -116,6 +116,7 @@ public class ForgetPwdActivity extends BaseActivity {
             //要做的事情
             if (process < 60) {
 
+                getCodeId.setBackgroundColor(getResources().getColor(R.color.work_detail_btn));
                 getCodeId.setText((60 - process) + "s");
                 getCodeId.setClickable(false);
                 writehandler.postDelayed(this, 1000);
@@ -123,6 +124,7 @@ public class ForgetPwdActivity extends BaseActivity {
             } else {
                 getCodeId.setText("重新获取");
                 getCodeId.setClickable(true);
+                getCodeId.setBackgroundColor(getResources().getColor(R.color.work_detail_btn_use));
 
                 writehandler.removeCallbacks(runnable);
             }
@@ -152,13 +154,15 @@ public class ForgetPwdActivity extends BaseActivity {
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
-
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("返回");
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
         title.setText("忘记密码");

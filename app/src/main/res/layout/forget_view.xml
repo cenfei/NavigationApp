@@ -4,21 +4,17 @@
     android:layout_height="match_parent"
     android:background="@color/reg_background_gray">
 
-    <include layout="@layout/mine_frg_header" />
+    <include layout="@layout/index_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="59dp"
 
         android:background="@color/white"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,9 +25,9 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left|center_vertical"
                 android:text="手机"
                 android:textAlignment="center"
                 android:textColor="@color/line_hot_all"
@@ -41,14 +37,14 @@
                 android:id="@+id/mobile_info_id"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="35dp"
                 android:background="#00ffffff"
                 android:gravity="center_vertical"
                 android:maxLength="11"
                 android:phoneNumber="true"
 
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -60,7 +56,7 @@
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -76,9 +72,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="left|center_vertical"
                     android:text="验证码"
                     android:textAlignment="center"
                     android:textColor="@color/line_hot_all"
@@ -89,25 +85,25 @@
 
                     android:layout_width="150dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="35dp"
                     android:background="#00ffffff"
                     android:gravity="center_vertical"
                     android:maxLength="8"
                     android:phoneNumber="true"
                     android:textAlignment="center"
-                    android:textColor="@color/font_titie2"
+                    android:textColor="@color/black"
                     android:textColorHint="@color/font_titie2"
                     android:textSize="15sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/get_code_id"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/rounded_gray_img_white2"
+                android:background="@color/work_detail_btn_use"
 
                 android:gravity="center"
                 android:paddingLeft="8dp"
@@ -149,11 +145,7 @@ android:visibility="gone"
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
     </LinearLayout>
 
     <RelativeLayout
@@ -163,9 +155,9 @@ android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/rounded_blackbutton2_wallet">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_apply_use">
 
         <TextView
 
@@ -177,7 +169,7 @@ android:visibility="gone"
             android:text="@string/register_submit2_comment"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
 
     </RelativeLayout>

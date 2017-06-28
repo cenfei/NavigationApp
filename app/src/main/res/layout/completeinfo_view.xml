@@ -10,7 +10,7 @@
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="59dp"
 
         android:background="@color/white"
         android:orientation="vertical">
@@ -51,7 +51,7 @@
                 android:maxLength="20"
                 android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -96,7 +96,7 @@
                 android:maxLength="20"
                 android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -159,7 +159,7 @@ android:layout_below="@+id/line1"
                 android:hint="请输入姓名"
                 android:maxLength="20"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -203,7 +203,7 @@ android:layout_below="@+id/line1"
                 android:hint="非必填"
                 android:maxLength="20"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -246,7 +246,7 @@ android:visibility="gone"
                 android:visibility="gone"
                 android:maxLength="20"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -316,9 +316,9 @@ android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/rounded_blackbutton_wallet">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_apply_use">
 
         <TextView
 

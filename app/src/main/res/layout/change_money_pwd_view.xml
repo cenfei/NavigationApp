@@ -50,7 +50,7 @@
                 android:maxLength="20"
                 android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/line_hot_all"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -94,7 +94,7 @@
                 android:maxLength="20"
                 android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/line_hot_all"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -138,7 +138,7 @@
                 android:maxLength="20"
                 android:password="true"
                 android:textAlignment="center"
-                android:textColor="@color/line_hot_all"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 

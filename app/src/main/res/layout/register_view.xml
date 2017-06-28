@@ -4,20 +4,16 @@
     android:layout_height="match_parent"
     android:background="@color/reg_background_gray">
 
-    <include layout="@layout/mine_frg_header" />
+    <include layout="@layout/index_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="59dp"
 
         android:background="@color/white"
         android:orientation="vertical">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
 
-            android:background="@color/font_titie2" />
         <LinearLayout
             android:layout_width="match_parent"
 
@@ -27,7 +23,7 @@ android:layout_marginLeft="15dp"
             android:orientation="horizontal"
             >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="手机"
@@ -37,12 +33,12 @@ android:layout_marginLeft="15dp"
             <EditText
                 android:id="@+id/mobile_info_id"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="35dp"
                 android:gravity="center_vertical"
                 android:layout_height="40dp"
                 android:background="#00ffffff"
                 android:maxLength="11"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
 
                 android:phoneNumber="true"
                 android:textAlignment="center"
@@ -58,7 +54,7 @@ android:layout_marginLeft="15dp"
             android:layout_height="1px"
             android:layout_marginLeft="15dp"
 
-            android:background="@color/font_titie2" />
+            android:background="@color/new_index_text_line_color" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -73,7 +69,7 @@ android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
                 >
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="验证码"
@@ -84,27 +80,27 @@ android:layout_marginLeft="15dp"
                 android:id="@+id/code_msg_id"
 
                 android:layout_width="150dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="35dp"
                 android:layout_height="40dp"
               android:gravity="center_vertical"
                 android:background="#00ffffff"
                 android:maxLength="8"
                 android:phoneNumber="true"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
             </LinearLayout>
             <TextView
                 android:id="@+id/get_code_id"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/rounded_gray_img_white"
+                android:background="@color/work_detail_btn_use"
                 android:gravity="center"
                 android:text="发送验证码"
                 android:textAlignment="center"
@@ -128,9 +124,9 @@ android:layout_marginLeft="15dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/rounded_blackbutton_wallet">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_apply_use">
 
         <TextView
 
@@ -142,7 +138,7 @@ android:layout_marginLeft="15dp"
             android:text="@string/register_comment"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
 
 
     </RelativeLayout>

@@ -159,7 +159,7 @@ android:visibility="gone"
 
                 android:maxLength="20"
                 android:textAlignment="center"
-                android:textColor="@color/line_hot_all"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -204,7 +204,7 @@ android:visibility="gone"
                 android:hint="请输入车牌号"
                 android:maxLength="20"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp" />
 
@@ -247,7 +247,7 @@ android:visibility="gone"
                 android:hint="请输入所在地区"
                 android:maxLength="20"
                 android:textAlignment="center"
-                android:textColor="@color/font_titie2"
+                android:textColor="@color/black"
                 android:textColorHint="@color/font_titie2"
                 android:textSize="15sp"
                 android:visibility="gone" />

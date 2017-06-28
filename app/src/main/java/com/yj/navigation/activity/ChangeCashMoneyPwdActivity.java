@@ -58,7 +58,7 @@ public class ChangeCashMoneyPwdActivity extends BaseActivity {
         }
         if (pwd == null || pwd.equals("")) {
 
-            Util.Toast(this, "请输入密码");
+            Util.Toast(this, "请输入新密码");
 
             return;
         }
@@ -73,7 +73,7 @@ public class ChangeCashMoneyPwdActivity extends BaseActivity {
             Util.Toast(this, "请保持两次密码一致");
             return;
         }
-        forgetResetPwd(nowPwd, pwd);
+        resetSafePwd(pwd,nowPwd);
         // Util.startActivity(this, IndexActivity_.class);
 
 //        finish();
@@ -107,7 +107,7 @@ public class ChangeCashMoneyPwdActivity extends BaseActivity {
         left_title.setText("个人中心");
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
-        title.setText("修改密码");
+        title.setText("提现密码");
         title.setTextColor(getResources().getColor(R.color.line_hot_all));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
@@ -156,38 +156,37 @@ public class ChangeCashMoneyPwdActivity extends BaseActivity {
     //**********获取筛选的后的list***************/
     FoxProgressbarInterface foxProgressbarInterface;
 
-    public void forgetResetPwd(String nowpwd, String pwd) {
+    //修改安全密码
+    public void resetSafePwd(String pwdOld, String pwdsafe) {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(this, "加载中...");
 
-
-        ProtocolUtil.forgetNowUpdateFunction(this, new LoginInfoHandler(), configPref.userToken().get(), nowpwd, pwd);
+        ProtocolUtil.resetSafePwdWithOldpwdFunction(this, new ResetSafePwdHandler(), configPref.userToken().get(), pwdOld, pwdsafe);
 
 
     }
 
 
-    private class LoginInfoHandler extends RowMessageHandler {
+    private class ResetSafePwdHandler extends RowMessageHandler {
         @Override
         protected void handleResp(String resp) {
-            loginInfoHandler(resp);
+            resetSafePwdHandler(resp);
         }
     }
 
 
-    public void loginInfoHandler(String resp) {
+    public void resetSafePwdHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
-        if (resp != null && !resp.equals("")) {
 
+        if (resp != null && !resp.equals("")) {
 
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(ChangeCashMoneyPwdActivity.this, "登录密码修改成功");
 
-//                Util.startActivity(ChangeMoneyPwdActivity.this, IndexActivity_.class);
+
+                Util.Toast(this, "安全密码设置成功");
                 finish();
             }
-
         }
     }
 

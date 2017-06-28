@@ -15,7 +15,6 @@ import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
-import com.yj.navigation.object.BaseJson;
 import com.yj.navigation.object.RegisterJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Constant;
@@ -107,12 +106,15 @@ public class RegisterActivity extends BaseActivity {
             // TODO Auto-generated method stub
             //要做的事情
             if (process < 60) {
+                getCodeId.setBackgroundColor(getResources().getColor(R.color.work_detail_btn));
 
                 getCodeId.setText((60 - process) + "s");
                 getCodeId.setClickable(false);
                 writehandler.postDelayed(this, 1000);
                 process = process + 1;
             } else {
+                getCodeId.setBackgroundColor(getResources().getColor(R.color.work_detail_btn_use));
+
                 getCodeId.setText("重新获取");
                 getCodeId.setClickable(true);
 
@@ -144,13 +146,15 @@ public class RegisterActivity extends BaseActivity {
     public void initUi() {
 
         RelativeLayout main_title_id = (RelativeLayout) findViewById(R.id.main_title_id);
-        main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
+        main_title_id.setBackgroundColor(getResources().getColor(R.color.white_alpha80));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
         left_title_icon.setVisibility(View.VISIBLE);
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
-
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("返回");
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
         title.setText("注册");

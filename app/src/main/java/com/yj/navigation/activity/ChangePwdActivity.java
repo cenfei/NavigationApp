@@ -97,7 +97,9 @@ public class ChangePwdActivity extends BaseActivity {
         left_title_icon.setVisibility(View.VISIBLE);
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
-
+        TextView left_title = (TextView) findViewById(R.id.left_title);
+        left_title.setVisibility(View.VISIBLE);
+        left_title.setText("返回");
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
         title.setText("修改密码");

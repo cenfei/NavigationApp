@@ -15,6 +15,30 @@
         android:gravity="left|center_vertical">
 
 
+        <LinearLayout
+            android:id="@+id/left_title_icon3_line"
+
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/rounded_black_video_wallet"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/left_title_icon3"
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:src="@drawable/back"
+
+                android:tint="@color/white" />
+
+
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/left_title_icon"
@@ -24,10 +48,11 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:gravity="center"
+            android:src="@drawable/back"
             android:tint="@color/new_blue"
-            android:visibility="gone"
 
-            android:src="@drawable/back" />
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/left_title_icon2"
             android:layout_width="8dp"
@@ -36,10 +61,10 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:gravity="center"
+            android:src="@drawable/back"
             android:tint="@color/white"
-            android:visibility="gone"
 
-            android:src="@drawable/back" />
+            android:visibility="gone" />
 
 
         <TextView
@@ -50,11 +75,8 @@
             android:layout_marginLeft="5dp"
             android:gravity="center"
 
-android:textColor="@color/new_blue"
-            android:textSize="15sp"
-           />
-
-
+            android:textColor="@color/new_blue"
+            android:textSize="15sp" />
 
 
     </LinearLayout>
@@ -76,10 +98,10 @@ android:textColor="@color/new_blue"
         android:layout_centerVertical="true"
         android:gravity="center"
         android:singleLine="true"
-        android:visibility="gone"
-
         android:textColor="@color/black"
-        android:textSize="17sp" />
+
+        android:textSize="15sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/right_title_line"
@@ -95,14 +117,13 @@ android:textColor="@color/new_blue"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
-
-            android:text="筛选"
             android:layout_marginRight="15dp"
-android:visibility="gone"
+
+            android:gravity="center"
+            android:text="筛选"
             android:textColor="@color/line_hot_all"
             android:textSize="@dimen/dim_font_input"
-           />
+            android:visibility="gone" />
 
 
         <ImageView

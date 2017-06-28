@@ -194,15 +194,18 @@ public class SafeQuestionActivity extends BaseActivity {
         answer_one_id = (EditText) findViewById(R.id.answer_one_id);
         answer_two_id = (EditText) findViewById(R.id.answer_two_id);
         answer_three_id = (EditText) findViewById(R.id.answer_three_id);
+        TextView left_title = (TextView) findViewById(R.id.left_title);
 
         fromChangeSafePwdChooseActivityBool = getIntent().getBooleanExtra("FromChangeSafePwdChooseActivity", false);
         if (fromChangeSafePwdChooseActivityBool) {
 
-            TextView left_title = (TextView) findViewById(R.id.left_title);
             left_title.setVisibility(View.VISIBLE);
             left_title.setText("个人中心");
 
             right_title.setVisibility(View.GONE);
+        }else{
+            left_title.setVisibility(View.VISIBLE);
+            left_title.setText("返回");
         }
 
         getQuestionListServerForMsg();

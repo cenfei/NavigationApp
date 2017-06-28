@@ -112,9 +112,21 @@ public class ShowVideoActivity extends Activity {
         //main_title_id.setBackgroundColor(getResources().getColor(R.color.white));
 
         ImageView left_title_icon = (ImageView) findViewById(R.id.left_title_icon);
-        left_title_icon.setVisibility(View.VISIBLE);
+        left_title_icon.setVisibility(View.GONE);
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
+
+        LinearLayout left_title_icon3_line = (LinearLayout) findViewById(R.id.left_title_icon3_line);
+        left_title_icon3_line.setVisibility(View.VISIBLE);
+        left_title_icon3_line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
+
+
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
