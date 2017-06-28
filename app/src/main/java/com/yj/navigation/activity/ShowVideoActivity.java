@@ -209,6 +209,7 @@ public class ShowVideoActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        tryRecycleAnimationDrawable(animationDrawable);
         System.gc();
     }
 
@@ -221,7 +222,19 @@ public class ShowVideoActivity extends Activity {
         super.onResume();
     }
 
-
+    private static void tryRecycleAnimationDrawable(AnimationDrawable animationDrawable) {
+        if (animationDrawable != null) {
+            animationDrawable.stop();
+            for (int i = 0; i < animationDrawable.getNumberOfFrames(); i++) {
+                Drawable frame = animationDrawable.getFrame(i);
+                if (frame instanceof BitmapDrawable) {
+                    ((BitmapDrawable) frame).getBitmap().recycle();
+                }
+                frame.setCallback(null);
+            }
+            animationDrawable.setCallback(null);
+        }
+    }
 
     public void startAnimationHandler() {
 
@@ -258,6 +271,9 @@ public class ShowVideoActivity extends Activity {
             bitmap.recycle();
             bitmap = null;
         }
+
+
+
         return bmp;// Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
     }
     String remoteBaseUrl;
@@ -378,7 +394,6 @@ Bitmap smallBitmap=getBitmap(bitmap,width,height);
                     Log.d("run:", "run:" + i++);
 
 //                    bitmap.recycle();
-
 
                 }
                 handler.sendEmptyMessage(1);
