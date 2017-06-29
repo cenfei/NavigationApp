@@ -16,7 +16,7 @@
 
 
         <LinearLayout
-            android:id="@+id/left_title_icon3_line"
+            android:id="@+id/left_title_icon_line"
 
             android:layout_width="40dp"
             android:layout_height="40dp"

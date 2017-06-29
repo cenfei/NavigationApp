@@ -689,54 +689,38 @@ public class Caller {
     public static String dGet(String ADD_URL, Map<String, String> params,
                               Map<String, Integer> param) {
         StringBuffer sb = null;
+        URL getUrl = null;
         try {
-            // 创建连接
-            URL url = new URL(ADD_URL);
-            HttpURLConnection connection = (HttpURLConnection) url
-                    .openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.setRequestMethod("GET");
-            connection.setUseCaches(false);
-            connection.setInstanceFollowRedirects(true);
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.connect();
-            // POST请求
-            DataOutputStream out = new DataOutputStream(
-                    connection.getOutputStream());
-            ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-            if (params != null) {
-                Set<String> keys = params.keySet();
-                for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
-                    String key = i.next();
-                    pairs.add(new BasicNameValuePair(key, params.get(key)));
-                }
-            }
+            getUrl = new URL(ADD_URL);
 
-            out.writeBytes(pairs.toString());
-            out.flush();
-            out.close();
-            // 读取响应
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    connection.getInputStream()));
-            String lines;
-            sb = new StringBuffer("");
-            while ((lines = reader.readLine()) != null) {
-                lines = new String(lines.getBytes(), "utf-8");
-                sb.append(lines);
-            }
-            System.out.println(sb);
-            reader.close();
-            // 断开连接
-            connection.disconnect();
+        // 根据拼凑的URL，打开连接，URL.openConnection函数会根据 URL的类型，
+        // 返回不同的URLConnection子类的对象，这里URL是一个http，因此实际返回的是HttpURLConnection
+        HttpURLConnection connection = (HttpURLConnection) getUrl
+                .openConnection();
+        // 进行连接，但是实际上get request要在下一句的 connection.getInputStream()函数中才会真正发到
+        // 服务器
+        connection.connect();
+        // 取得输入流，并使用Reader读取
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                connection.getInputStream()));
+        System.out.println(" ============================= ");
+        System.out.println(" Contents of get request ");
+        System.out.println(" ============================= ");
+        String lines;
+            sb=new StringBuffer();
+        while ((lines = reader.readLine()) != null) {
+//            System.out.println(lines);
+            sb.append(lines);
+        }
+        reader.close();
+        // 断开连接
+        connection.disconnect();
+//        System.out.println(" ============================= ");
+//        System.out.println(" Contents of get request ends ");
+//        System.out.println(" ============================= ");
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return sb.toString();

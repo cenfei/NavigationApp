@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxToastInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BankCardInfoJson;
@@ -84,7 +85,7 @@ public class WithDrawActivity extends BaseActivity {
 
         if (name_info_id_V == null || name_info_id_V.equals("")) {
 
-            Util.Toast(WithDrawActivity.this, "请输入金额");
+            Util.Toast(WithDrawActivity.this, "请输入金额",null);
             return;
         }else{
             Integer moneynum=Integer.valueOf(name_info_id_V);
@@ -92,11 +93,11 @@ public class WithDrawActivity extends BaseActivity {
 
 
             if(havemoney==0){
-                Util.Toast(WithDrawActivity.this, "积分为0,无法提现");
+                Util.Toast(WithDrawActivity.this, "积分为0,无法提现",null);
                 return;
             }
             if(moneynum==0||moneynum>havemoney){
-                Util.Toast(WithDrawActivity.this, "提现金额不正确");
+                Util.Toast(WithDrawActivity.this, "提现金额不正确",null);
                 return;
             }
 
@@ -110,11 +111,11 @@ public class WithDrawActivity extends BaseActivity {
 
         if (change_money_pwd_id_v == null || change_money_pwd_id_v.equals("")) {
 
-            Util.Toast(WithDrawActivity.this, "请输入卡号");
+            Util.Toast(WithDrawActivity.this, "请输入卡号",null);
             return;
         }else if(!BankCardCheck.luhmCheck(change_money_pwd_id_v).equals("true")){
 
-            Util.Toast(WithDrawActivity.this, "银行卡不符合规则");
+            Util.Toast(WithDrawActivity.this, "银行卡不符合规则",null);
             return;
 
 
@@ -289,10 +290,15 @@ boolean hadBindCard=false;
         if (resp != null && !resp.equals("")) {
 
 
-            Util.Toast(WithDrawActivity.this, "提现成功");
+            Util.Toast(WithDrawActivity.this, "提现成功", new FoxToastInterface.FoxToastCallback() {
+                @Override
+                public void toastCloseCallbak() {
+                    finish();
+                }
+            });
 
 
-            finish();
+
 
 //            BankCardListJson baseJson = new Gson().fromJson(resp, BankCardListJson.class);
 //            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {

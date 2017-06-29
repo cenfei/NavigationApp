@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxToastInterface;
 import com.yj.navigation.gallery.GalleryImageAdapter;
 import com.yj.navigation.gallery.GalleryView;
 import com.yj.navigation.network.ProtocolUtil;
@@ -22,6 +23,8 @@ import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BaseJson;
 import com.yj.navigation.object.JobImageJson;
 import com.yj.navigation.object.JobJson;
+import com.yj.navigation.object.ViolatInfoJson;
+import com.yj.navigation.object.ViolatListJson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.Util;
@@ -33,7 +36,9 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhang on 2015/8/7.
@@ -52,8 +57,10 @@ public class UpdateJobInfoActivity extends BaseActivity {
         finish();
 
     }
-    String chooseDistrict="1";
-String[] districtsArray={"1","2","3"};
+
+    String chooseDistrict = "";
+    String[] districtsArray = null;
+
     @Click(R.id.password_info_id)
     void onAreaLineId() {
 
@@ -84,20 +91,20 @@ String[] districtsArray={"1","2","3"};
         String content = password_info_id.getText().toString();
         if (sn == null || sn.equals("")) {
 
-            Util.Toast(this, "序列号为空");
+            Util.Toast(this, "序列号为空",null);
 
             return;
         }
 
         if (cardNo == null || cardNo.equals("")) {
 
-            Util.Toast(this, "请输入车牌号");
+            Util.Toast(this, "请输入车牌号",null);
 
             return;
         }
-        if (content == null || content.equals("")) {
+        if (content == null || content.equals("")||content.contains("选择")) {
 
-            Util.Toast(this, "请输入违章内容");
+            Util.Toast(this, "请输入违章内容",null);
 
             return;
         }
@@ -109,7 +116,7 @@ String[] districtsArray={"1","2","3"};
         }
 
 
-        updateJobInfoServerForMsg(sn, cardNo, content, sb.toString());
+        updateJobInfoServerForMsg(sn, cardNo, content, sb.toString(),vioMap.get(chooseDistrict).val);
 
 
 //        Util.startActivity(this, IndexActivity_.class);
@@ -205,6 +212,7 @@ String[] districtsArray={"1","2","3"};
                 finish();
             }
         });
+        updateVoltypeArray();
     }
 
     private JobJson jobJson = null;
@@ -238,15 +246,15 @@ String[] districtsArray={"1","2","3"};
     //**********获取筛选的后的list***************/
     FoxProgressbarInterface foxProgressbarInterface;
 
-    public void updateJobInfoServerForMsg(String sn, String cardno, String remarkcontent, String piclist) {
+    public void updateJobInfoServerForMsg(String sn, String cardno, String remarkcontent, String piclist,String viotype) {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(this, "加载中...");
 
-        if (boolFromVideoSecondFragment) {
-            ProtocolUtil.updateJobInfoFunction(this, new UpdateJobInfoHandler(), configPref.userToken().get(), sn, cardno, remarkcontent, null, piclist);
+        if (!boolFromVideoSecondFragment) {
+            ProtocolUtil.updateJobInfoFunction(this, new UpdateJobInfoHandler(), configPref.userToken().get(), sn, cardno, remarkcontent, viotype, piclist);
 
         } else {
-            ProtocolUtil.reportJobInfoFunction(this, new UpdateJobInfoHandler(), configPref.userToken().get(), sn, cardno, remarkcontent, null, piclist);
+            ProtocolUtil.reportJobInfoFunction(this, new UpdateJobInfoHandler(), configPref.userToken().get(), sn, cardno, remarkcontent, viotype, piclist);
         }
 
     }
@@ -268,16 +276,75 @@ String[] districtsArray={"1","2","3"};
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
 
-                Util.Toast(this, "信息完善成功");
+                Util.Toast(this, "信息完善成功", new FoxToastInterface.FoxToastCallback() {
+                    @Override
+                    public void toastCloseCallbak() {
+                        finish();
+                    }
+                });
 
 //                Util.startActivity(CompleteInfoActivity.this, IndexActivity_.class);
-                finish();
+
+            }else{
+                Util.Toast(this, ""+baseJson.retMsg,null);
             }
 
         }
     }
 
+    //**********获取筛选的后的list***************/
 
+    public void updateVoltypeArray() {
+//        foxProgressbarInterface = new FoxProgressbarInterface();
+//        foxProgressbarInterface.startProgressBar(this, "加载中...");
+
+        ProtocolUtil.getViolatetypeFunction(this, new UpdateVolHandler(), configPref.userToken().get());
+
+
+    }
+
+
+    private class UpdateVolHandler extends RowMessageHandler {
+        @Override
+        protected void handleResp(String resp) {
+            updateVolHandler(resp);
+        }
+    }
+
+    List<ViolatInfoJson> violatInfoJsonList = null;
+
+    Map<String,ViolatInfoJson > vioMap=new HashMap<String,ViolatInfoJson>();
+
+    public void updateVolHandler(String resp) {
+//        foxProgressbarInterface.stopProgressBar();
+        if (resp != null && !resp.equals("")) {
+
+
+            ViolatListJson baseJson = new Gson().fromJson(resp, ViolatListJson.class);
+            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
+
+                violatInfoJsonList = baseJson.data;
+
+                if (violatInfoJsonList.size() == 0) return;
+                districtsArray = new String[violatInfoJsonList.size()];
+                int i = 0;
+                for (ViolatInfoJson violatInfoJson : violatInfoJsonList) {
+                    districtsArray[i] = violatInfoJson.name;
+                    vioMap.put(violatInfoJson.name,violatInfoJson);
+                    i++;
+
+
+                }
+
+
+//                Util.Toast(this, "信息完善成功");
+
+//                Util.startActivity(CompleteInfoActivity.this, IndexActivity_.class);
+//                finish();
+            }
+
+        }
+    }
 }
 
 

@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -44,6 +45,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxProgressbarInterfaceView;
 import com.yj.navigation.object.JobImageJson;
 import com.yj.navigation.object.JobJson;
 import com.yj.navigation.util.ImageLoaderUtil;
@@ -53,6 +55,9 @@ import com.yj.navigation.wheelview.OnWheelScrollListener;
 import com.yj.navigation.wheelview.WheelView;
 import com.yj.navigation.wheelview.adapters.AbstractWheelTextAdapter;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -66,7 +71,7 @@ import java.util.Set;
 
 public class ShowVideoActivity extends Activity {
 
-    FoxProgressbarInterface foxProgressbarInterface;
+    FoxProgressbarInterfaceView foxProgressbarInterface;
     private boolean boolFromVideoSecondFragment = false;
 
     boolean isScroll = false;
@@ -85,9 +90,30 @@ public class ShowVideoActivity extends Activity {
 
     Handler handler = new Handler(new Handler.Callback() {
         @Override
-        public boolean handleMessage(Message message) {
-            foxProgressbarInterface.stopProgressBar();
-            startAnimationDrawableHandler();
+        public boolean handleMessage(Message msg) {
+
+
+            switch(msg.what)
+            {
+                case 0:
+                Bundle date=msg.getData();
+                    foxProgressbarInterface.updateComment(String.valueOf(date.getString("comment")));
+
+
+                break;
+                case 1:
+                    foxProgressbarInterface.stopProgressBar();
+                    startAnimationDrawableHandler();
+
+                    break;
+                default:
+
+                    break;
+            }
+
+
+
+
 
 
             return false;
@@ -116,9 +142,9 @@ public class ShowVideoActivity extends Activity {
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon);
         right_title_icon.setVisibility(View.GONE);
 
-        LinearLayout left_title_icon3_line = (LinearLayout) findViewById(R.id.left_title_icon3_line);
-        left_title_icon3_line.setVisibility(View.VISIBLE);
-        left_title_icon3_line.setOnClickListener(new View.OnClickListener() {
+        LinearLayout left_title_icon_line = (LinearLayout) findViewById(R.id.left_title_icon_line);
+        left_title_icon_line.setVisibility(View.VISIBLE);
+        left_title_icon_line.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -165,7 +191,7 @@ public class ShowVideoActivity extends Activity {
                     report_next.setVisibility(View.VISIBLE);
                 }
                 else{
-                    Util.Toast(ShowVideoActivity.this,"请先选择图片");
+                    Util.Toast(ShowVideoActivity.this,"请先选择图片",null);
                 }
             }
         });
@@ -250,21 +276,55 @@ public class ShowVideoActivity extends Activity {
         );
 
     }
-
+    /**
+     * Bitmap --> byte[]
+     *
+     * @param bmp
+     * @return
+     */
+    private static byte[] readBitmap(Bitmap bmp)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        try
+        {
+            baos.flush();
+            baos.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return baos.toByteArray();
+    }
 
     public static Bitmap getBitmap(Bitmap bitmap, int screenWidth,
                                    int screenHight)
     {
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
+        Log.e("getBitmap","w:"+w+",h:"+h);
+
         Matrix matrix = new Matrix();
-        float scale = (float) screenWidth / w;
-        float scale2 = (float) screenHight / h;
+        float scale,scale2;
+        if(w>h){
+             scale = (float) screenWidth / w;
+             scale2 = (float) screenHight / h;
+        }else{
+             scale = (float) screenWidth / h;
+             scale2 = (float) screenHight / w;
+        }
+
+//        float scale = (float) screenWidth / w;
+//        float scale2 = (float) screenHight / h;
         // scale = scale < scale2 ? scale : scale2;
 
         Log.e("getBitmap","scale:"+scale+",scale2:"+scale2);
+if(scale>1&&scale2>1) {
+    matrix.postScale(scale, scale2);
+}else{
+    matrix.postScale(1, 1);
 
-        matrix.postScale(scale, scale);
+}
         Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
         if (bitmap != null && !bitmap.equals(bmp) && !bitmap.isRecycled())
         {
@@ -276,9 +336,135 @@ public class ShowVideoActivity extends Activity {
 
         return bmp;// Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
     }
+    /**
+     * 图片的质量压缩方法
+     *
+     * @param image
+     * @return
+     */
+    public static Bitmap compressImage(Bitmap image)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+
+        while (baos.toByteArray().length / 1024 > 1024)
+        { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            Log.e("while image size",""+baos.toByteArray().length);
+
+            baos.reset();// 重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
+            Log.e("old image size",""+baos.toByteArray().length+",options:"+options);
+
+            options -= 10;// 每次都减少10
+
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
+        if (baos != null)
+        {
+            try
+            {
+                baos.close();
+            } catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if (isBm != null)
+        {
+            try
+            {
+                isBm.close();
+            } catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if (image != null && !image.isRecycled())
+        {
+            image.recycle();
+            image = null;
+        }
+        return bitmap;
+    }
+    /**
+     * 图片按比例大小压缩方法(根据Bitmap图片压缩)
+     *
+     * @param image
+     * @return
+     */
+    public static Bitmap getImage(Bitmap image,float ww,float hh)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        Log.e("old image size",""+baos.toByteArray().length);
+        if (baos.toByteArray().length / 1024 > 2048)
+        {// 判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+            baos.reset();// 重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, 50, baos);// 这里压缩50%，把压缩后的数据存放到baos中
+
+            Log.e("old image size then",""+baos.toByteArray().length);
+
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+//        // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
+//        newOpts.inJustDecodeBounds = true;
+//        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        newOpts.inJustDecodeBounds = false;
+        int w = image.getWidth();
+        int h = image.getHeight();
+        // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+//        float hh = 800f;// 这里设置高度为800f
+//        float ww = 480f;// 这里设置宽度为480f
+        // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 1;// be=1表示不缩放
+        if (w > h && w > ww)
+        {// 如果宽度大的话根据宽度固定大小缩放
+            be = (int) (w / ww);
+        } else if (w < h && h > hh)
+        {// 如果高度高的话根据宽度固定大小缩放
+            be = (int) (h / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        newOpts.inSampleSize = be;// 设置缩放比例
+        Log.e("old Options size","w:"+w+",h:"+h+",inSampleSize:"+be);
+
+        // 重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
+        isBm = new ByteArrayInputStream(baos.toByteArray());
+        Bitmap    bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        if (isBm != null)
+        {
+
+            try
+            {
+
+                if(baos!=null)
+                baos.close();
+                isBm.close();
+            } catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if (image != null && !image.isRecycled())
+        {
+            image.recycle();
+            image = null;
+        }
+
+        return bitmap;
+//        return compressImage(bitmap);// 压缩好比例大小后再进行质量压缩
+    }
     String remoteBaseUrl;
     LinearLayout country_line;
     Integer scrollFirst=0;
+
     public void startAnimationDrawable() {
 
         MainApp mainApp = (MainApp) getApplicationContext();
@@ -363,7 +549,7 @@ public class ShowVideoActivity extends Activity {
 
         country.setCurrentItem(1);
 
-        foxProgressbarInterface = new FoxProgressbarInterface();
+        foxProgressbarInterface = new FoxProgressbarInterfaceView();
         foxProgressbarInterface.startProgressBar(this, "正在生成视频...");
         new Thread(new Runnable() {
             @Override
@@ -380,6 +566,7 @@ public class ShowVideoActivity extends Activity {
                     getWindowManager().getDefaultDisplay().getMetrics(metric);
                     int width = metric.widthPixels;     // 屏幕宽度（像素）
                     int height = metric.heightPixels;   // 屏幕高度（像素）
+
                    Log.e("DisplayMetrics","width:"+width+",height:"+height);
 Bitmap smallBitmap=getBitmap(bitmap,width,height);
 
@@ -392,6 +579,17 @@ Bitmap smallBitmap=getBitmap(bitmap,width,height);
                     Drawable drawable = new BitmapDrawable(smallBitmap);
                     animationDrawable.addFrame(drawable, duration);
                     Log.d("run:", "run:" + i++);
+                    Message msg=new Message();
+                    Bundle date =new Bundle();// 存放数据
+                    int count=jobImageJsonList.size();
+                    date.putString("comment", "剩余"+(count-i)+"张加载");
+                    msg.setData(date);
+                    msg.what=0;
+                    Log.d("ThreadId", "POST:"
+                            + String.valueOf(Thread.currentThread().getId()));
+//                    myHandler.sendMessage(msg);
+                    handler.sendMessage(msg);
+
 
 //                    bitmap.recycle();
 

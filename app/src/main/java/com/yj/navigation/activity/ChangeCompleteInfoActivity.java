@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxToastInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.RegisterCompleteson;
@@ -86,12 +87,12 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
 //            return;
 //        }
         if (name == null || name.equals("")) {
-            Util.Toast(this, "请输入姓名");
+            Util.Toast(this, "请输入姓名",null);
             return;
         }
 
         if (cardno == null || cardno.equals("")) {
-            Util.Toast(this, "请输入车牌号");
+            Util.Toast(this, "请输入车牌号",null);
             return;
         }
 
@@ -221,7 +222,6 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
 
             RegisterCompleteson baseJson = new Gson().fromJson(resp, RegisterCompleteson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(ChangeCompleteInfoActivity.this, "资料修改成功");
 
                 //保存token
                 configPref.userHeadImg().put(baseJson.headImg);
@@ -234,7 +234,14 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
 //                Util.startActivity(this, SafeQuestionActivity_.class);
 
 //                Util.startActivity(CompleteInfoActivity.this, IndexActivity_.class);
-                finish();
+                Util.Toast(ChangeCompleteInfoActivity.this, "资料修改成功", new FoxToastInterface.FoxToastCallback() {
+                    @Override
+                    public void toastCloseCallbak() {
+                        finish();
+                    }
+                });
+
+
             }
 
         }
@@ -262,7 +269,7 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(ChangeCompleteInfoActivity.this, "验证码已发送，注意查收");
+            Util.Toast(ChangeCompleteInfoActivity.this, "验证码已发送，注意查收",null);
 
 
         }

@@ -68,7 +68,7 @@ public class LoginActivity extends BaseActivity {
 
         } else {
 
-            Util.Toast(LoginActivity.this, "手机号或者验证码不能为空");
+            Util.Toast(LoginActivity.this, "手机号或者验证码不能为空",null);
 
         }
 
@@ -86,7 +86,7 @@ public class LoginActivity extends BaseActivity {
 
 
         } else {
-            Util.Toast(LoginActivity.this, "请先填写手机号码");
+            Util.Toast(LoginActivity.this, "请先填写手机号码",null);
 
         }
 
@@ -120,7 +120,7 @@ public class LoginActivity extends BaseActivity {
     @Click(R.id.can_not_get_code_id)
     void onCanNotGetCodeId() {
 
-        Util.Toast(LoginActivity.this, "无法获取验证码");
+        Util.Toast(LoginActivity.this, "无法获取验证码",null);
 
     }
 
@@ -253,7 +253,7 @@ public class LoginActivity extends BaseActivity {
     public void getPhoneMsginfoHandler(String resp) {
 foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(LoginActivity.this, "验证码已发送，注意查收");
+            Util.Toast(LoginActivity.this, "验证码已发送，注意查收",null);
 
 
         }

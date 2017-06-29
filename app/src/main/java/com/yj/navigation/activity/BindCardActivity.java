@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxToastInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BankCardInfoJson;
@@ -65,10 +66,10 @@ public class BindCardActivity extends BaseActivity {
 
         if (mobile == null || mobile.equals("")) {
 
-            Util.Toast(BindCardActivity.this, "请输入卡号");
+            Util.Toast(BindCardActivity.this, "请输入卡号",null);
             return;
         }else if(!BankCardCheck.luhmCheck(mobile).equals("true")){
-            Util.Toast(BindCardActivity.this, "卡号不符合规则");
+            Util.Toast(BindCardActivity.this, "卡号不符合规则",null);
             return;
 
         }
@@ -77,17 +78,17 @@ public class BindCardActivity extends BaseActivity {
 
         if (truename_info_id_V == null || truename_info_id_V.equals("")) {
 
-            Util.Toast(BindCardActivity.this, "请输入真实姓名");
+            Util.Toast(BindCardActivity.this, "请输入真实姓名",null);
             return;
         }
         String idcard_info_id_v = idcard_info_id.getText().toString();
 
         if (idcard_info_id_v == null || idcard_info_id_v.equals("")) {
 
-            Util.Toast(BindCardActivity.this, "请输入身份证号");
+            Util.Toast(BindCardActivity.this, "请输入身份证号",null);
             return;
         }else if(!BankCardCheck.personIdValidation(idcard_info_id_v)){
-            Util.Toast(BindCardActivity.this, "身份证不符合规则");
+            Util.Toast(BindCardActivity.this, "身份证不符合规则",null);
             return;
 
         }
@@ -96,7 +97,7 @@ public class BindCardActivity extends BaseActivity {
 
         if (choose_cardname_id_V == null &&choose_cardname_id_V.contains("选择")) {
 
-            Util.Toast(BindCardActivity.this, "请选择银行");
+            Util.Toast(BindCardActivity.this, "请选择银行",null);
             return;
         }
 
@@ -268,15 +269,20 @@ BankCardInfoJson bankCardInfoJson=null;
 
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(BindCardActivity.this, "绑定成功");
+
                 if (FromWithDraw) {
                     MainApp mainApp = (MainApp) getApplicationContext();
                     mainApp.chooseBankCardInfoJson = bankCardInfoJson;
                 }
+                Util.Toast(BindCardActivity.this, "绑定成功", new FoxToastInterface.FoxToastCallback() {
+                    @Override
+                    public void toastCloseCallbak() {
+                        finish();
+                    }
+                });
 
-                finish();
             }else{
-                Util.Toast(BindCardActivity.this, ""+baseJson.retMsg);
+                Util.Toast(BindCardActivity.this, ""+baseJson.retMsg,null);
 
 
             }

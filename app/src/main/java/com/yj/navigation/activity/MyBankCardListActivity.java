@@ -510,7 +510,7 @@ public class MyBankCardListActivity extends BaseActivity implements IXListViewLi
 
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(MyBankCardListActivity.this, "解绑成功");
+                Util.Toast(MyBankCardListActivity.this, "解绑成功",null);
                 getDeviceListFromServerForMsg();
 //                mAppList.remove(positionIndex);
 //                mAdapter.notifyDataSetChanged();

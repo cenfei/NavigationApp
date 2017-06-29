@@ -53,19 +53,19 @@ public class ChangePwdActivity extends BaseActivity {
 
         if (pwd == null || pwd.equals("")) {
 
-            Util.Toast(this, "请输入密码");
+            Util.Toast(this, "请输入密码",null);
 
             return;
         }
         if (agaPwd == null || agaPwd.equals("")) {
 
-            Util.Toast(this, "请重新输入密码");
+            Util.Toast(this, "请重新输入密码",null);
 
             return;
         }
         if (pwd != null && !pwd.equals("") && agaPwd != null && !agaPwd.equals("") && !pwd.equals(agaPwd)) {
 
-            Util.Toast(this, "请保持两次密码一致");
+            Util.Toast(this, "请保持两次密码一致",null);
             return;
         }
         forgetResetPwd(pwd);

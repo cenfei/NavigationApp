@@ -430,7 +430,7 @@ public class MineInfoActivity extends BaseActivity {
                 if (dialogD != null) dialogD.dismiss();
 
 
-                Util.Toast(this, "安全密码设置成功");
+                Util.Toast(this, "安全密码设置成功",null);
             }
         }
     }

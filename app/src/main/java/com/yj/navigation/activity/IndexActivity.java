@@ -43,7 +43,7 @@ public class IndexActivity extends BaseActivity {
     void onleft_title_line() {
 
 
-        Util.Toast(IndexActivity.this, "敬请期待");
+        Util.Toast(IndexActivity.this, "敬请期待",null);
 
 
 

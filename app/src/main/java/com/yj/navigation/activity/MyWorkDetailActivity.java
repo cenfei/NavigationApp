@@ -398,7 +398,7 @@ private String  jobImageUrl=null;
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(MyWorkDetailActivity.this, "验证码已发送，注意查收");
+            Util.Toast(MyWorkDetailActivity.this, "验证码已发送，注意查收",null);
 
 
         }

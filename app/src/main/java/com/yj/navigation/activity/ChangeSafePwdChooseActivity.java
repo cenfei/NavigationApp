@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxToastInterface;
 import com.yj.navigation.gridpasswordview.GridPasswordView;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
@@ -80,23 +81,23 @@ public class ChangeSafePwdChooseActivity extends BaseActivity {
 
         if (pwd == null || pwd.equals("")) {
 
-            Util.Toast(this, "请输入密码");
+            Util.Toast(this, "请输入密码",null);
 
             return;
         }
         if (agaPwd == null || agaPwd.equals("")) {
 
-            Util.Toast(this, "请重新输入密码");
+            Util.Toast(this, "请重新输入密码",null);
 
             return;
         }
         if (pwd != null && !pwd.equals("") && agaPwd != null && !agaPwd.equals("") && !pwd.equals(agaPwd)) {
 
-            Util.Toast(this, "请保持两次密码一致");
+            Util.Toast(this, "请保持两次密码一致",null);
             return;
         }
         if (name == null || name.equals("")) {
-            Util.Toast(this, "请输入姓名");
+            Util.Toast(this, "请输入姓名",null);
             return;
         }
 
@@ -258,7 +259,7 @@ public class ChangeSafePwdChooseActivity extends BaseActivity {
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(ChangeSafePwdChooseActivity.this, "验证码已发送，注意查收");
+            Util.Toast(ChangeSafePwdChooseActivity.this, "验证码已发送，注意查收",null);
 
 
         }
@@ -291,13 +292,13 @@ public class ChangeSafePwdChooseActivity extends BaseActivity {
 
 
     public void inputOldPwdSafePwdWithDialog() {
-        Util.Toast(ChangeSafePwdChooseActivity.this,"请输入旧提现密码");
+        Util.Toast(ChangeSafePwdChooseActivity.this,"请输入旧提现密码",null);
         FoxShuashuaPayPasswordInterface foxShuashuaPayPasswordInterface = new FoxShuashuaPayPasswordInterface();
         foxShuashuaPayPasswordInterface.startProgressBar(this, "当前提现密码", new FoxShuashuaPayPasswordInterface.CallBackPasswordDialog() {
             @Override
             public void handleDialogResultOk(GridPasswordView gpv_normal_paypassword, String pwd, Dialog dialog) {
 
-                Util.Toast(ChangeSafePwdChooseActivity.this,"请输入新的提现密码");
+                Util.Toast(ChangeSafePwdChooseActivity.this,"请输入新的提现密码",null);
                 dialog.dismiss();
                 //处理网络修改密码
                 inputNewPwdSafePwdWithDialog(pwd);
@@ -354,8 +355,13 @@ public class ChangeSafePwdChooseActivity extends BaseActivity {
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
 
 
-                Util.Toast(this, "安全密码设置成功");
-                finish();
+                Util.Toast(this, "安全密码设置成功", new FoxToastInterface.FoxToastCallback() {
+                    @Override
+                    public void toastCloseCallbak() {
+                        finish();
+                    }
+                });
+
             }
         }
     }

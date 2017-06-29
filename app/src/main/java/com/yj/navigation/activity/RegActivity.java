@@ -64,7 +64,7 @@ public class RegActivity extends BaseActivity {
             pwdId.setText("123456");//test--fox
 
 
-            Util.Toast(RegActivity.this, "请输入密码");
+            Util.Toast(RegActivity.this, "请输入密码",null);
 
         }
 
@@ -277,7 +277,7 @@ public class RegActivity extends BaseActivity {
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(RegActivity.this, "验证码已发送，注意查收");
+            Util.Toast(RegActivity.this, "验证码已发送，注意查收",null);
 
 
         }

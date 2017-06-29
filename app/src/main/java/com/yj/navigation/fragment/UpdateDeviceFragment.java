@@ -426,7 +426,7 @@ public class UpdateDeviceFragment extends Fragment implements IXListViewListener
 
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(getActivity(), "解绑成功");
+                Util.Toast(getActivity(), "解绑成功",null);
                 mAppList.remove(positionIndex);
                 mAdapter.notifyDataSetChanged();
                 //保存token

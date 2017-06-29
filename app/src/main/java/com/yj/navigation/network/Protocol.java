@@ -34,7 +34,7 @@ public class Protocol {
             if (Util.netState(context)) {
                 makeAsyncRequest(url, paramMap);
             } else {
-                Util.Toast(context, "网络连接不可用，请稍后重试");
+                Util.Toast(context, "网络连接不可用，请稍后重试",null);
                 call.getMessage("", url);
             }
         }
@@ -48,7 +48,7 @@ public class Protocol {
             mMainAsync = new Main(paramMap);
             mMainAsync.execute(url);
         } else {
-            Util.Toast(context, "网络连接不可用，请稍后重试");
+            Util.Toast(context, "网络连接不可用，请稍后重试",null);
             call.getMessage("", url);
         }
     }
@@ -99,7 +99,7 @@ public class Protocol {
                     if (return_code.equals("0")) {
                         call.getMessage(result, url);
                     } else if (return_code.equals("e000")) {
-                        Util.Toast(context, returnMsg);
+                        Util.Toast(context, returnMsg,null);
 //                        call.getMessage(result, url);
                     } else if (return_code.equals("10")) {
                         Log.i("return_code", "参数错误");
@@ -142,7 +142,7 @@ public class Protocol {
 
                     } else {
                         Log.i("return_code", "未知错误码" + return_code);
-                        Util.Toast(context, returnMsg);
+                        Util.Toast(context, returnMsg,null);
                         call.getMessage(result, url);
 
                     }
@@ -154,7 +154,7 @@ public class Protocol {
             } else {
                 // WalletUtil.makeText(context, "网络连接超时!",
                 // Toast.LENGTH_SHORT).show();.
-                Util.Toast(context, "网络连接超时!");
+                Util.Toast(context, "网络连接超时!",null);
                 // call.getMessage(null, url);
                 call.getMessage(null, url);// 网络请求失败-客户端进行处理
             }
@@ -165,13 +165,15 @@ public class Protocol {
         @Override
         protected String doInBackground(String... params) {
             String result;
-            result = Caller.sendPost(params[0], paramMap);
-//            if (paramMap != null && paramMap.get(API.SH_NET_POST) != null) {
+
+            if (paramMap != null && paramMap.get(API.GET_URL) != null) {
 //                result = Caller.dPosta(params[0],  paramMap);
 //
-//            } else {
-//                result = Caller.doHttpsPost(params[0], paramMap);
-//            }
+                result = Caller.dGet(params[0], null,null);
+
+            } else {
+                result = Caller.sendPost(params[0], paramMap);
+            }
             return result;
         }
     }

@@ -19,7 +19,7 @@ public interface API {
     public String serverDeviceAvar = "http://114.55.144.81:8081/app";
     public String serverMsg = "http://114.55.144.81:8082/msg";
 
-
+    public String GET_URL="GET_URL";
 
     /**
      * 获取手机验证码
@@ -234,6 +234,7 @@ public interface API {
      */
     public String MY_ACCIDENT_DETAIL_URL = serverDeviceAvar + "/job/accident/detail";
 
+    public String UPDATE_violation_INFO =  "http://114.55.254.6:8082/admin/bizcode/get/violation_type";
 
     /**
      *完善工单

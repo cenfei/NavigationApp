@@ -1401,7 +1401,19 @@ public class ProtocolUtil {
 
         new Protocol(context, API.UPDATE_JOB_INFO, parmaMap, callBack);
     }
+    public static void getViolatetypeFunction(Context context,
+                                             Protocol.CallBack callBack,
+                                             String token
 
+
+    ) {
+        Map<String, Object> parmaMap = new HashMap<String, Object>();
+        parmaMap.put(API.GET_URL,API.GET_URL);
+
+
+
+        new Protocol(context, API.UPDATE_violation_INFO, parmaMap, callBack);
+    }
 
 
 

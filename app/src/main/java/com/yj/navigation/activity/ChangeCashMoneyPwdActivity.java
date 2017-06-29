@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxToastInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BaseJson;
@@ -52,25 +53,25 @@ public class ChangeCashMoneyPwdActivity extends BaseActivity {
 
         if (nowPwd == null || nowPwd.equals("")) {
 
-            Util.Toast(this, "请输入当前密码");
+            Util.Toast(this, "请输入当前密码",null);
 
             return;
         }
         if (pwd == null || pwd.equals("")) {
 
-            Util.Toast(this, "请输入新密码");
+            Util.Toast(this, "请输入新密码",null);
 
             return;
         }
         if (agaPwd == null || agaPwd.equals("")) {
 
-            Util.Toast(this, "请重新输入密码");
+            Util.Toast(this, "请重新输入密码",null);
 
             return;
         }
         if (pwd != null && !pwd.equals("") && agaPwd != null && !agaPwd.equals("") && !pwd.equals(agaPwd)) {
 
-            Util.Toast(this, "请保持两次密码一致");
+            Util.Toast(this, "请保持两次密码一致",null);
             return;
         }
         resetSafePwd(pwd,nowPwd);
@@ -184,8 +185,13 @@ public class ChangeCashMoneyPwdActivity extends BaseActivity {
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
 
 
-                Util.Toast(this, "安全密码设置成功");
-                finish();
+                Util.Toast(this, "安全密码设置成功", new FoxToastInterface.FoxToastCallback() {
+                    @Override
+                    public void toastCloseCallbak() {
+                        finish();
+                    }
+                });
+
             }
         }
     }

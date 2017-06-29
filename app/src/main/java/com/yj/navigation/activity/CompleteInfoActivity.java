@@ -70,23 +70,23 @@ public class CompleteInfoActivity extends BaseActivity {
 
         if (pwd == null || pwd.equals("")) {
 
-            Util.Toast(this, "请输入密码");
+            Util.Toast(this, "请输入密码",null);
 
             return;
         }
         if (agaPwd == null || agaPwd.equals("")) {
 
-            Util.Toast(this, "请重新输入密码");
+            Util.Toast(this, "请重新输入密码",null);
 
             return;
         }
         if (pwd != null && !pwd.equals("") && agaPwd != null && !agaPwd.equals("") && !pwd.equals(agaPwd)) {
 
-            Util.Toast(this, "请保持两次密码一致");
+            Util.Toast(this, "请保持两次密码一致",null);
             return;
         }
         if (name == null || name.equals("")) {
-            Util.Toast(this, "请输入姓名");
+            Util.Toast(this, "请输入姓名",null);
             return;
         }
 
@@ -248,7 +248,7 @@ public class CompleteInfoActivity extends BaseActivity {
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(CompleteInfoActivity.this, "验证码已发送，注意查收");
+            Util.Toast(CompleteInfoActivity.this, "验证码已发送，注意查收",null);
 
 
         }

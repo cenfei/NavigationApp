@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.component.FoxProgressbarInterface;
+import com.yj.navigation.component.FoxToastInterface;
 import com.yj.navigation.gridpasswordview.GridPasswordView;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
@@ -73,7 +74,7 @@ public class SafeQuestionActivity extends BaseActivity {
             if (i == 1) {
                 answer1 = answer_one_id.getText().toString();
                 if (answer1 == null || answer1.equals("")) {
-                    Util.Toast(SafeQuestionActivity.this, question.question + "不能为空");
+                    Util.Toast(SafeQuestionActivity.this, question.question + "不能为空",null);
                     return;
                 } else {
                     Map<String, String> map = new HashMap<String, String>();
@@ -91,7 +92,7 @@ public class SafeQuestionActivity extends BaseActivity {
             if (i == 2) {
                 answer2 = answer_two_id.getText().toString();
                 if (answer2 == null || answer2.equals("")) {
-                    Util.Toast(SafeQuestionActivity.this, question.question + "不能为空");
+                    Util.Toast(SafeQuestionActivity.this, question.question + "不能为空",null);
                     return;
                 } else {
                     Map<String, String> map = new HashMap<String, String>();
@@ -110,7 +111,7 @@ public class SafeQuestionActivity extends BaseActivity {
             if (i == 3) {
                 answer3 = answer_three_id.getText().toString();
                 if (answer3 == null || answer3.equals("")) {
-                    Util.Toast(SafeQuestionActivity.this, question.question + "不能为空");
+                    Util.Toast(SafeQuestionActivity.this, question.question + "不能为空",null);
                     return;
                 } else {
                     Map<String, String> map = new HashMap<String, String>();
@@ -243,7 +244,7 @@ public class SafeQuestionActivity extends BaseActivity {
 
     public void  setSafePwd() {
 
-        Util.Toast(SafeQuestionActivity.this, "请设置提现密码");
+        Util.Toast(SafeQuestionActivity.this, "请设置提现密码",null);
         FoxShuashuaPayPasswordInterface foxShuashuaPayPasswordInterface = new FoxShuashuaPayPasswordInterface();
         foxShuashuaPayPasswordInterface.startProgressBar(this, "", new FoxShuashuaPayPasswordInterface.CallBackPasswordDialog() {
             @Override
@@ -290,9 +291,14 @@ public class SafeQuestionActivity extends BaseActivity {
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
                 if (dialogD != null) dialogD.dismiss();
                 Util.startActivity(SafeQuestionActivity.this, IndexActivity_.class);
-                finish();
 
-                Util.Toast(this, "安全密码设置成功");
+
+                Util.Toast(this, "安全密码设置成功", new FoxToastInterface.FoxToastCallback() {
+                    @Override
+                    public void toastCloseCallbak() {
+                        finish();
+                    }
+                });
             }
         }
     }
@@ -478,7 +484,7 @@ public class SafeQuestionActivity extends BaseActivity {
     public void getPhoneMsginfoHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
-            Util.Toast(SafeQuestionActivity.this, "验证码已发送，注意查收");
+            Util.Toast(SafeQuestionActivity.this, "验证码已发送，注意查收",null);
 
 
         }
@@ -528,8 +534,13 @@ public class SafeQuestionActivity extends BaseActivity {
                 if (dialogD != null) dialogD.dismiss();
 
 
-                Util.Toast(this, "安全密码设置成功");
-                finish();
+                Util.Toast(this, "安全密码设置成功", new FoxToastInterface.FoxToastCallback() {
+                    @Override
+                    public void toastCloseCallbak() {
+                        finish();
+                    }
+                });
+
             }
         }
     }

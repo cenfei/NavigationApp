@@ -108,7 +108,7 @@ int positionIndex=0;
 
             BaseJson baseJson = new Gson().fromJson(resp, BaseJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-                Util.Toast(context, "解绑成功");
+                Util.Toast(context, "解绑成功",null);
                 mAppList.remove(positionIndex);
                 notifyDataSetChanged();
                 //保存token
