@@ -208,7 +208,7 @@ if(mainApp.chooseBankCardInfoJson!=null){
     bankCardInfoJsonC=mainApp.chooseBankCardInfoJson;
     change_money_pwd_id.setText(bankCardInfoJsonC.bankcardno);
 }
-        uploadAvar();
+     //   uploadAvar();
 
     }
 

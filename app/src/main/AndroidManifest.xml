@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -63,7 +62,6 @@
     <application
         android:name=".base.MainApp"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:icon="@drawable/aimp_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -181,6 +179,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UpdateJobInfoActivity_"
+            android:hardwareAccelerated="false"
+
             android:screenOrientation="portrait" />
 
         <activity
@@ -207,6 +207,17 @@
 
         <activity
             android:name=".activity.ChangeCashMoneyPwdActivity_"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="org.camera.activity.CameraSurfaceTextureActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+
+            android:screenOrientation="landscape"
+          />
+
+        <activity
+            android:name=".activity.MyUpVideoListActivity_"
             android:screenOrientation="portrait" />
 
 

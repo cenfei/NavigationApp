@@ -109,6 +109,7 @@
     <orderEntry type="library" exported="" name="jpush-android_v3.0.1" level="project" />
     <orderEntry type="library" exported="" name="jcore-android_v1.1.0" level="project" />
     <orderEntry type="module" module-name="library_PullToRefreshSwipeMenuListView" exported="" />
+    <orderEntry type="module" module-name="camerapreview" exported="" />
     <orderEntry type="module" module-name="QRCodeScan" exported="" />
     <orderEntry type="module" module-name="pulltorefresh" exported="" />
   </component>
