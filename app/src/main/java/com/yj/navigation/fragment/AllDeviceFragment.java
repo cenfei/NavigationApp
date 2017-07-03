@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -21,12 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.yj.navigation.R;
 import com.yj.navigation.activity.MyDeviceListActivity;
 import com.yj.navigation.adapter.MyDeviceAllListAdapter;
@@ -208,7 +205,7 @@ init(chatView);
                         //当前deviceId有问题
                         positionIndex = position;
 
-                        unBindDeviceFromServerForMsg(item.devNo);
+                        unBindDeviceFromServerForMsg(item.bindId);
 
                         break;
                 }
@@ -401,7 +398,7 @@ init(chatView);
     }
 
 
-    public void unBindDeviceFromServerForMsg(String deviceId) {
+    public void unBindDeviceFromServerForMsg(Integer deviceId) {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(getActivity(), "加载中...");
 

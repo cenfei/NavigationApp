@@ -1,6 +1,7 @@
 package com.yj.navigation.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,7 +102,22 @@ public class NewAdapterUpVideoListView extends BaseAdapter {
 
         }
         if(!TextUtils.isEmpty(personalRanking.state)){
-            viewholder.upvideo_staus_id.setText("等待筛选");
+
+            if(personalRanking.state.equals("1")) {
+
+                viewholder.upvideo_staus_id.setText("等待筛选");
+                viewholder.upvideo_staus_id.setTextColor(ContextCompat.getColor(context, R.color.new_login_text_color));
+
+                viewholder.upvideo_staus_id.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.rounded_sx));
+
+            }else{
+                viewholder.upvideo_staus_id.setText("已筛选");
+                viewholder.upvideo_staus_id.setTextColor(ContextCompat.getColor(context,R.color.font_titie2));
+
+                viewholder.upvideo_staus_id.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.rounded_sx_ok));
+
+
+            }
 
         }
 

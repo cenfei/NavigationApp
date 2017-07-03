@@ -1,3 +1,2 @@
-
 include ':app', ':pulltorefresh', ':QRCodeScan', ':library_PullToRefreshSwipeMenuListView', ':PickDateTimeAndAddress', ':camerapreview'
 

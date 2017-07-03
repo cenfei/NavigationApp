@@ -106,7 +106,7 @@ public class NewUploadVideoFragment extends Fragment {
             if (MYACTION_UPDATE_UPVIDEO.equals(intent.getAction())) {
                 Log.i("onReceive", "change receiverMine...");
                 beginD = intent.getStringExtra("DATE_CHOOSE");
-
+                getDataFromServer();
 
             }
         }
@@ -301,6 +301,9 @@ if(TextUtils.isEmpty(beginD)) {
                     } else {
                         designRoomInfos.addAll(baseJson.data);
                     }
+
+                }else{
+                    designRoomInfos.clear();
 
                 }
 

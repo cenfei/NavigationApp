@@ -1,21 +1,15 @@
 package com.yj.navigation.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -28,11 +22,7 @@ import com.example.qr_codescan.MipcaActivityCapture;
 import com.google.gson.Gson;
 import com.yj.navigation.R;
 import com.yj.navigation.adapter.MyDeviceAllListAdapter;
-import com.yj.navigation.adapter.MyDeviceFragmentPageAdapter;
-import com.yj.navigation.adapter.MyFragmentPageAdapter;
-import com.yj.navigation.base.BaseFragmentActivity;
 import com.yj.navigation.component.FoxProgressbarInterface;
-import com.yj.navigation.fragment.AllDeviceFragment;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BaseJson;
@@ -255,7 +245,7 @@ public class MyDeviceListActivity extends BaseActivity implements IXListViewList
                         //当前deviceId有问题
                         positionIndex = position;
 
-                        unBindDeviceFromServerForMsg(item.devNo);
+                        unBindDeviceFromServerForMsg(item.bindId);
 
                         break;
                 }
@@ -512,7 +502,7 @@ public class MyDeviceListActivity extends BaseActivity implements IXListViewList
     }
 
 
-    public void unBindDeviceFromServerForMsg(String deviceId) {
+    public void unBindDeviceFromServerForMsg(Integer deviceId) {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(MyDeviceListActivity.this, "加载中...");
 

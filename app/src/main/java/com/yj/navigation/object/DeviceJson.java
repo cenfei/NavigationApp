@@ -6,4 +6,6 @@ package com.yj.navigation.object;
 public class DeviceJson {
 
     public String devNo;
+    public Integer bindId;
+
 }

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.yj.navigation.R;
-import com.yj.navigation.activity.MyDeviceListActivity;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
@@ -64,7 +63,7 @@ private String token=null;
         holder.unbind_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                unBindDeviceFromServerForMsg(deviceJson.devNo);
+                unBindDeviceFromServerForMsg(deviceJson.bindId);
             }
         });
 //        ApplicationInfo item = getItem(position);
@@ -81,7 +80,7 @@ int positionIndex=0;
 
     }
     FoxProgressbarInterface foxProgressbarInterface;
-    public void unBindDeviceFromServerForMsg(String deviceId) {
+    public void unBindDeviceFromServerForMsg(Integer deviceId) {
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(context, "加载中...");
 

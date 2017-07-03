@@ -108,6 +108,7 @@ public class NewAccidentVideoFragment extends Fragment {
             if (MYACTION_UPDATE_ACCIDENT_VIDEO.equals(intent.getAction())) {
                 Log.i("onReceive", "change receiverMine...");
                 beginD = intent.getStringExtra("DATE_CHOOSE");
+                getDataFromServer();
 
 
             }
@@ -309,6 +310,10 @@ public class NewAccidentVideoFragment extends Fragment {
                     } else {
                         designRoomInfos.addAll(baseJson.data);
                     }
+
+                }
+                else{
+                    designRoomInfos.clear();
 
                 }
 

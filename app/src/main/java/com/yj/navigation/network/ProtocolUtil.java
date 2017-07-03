@@ -607,7 +607,7 @@ public class ProtocolUtil {
      */
     public static void unbindDeviceFunction(Context context,
                                           Protocol.CallBack callBack,
-                                          String token,String bindId
+                                          String token,Integer bindId
 
 
     ) {
@@ -1140,7 +1140,7 @@ public class ProtocolUtil {
     ) {
         Map<String, Object> parmaMap = new HashMap<String, Object>();
         parmaMap.put("token", token);
-        parmaMap.put("bedDt", bedDt);
+        parmaMap.put("begDt", bedDt);
         parmaMap.put("endDt", endDt);
         parmaMap.put("param", param);
         if(devNo!=null&&!devNo.equals("")) {
@@ -1176,7 +1176,7 @@ public class ProtocolUtil {
     ) {
         Map<String, Object> parmaMap = new HashMap<String, Object>();
         parmaMap.put("token", token);
-        parmaMap.put("bedDt", bedDt);
+        parmaMap.put("begDt", bedDt);
         parmaMap.put("endDt", endDt);
         parmaMap.put("param", param);
         if(devNo!=null&&!devNo.equals("")) {
@@ -1210,7 +1210,7 @@ public class ProtocolUtil {
     ) {
         Map<String, Object> parmaMap = new HashMap<String, Object>();
         parmaMap.put("token", token);
-        parmaMap.put("bedDt", bedDt);
+        parmaMap.put("begDt", bedDt);
         parmaMap.put("endDt", endDt);
         parmaMap.put("param", param);
         if(devNo!=null&&!devNo.equals("")) {
