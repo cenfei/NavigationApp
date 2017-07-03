@@ -1,22 +1,11 @@
 package com.yj.navigation.network;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
+//
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,6 +44,172 @@ import javax.net.ssl.X509TrustManager;
 
 public class Caller {
 
+    /**
+     * http发送post请求
+     *
+
+     * @return
+     */
+    public static String sendPost(String urlStr, Map<String, Object> params) {
+        String result = null;
+
+        HttpURLConnection urlConnection = null;
+
+        try {
+
+//            StringBuffer sb = new StringBuffer();
+//            sb.append(urlStr + "?");
+//
+//            List<Map<String, String>> mapList = null;
+//
+//            String type=(String )params.get("type");
+//            String step=(String )params.get("step");
+//
+//            for (Map.Entry<String, Object> entry : params.entrySet()) {
+//                String key = entry.getKey().toString();
+//
+//
+//
+//                String value = entry.getValue().toString();
+//                if(key.equals("unionid")){
+//                    if(TextUtils.isEmpty(value)){
+//                        value="gost001";
+//                    }
+//
+//                }
+//                if(!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(step)&&type.equals("czgl")&&step.equals("save")) {//需要post
+//
+//                    if(!(key.equals("obj")||key.equals("obj2"))){
+//
+//                        sb.append(key + "=" + value + "&");
+//                    }
+//                }
+//                else {
+//                    sb.append(key + "=" + value + "&");
+//                }
+////                    NameValuePair pair = new BasicNameValuePair(key, value);
+////                    list.add(pair);
+//
+//
+//            }
+//            urlStr=sb.toString().substring(0, sb.toString().length() - 1);
+//            Log.d("输入参数", urlStr);
+
+
+
+            // Thread.sleep(5000);
+            URL url = new URL(urlStr);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(15000);
+//            if(!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(step)&&type.equals("czgl")&&step.equals("save")) {//需要post
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+
+//            }else{
+//                urlConnection.setDoOutput(false);
+//
+//                urlConnection.setRequestMethod("GET");
+//                urlConnection.setRequestProperty("Content-Type",
+//                        "text/plain; charset=utf-8"); // "application/json"
+//            }
+
+
+
+            urlConnection.setUseCaches(false);
+
+
+            urlConnection.connect();
+
+
+
+
+            List<Map<String, String>> mapList = null;
+
+
+            StringBuffer stringBuffer=new StringBuffer();
+
+            for (Map.Entry<String, Object> entry : params.entrySet()) {
+                String key = entry.getKey().toString();
+
+
+                if ("MAP".equals(key)) {
+                    mapList = (List<Map<String, String>>) params.get("MAP");
+
+                    int i = 0;
+                    String idOrQuestion=null;
+                    if(urlStr.contains("check")){
+                        idOrQuestion="id";
+                    }else{
+                        idOrQuestion="question";
+
+                    }
+
+                    for (Map<String, String> map : mapList) {
+
+//                        NameValuePair pair = new BasicNameValuePair("items[" + i + "]."+idOrQuestion, map.get(idOrQuestion));
+
+                        stringBuffer.append("items[" + i + "]."+idOrQuestion + "=" + map.get(idOrQuestion) + "&");
+//                        list.add(pair);
+//                        NameValuePair pair2 = new BasicNameValuePair("items[" + i + "].answer", map.get("answer"));
+
+                        stringBuffer.append("items[" + i + "].answer" + "=" + map.get("answer") + "&");
+//                        list.add(pair2);
+                        i++;
+                    }
+
+
+                } else {
+                    String value = entry.getValue().toString();
+                    stringBuffer.append(key + "=" + value + "&");
+//                    NameValuePair pair = new BasicNameValuePair(key, value);
+//                    list.add(pair);
+                }
+
+            }
+
+
+
+String content= stringBuffer.toString().substring(0, stringBuffer.toString().length() - 1);
+
+            Log.d("输入post参数", content);
+            DataOutputStream out = new DataOutputStream(urlConnection
+                    .getOutputStream());
+            // DataOutputStream.writeBytes将字符串中的16位的unicode字符以8位的字符形式写到流里面
+            out.writeBytes(content);
+            out.flush();
+            out.close();
+
+
+
+
+
+
+
+            int code = urlConnection.getResponseCode();
+            Log.d("STATUS code", String.format("%d", code));
+            // String string = urlConnection.getResponseMessage();
+            System.out.println(urlConnection.toString());
+            InputStream in = new BufferedInputStream(
+                    urlConnection.getInputStream());
+            result = convertStreamToString(in);
+            Log.d("INFO", "**RESULT** " + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("tag", "exception >>>>>>>" + e.getLocalizedMessage());
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
+
+
+        return result;
+    }
+
 
     /**
      * http发送post请求
@@ -63,95 +218,95 @@ public class Caller {
      * @param maps
      * @return
      */
-    public static String sendPost(String url, Map<String, Object> params) {
-        DefaultHttpClient client = new DefaultHttpClient();
-        /**NameValuePair是传送给服务器的请求参数    param.get("name") **/
-        List<NameValuePair> list = new ArrayList<NameValuePair>();
-
-        StringBuffer sb = new StringBuffer();
-        sb.append(url + "?");
-
-        List<Map<String, String>> mapList = null;
-
-
-
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            String key = entry.getKey().toString();
-
-
-            if ("MAP".equals(key)) {
-                mapList = (List<Map<String, String>>) params.get("MAP");
-
-                int i = 0;
-                String idOrQuestion=null;
-                if(url.contains("check")){
-                    idOrQuestion="id";
-                }else{
-                    idOrQuestion="question";
-
-                }
-
-                for (Map<String, String> map : mapList) {
-
-                    NameValuePair pair = new BasicNameValuePair("items[" + i + "]."+idOrQuestion, map.get(idOrQuestion));
-
-                    sb.append("items[" + i + "]."+idOrQuestion + "=" + map.get(idOrQuestion) + "&");
-                    list.add(pair);
-                    NameValuePair pair2 = new BasicNameValuePair("items[" + i + "].answer", map.get("answer"));
-
-                    sb.append("items[" + i + "].answer" + "=" + map.get("answer") + "&");
-                    list.add(pair2);
-                    i++;
-                }
-
-
-            } else {
-                String value = entry.getValue().toString();
-                sb.append(key + "=" + value + "&");
-                NameValuePair pair = new BasicNameValuePair(key, value);
-                list.add(pair);
-            }
-
-        }
-
-        Log.d("输入参数", sb.toString().substring(0, sb.toString().length() - 1));
-
-
-        UrlEncodedFormEntity entity = null;
-        try {
-            /**设置编码 **/
-            entity = new UrlEncodedFormEntity(list, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        /**新建一个post请求**/
-        HttpPost post = new HttpPost(url);
-        post.setEntity(entity);
-        HttpResponse response = null;
-        try {
-            /**客服端向服务器发送请求**/
-            response = client.execute(post);
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        /**请求发送成功，并得到响应**/
-        String result = null;
-        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-            HttpEntity httpEntity = response.getEntity();
-            try {
-                result = EntityUtils.toString(httpEntity);
-                Log.d("输出参数：", result == null ? "" : result);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }// 返回json格式：
-//			jsonObject = new Gson().toJson(result);
-        }
-        return result;
-    }
+//    public static String sendPost0(String url, Map<String, Object> params) {
+//        DefaultHttpClient client = new DefaultHttpClient();
+//        /**NameValuePair是传送给服务器的请求参数    param.get("name") **/
+//        List<NameValuePair> list = new ArrayList<NameValuePair>();
+//
+//        StringBuffer sb = new StringBuffer();
+//        sb.append(url + "?");
+//
+//        List<Map<String, String>> mapList = null;
+//
+//
+//
+//        for (Map.Entry<String, Object> entry : params.entrySet()) {
+//            String key = entry.getKey().toString();
+//
+//
+//            if ("MAP".equals(key)) {
+//                mapList = (List<Map<String, String>>) params.get("MAP");
+//
+//                int i = 0;
+//                String idOrQuestion=null;
+//                if(url.contains("check")){
+//                    idOrQuestion="id";
+//                }else{
+//                    idOrQuestion="question";
+//
+//                }
+//
+//                for (Map<String, String> map : mapList) {
+//
+//                    NameValuePair pair = new BasicNameValuePair("items[" + i + "]."+idOrQuestion, map.get(idOrQuestion));
+//
+//                    sb.append("items[" + i + "]."+idOrQuestion + "=" + map.get(idOrQuestion) + "&");
+//                    list.add(pair);
+//                    NameValuePair pair2 = new BasicNameValuePair("items[" + i + "].answer", map.get("answer"));
+//
+//                    sb.append("items[" + i + "].answer" + "=" + map.get("answer") + "&");
+//                    list.add(pair2);
+//                    i++;
+//                }
+//
+//
+//            } else {
+//                String value = entry.getValue().toString();
+//                sb.append(key + "=" + value + "&");
+//                NameValuePair pair = new BasicNameValuePair(key, value);
+//                list.add(pair);
+//            }
+//
+//        }
+//
+//        Log.d("输入参数", sb.toString().substring(0, sb.toString().length() - 1));
+//
+//
+//        UrlEncodedFormEntity entity = null;
+//        try {
+//            /**设置编码 **/
+//            entity = new UrlEncodedFormEntity(list, "UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        /**新建一个post请求**/
+//        HttpPost post = new HttpPost(url);
+//        post.setEntity(entity);
+//        HttpResponse response = null;
+//        try {
+//            /**客服端向服务器发送请求**/
+//            response = client.execute(post);
+//        } catch (ClientProtocolException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        /**请求发送成功，并得到响应**/
+//        String result = null;
+//        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+//            HttpEntity httpEntity = response.getEntity();
+//            try {
+//                result = EntityUtils.toString(httpEntity);
+//                Log.d("输出参数：", result == null ? "" : result);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }// 返回json格式：
+////			jsonObject = new Gson().toJson(result);
+//        }
+//        return result;
+//    }
 
 
     /**
@@ -161,114 +316,114 @@ public class Caller {
      * @param params
      * @return
      */
-    public static String doHttpsPost(String urlStr, Map<String, Object> params) {
-
-        String data = null;
-        URL url = null;
-        HttpsURLConnection conn = null;
-        DataOutputStream out = null;
-
-        String postOrGet = (String) params.get("POST_OR_GET");
-        postOrGet = postOrGet == null ? "POST" : postOrGet;
-
-        try {
-
-            if (postOrGet.equalsIgnoreCase("get")) {// 拼接参数
-                StringBuffer sb = new StringBuffer();
-                Set<String> keys = params.keySet();
-                for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
-                    String key = i.next();
-                    if (!key.equals("Cookie") && !key.equals("POST_OR_GET")) {
-                        sb.append(key + "=" + params.get(key) + "&");
-
-                    }
-                }
-                if (sb.length() > 0) {
-                    urlStr = urlStr + "?"
-                            + sb.toString().substring(0, sb.length() - 1);
-                }
-            }
-
-            SSLSocketFactory sslSocketFactory = getSSLSocketFactory();
-
-            if (sslSocketFactory != null) {
-                Log.d("URL", urlStr);
-
-                url = new URL(urlStr);
-                conn = (HttpsURLConnection) url.openConnection();
-                conn.setSSLSocketFactory(sslSocketFactory);
-                conn.setHostnameVerifier(new TrustAnyHostnameVerifier());
-            } else {
-                url = new URL(urlStr.replaceFirst("https", "http"));
-                Log.d("URL", url.toString());
-                conn = (HttpsURLConnection) url.openConnection();
-            }
-
-            conn.setConnectTimeout(30000);
-            conn.setRequestProperty("Accept-Charset", "utf-8");
-            conn.setRequestProperty("contentType", "utf-8");
-            conn.setReadTimeout(30000);
-            if (postOrGet.equalsIgnoreCase("POST"))
-                conn.setDoOutput(true);
-            else
-                conn.setDoOutput(false);
-
-            conn.setRequestMethod(postOrGet);
-
-            if (params.get("Cookie") != null) {
-                conn.addRequestProperty("Cookie", (String) params.get("Cookie"));
-            }
-
-            if (postOrGet.equalsIgnoreCase("post")) {
-
-                out = new DataOutputStream(conn.getOutputStream());
-                StringBuffer sb = new StringBuffer();
-                ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-                if (params != null) {
-                    Set<String> keys = params.keySet();
-                    for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
-                        String key = i.next();
-                        if (!key.equals("Cookie") && !key.equals("POST_OR_GET")) {
-                            sb.append(key + "=" + params.get(key)
-                                    + "&");
-
-                        }
-                    }
-                }
-                Log.e(url + "*****params=***********", sb.toString().substring(0,
-                        sb.toString().length() - 1));
-                out.writeBytes(sb.toString().substring(0,
-                        sb.toString().length() - 1));
-                out.flush();
-            }
-
-            conn.connect();
-            int responseCode = conn.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                data = convertStreamToString(conn.getInputStream());
-                // if (urlStr.contains("passport.dodomoney.com")){
-                // data = data.substring(data.indexOf(">{") + 1,
-                // data.lastIndexOf("}<") + 1);//去除
-                // }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null)
-                conn.disconnect();
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                return null;
-            }
-        }
-        Log.e(url + "*****result=***********", data == null ? "" : data);
-        return data;
-
-    }
+//    public static String doHttpsPost(String urlStr, Map<String, Object> params) {
+//
+//        String data = null;
+//        URL url = null;
+//        HttpsURLConnection conn = null;
+//        DataOutputStream out = null;
+//
+//        String postOrGet = (String) params.get("POST_OR_GET");
+//        postOrGet = postOrGet == null ? "POST" : postOrGet;
+//
+//        try {
+//
+//            if (postOrGet.equalsIgnoreCase("get")) {// 拼接参数
+//                StringBuffer sb = new StringBuffer();
+//                Set<String> keys = params.keySet();
+//                for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
+//                    String key = i.next();
+//                    if (!key.equals("Cookie") && !key.equals("POST_OR_GET")) {
+//                        sb.append(key + "=" + params.get(key) + "&");
+//
+//                    }
+//                }
+//                if (sb.length() > 0) {
+//                    urlStr = urlStr + "?"
+//                            + sb.toString().substring(0, sb.length() - 1);
+//                }
+//            }
+//
+//            SSLSocketFactory sslSocketFactory = getSSLSocketFactory();
+//
+//            if (sslSocketFactory != null) {
+//                Log.d("URL", urlStr);
+//
+//                url = new URL(urlStr);
+//                conn = (HttpsURLConnection) url.openConnection();
+//                conn.setSSLSocketFactory(sslSocketFactory);
+//                conn.setHostnameVerifier(new TrustAnyHostnameVerifier());
+//            } else {
+//                url = new URL(urlStr.replaceFirst("https", "http"));
+//                Log.d("URL", url.toString());
+//                conn = (HttpsURLConnection) url.openConnection();
+//            }
+//
+//            conn.setConnectTimeout(30000);
+//            conn.setRequestProperty("Accept-Charset", "utf-8");
+//            conn.setRequestProperty("contentType", "utf-8");
+//            conn.setReadTimeout(30000);
+//            if (postOrGet.equalsIgnoreCase("POST"))
+//                conn.setDoOutput(true);
+//            else
+//                conn.setDoOutput(false);
+//
+//            conn.setRequestMethod(postOrGet);
+//
+//            if (params.get("Cookie") != null) {
+//                conn.addRequestProperty("Cookie", (String) params.get("Cookie"));
+//            }
+//
+//            if (postOrGet.equalsIgnoreCase("post")) {
+//
+//                out = new DataOutputStream(conn.getOutputStream());
+//                StringBuffer sb = new StringBuffer();
+//                ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+//                if (params != null) {
+//                    Set<String> keys = params.keySet();
+//                    for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
+//                        String key = i.next();
+//                        if (!key.equals("Cookie") && !key.equals("POST_OR_GET")) {
+//                            sb.append(key + "=" + params.get(key)
+//                                    + "&");
+//
+//                        }
+//                    }
+//                }
+//                Log.e(url + "*****params=***********", sb.toString().substring(0,
+//                        sb.toString().length() - 1));
+//                out.writeBytes(sb.toString().substring(0,
+//                        sb.toString().length() - 1));
+//                out.flush();
+//            }
+//
+//            conn.connect();
+//            int responseCode = conn.getResponseCode();
+//            if (responseCode == HttpURLConnection.HTTP_OK) {
+//                data = convertStreamToString(conn.getInputStream());
+//                // if (urlStr.contains("passport.dodomoney.com")){
+//                // data = data.substring(data.indexOf(">{") + 1,
+//                // data.lastIndexOf("}<") + 1);//去除
+//                // }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (conn != null)
+//                conn.disconnect();
+//            try {
+//                if (out != null) {
+//                    out.close();
+//                }
+//            } catch (IOException e) {
+//                // TODO Auto-generated catch block
+//                return null;
+//            }
+//        }
+//        Log.e(url + "*****result=***********", data == null ? "" : data);
+//        return data;
+//
+//    }
 
     public static String doLogin(String urlStr) {
         String data = null;
@@ -365,42 +520,42 @@ public class Caller {
         }
     }
 
-    public static String doPost(String protocol, Map<String, String> params) {
-        String result = null;
-        DefaultHttpClient client = new DefaultHttpClient();// http客户�?
-        HttpPost httpPost = new HttpPost(protocol);
-        // httpPost.addHeader("Content-Type", "text/plain");
-        ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-        if (params != null) {
-            Set<String> keys = params.keySet();
-            for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
-                String key = i.next();
-                pairs.add(new BasicNameValuePair(key, params.get(key)));
-            }
-        }
-
-        try {
-            UrlEncodedFormEntity p_entity = new UrlEncodedFormEntity(pairs,
-                    "utf-8");
-            /*
-			 * 将POST数据放入HTTP请求
-			 */
-            httpPost.setEntity(p_entity);
-			/*
-			 * 发出实际的HTTP POST请求
-			 */
-            HttpResponse response = client.execute(httpPost);
-            HttpEntity entity = response.getEntity();
-            InputStream content = entity.getContent();
-            result = convertStreamToString(content);
-
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+//    public static String doPost(String protocol, Map<String, String> params) {
+//        String result = null;
+//        DefaultHttpClient client = new DefaultHttpClient();// http客户�?
+//        HttpPost httpPost = new HttpPost(protocol);
+//        // httpPost.addHeader("Content-Type", "text/plain");
+//        ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+//        if (params != null) {
+//            Set<String> keys = params.keySet();
+//            for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
+//                String key = i.next();
+//                pairs.add(new BasicNameValuePair(key, params.get(key)));
+//            }
+//        }
+//
+//        try {
+//            UrlEncodedFormEntity p_entity = new UrlEncodedFormEntity(pairs,
+//                    "utf-8");
+//            /*
+//			 * 将POST数据放入HTTP请求
+//			 */
+//            httpPost.setEntity(p_entity);
+//			/*
+//			 * 发出实际的HTTP POST请求
+//			 */
+//            HttpResponse response = client.execute(httpPost);
+//            HttpEntity entity = response.getEntity();
+//            InputStream content = entity.getContent();
+//            result = convertStreamToString(content);
+//
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
 
     // do get if param is null
     public static String doPost(String protocol, String param) {
@@ -749,45 +904,45 @@ public class Caller {
         }
     }
 
-    public static String doGet(String url) {
-
-        String data = null;
-        URI encodedUri = null;
-        HttpGet httpGet = null;
-        Log.d("URL", url);
-        try {
-            encodedUri = new URI(url);
-            httpGet = new HttpGet(encodedUri);
-        } catch (URISyntaxException e1) {
-            e1.printStackTrace();
-        }
-
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpResponse httpResponse = null;
-
-        try {
-            // execute request
-            try {
-                httpResponse = httpClient.execute(httpGet);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
-
-            // request data
-            HttpEntity httpEntity = httpResponse.getEntity();
-
-            if (httpEntity != null) {
-                InputStream inputStream = httpEntity.getContent();
-                data = convertStreamToString(inputStream);
-            }
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }
+//    public static String doGet(String url) {
+//
+//        String data = null;
+//        URI encodedUri = null;
+//        HttpGet httpGet = null;
+//        Log.d("URL", url);
+//        try {
+//            encodedUri = new URI(url);
+//            httpGet = new HttpGet(encodedUri);
+//        } catch (URISyntaxException e1) {
+//            e1.printStackTrace();
+//        }
+//
+//        HttpClient httpClient = new DefaultHttpClient();
+//        HttpResponse httpResponse = null;
+//
+//        try {
+//            // execute request
+//            try {
+//                httpResponse = httpClient.execute(httpGet);
+//            } catch (UnknownHostException e) {
+//                e.printStackTrace();
+//            } catch (SocketException e) {
+//                e.printStackTrace();
+//            }
+//
+//            // request data
+//            HttpEntity httpEntity = httpResponse.getEntity();
+//
+//            if (httpEntity != null) {
+//                InputStream inputStream = httpEntity.getContent();
+//                data = convertStreamToString(inputStream);
+//            }
+//
+//        } catch (ClientProtocolException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return data;
+//    }
 }

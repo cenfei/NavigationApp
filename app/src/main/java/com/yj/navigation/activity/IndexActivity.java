@@ -1,7 +1,13 @@
 package com.yj.navigation.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +34,9 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhang on 2015/8/7.
@@ -183,6 +192,10 @@ public class IndexActivity extends BaseActivity {
 //        gridview.setAdapter(new MyGridAdapter(this));
 //        gridview.setOnItemClickListener(new ItemClickListener());
 //        permissionAll();
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            permissionAll();
+        }
 
     }
 
@@ -365,62 +378,62 @@ public class IndexActivity extends BaseActivity {
     }
 
 
-//    int  MY_PERMISSIONS_REQUEST_ACCESS_ALL=5005;
-//    public void permissionAll() {
-//
-//        List<String> plist=new ArrayList<String>();
-//        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION)) {
-//            plist.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-//        }
-//
+    int  MY_PERMISSIONS_REQUEST_ACCESS_ALL=5005;
+    public void permissionAll() {
+
+        List<String> plist=new ArrayList<String>();
+        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)) {
+            plist.add(Manifest.permission.CAMERA);
+        }
+
 //        if (ContextCompat.checkSelfPermission(this,
 //                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
 //            plist.add(Manifest.permission.RECORD_AUDIO);
 //        }
-//
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-//            plist.add(Manifest.permission.READ_PHONE_STATE);
-//        }
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//            plist.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//        }
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-//            plist.add(Manifest.permission.READ_CONTACTS);
-//        }
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED) {
-//            plist.add(Manifest.permission.WAKE_LOCK);
-//        }
-//        if(plist.size()>0) {
-//            String[] toBeStored = plist.toArray(new String[plist.size()]);
-//
-////请求权限
-//            ActivityCompat.requestPermissions(this, toBeStored,
-//                    MY_PERMISSIONS_REQUEST_ACCESS_ALL);
-////判断是否需要 向用户解释，为什么要申请该权限
-//        }else{
-//            postStart();
-//
-//        }
-//
-//
-//    }
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
-//            grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == MY_PERMISSIONS_REQUEST_ACCESS_ALL) {
-//            postStart();
-//        }
-//
-//
-//    }
 
-//    public void postStart(){
-//
-//    }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            plist.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            plist.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            plist.add(Manifest.permission.READ_CONTACTS);
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED) {
+            plist.add(Manifest.permission.WAKE_LOCK);
+        }
+        if(plist.size()>0) {
+            String[] toBeStored = plist.toArray(new String[plist.size()]);
+
+//请求权限
+            ActivityCompat.requestPermissions(this, toBeStored,
+                    MY_PERMISSIONS_REQUEST_ACCESS_ALL);
+//判断是否需要 向用户解释，为什么要申请该权限
+        }else{
+            postStart();
+
+        }
+
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+            grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_ACCESS_ALL) {
+            postStart();
+        }
+
+
+    }
+
+    public void postStart(){
+
+    }
 }

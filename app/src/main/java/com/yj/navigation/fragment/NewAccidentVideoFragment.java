@@ -4,10 +4,15 @@ package com.yj.navigation.fragment;
  * Created by foxcen on 16/7/29.
  */
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,10 +89,30 @@ public class NewAccidentVideoFragment extends Fragment {
 //        hotNetworkNoId = (LinearLayout) chatView.findViewById(R.id.hot_network_no_id);
 
 //        initView(inflater);
+
+        IntentFilter filterMine = new IntentFilter();
+        filterMine.addAction(MYACTION_UPDATE_ACCIDENT_VIDEO);
+        getActivity().registerReceiver(receiverMine, filterMine);
         init();
 //        getDataFromServerForFilter();
         return chatView;
     }
+
+    public static String MYACTION_UPDATE_ACCIDENT_VIDEO = "com.changeaccidentvideo.broadcast";
+
+
+    //fragment切换的时候广播
+    BroadcastReceiver receiverMine = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (MYACTION_UPDATE_ACCIDENT_VIDEO.equals(intent.getAction())) {
+                Log.i("onReceive", "change receiverMine...");
+                beginD = intent.getStringExtra("DATE_CHOOSE");
+
+
+            }
+        }
+    };
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -214,6 +239,8 @@ public class NewAccidentVideoFragment extends Fragment {
         //退出activity前关闭菜单
 
         super.onDestroy();
+        getActivity().unregisterReceiver(receiverMine);
+
 
     }
 
@@ -236,12 +263,14 @@ public class NewAccidentVideoFragment extends Fragment {
     FoxProgressbarInterface foxProgressbarInterface;
     private List<JobJson> designRoomInfos;
     int pageNum = 1;
-
+    String beginD=null;
     public void getJobListFromServerForMsg() {
 
         foxProgressbarInterface = new FoxProgressbarInterface();
         foxProgressbarInterface.startProgressBar(getActivity(), "加载中...");
-        String beginD = "20161201";
+        if(TextUtils.isEmpty(beginD)) {
+            beginD = "20161201";
+        }
         String endD = MyStringUtils.getNowTimeFormata(new Date());
         String params = "0";//0全部 1 审核 2通过
         Integer rows = 20;

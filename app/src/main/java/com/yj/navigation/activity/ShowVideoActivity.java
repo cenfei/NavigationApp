@@ -29,6 +29,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -84,8 +85,7 @@ public class ShowVideoActivity extends Activity {
     List<JobImageJson> jobImageJsonList;
     TextView report_next;
     //    JobJson jobJson;
-    int duration = 1000;
-
+    int duration = 200;
 
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -93,14 +93,13 @@ public class ShowVideoActivity extends Activity {
         public boolean handleMessage(Message msg) {
 
 
-            switch(msg.what)
-            {
+            switch (msg.what) {
                 case 0:
-                Bundle date=msg.getData();
+                    Bundle date = msg.getData();
                     foxProgressbarInterface.updateComment(String.valueOf(date.getString("comment")));
 
 
-                break;
+                    break;
                 case 1:
                     foxProgressbarInterface.stopProgressBar();
                     startAnimationDrawableHandler();
@@ -110,10 +109,6 @@ public class ShowVideoActivity extends Activity {
 
                     break;
             }
-
-
-
-
 
 
             return false;
@@ -130,6 +125,7 @@ public class ShowVideoActivity extends Activity {
         setContentView(R.layout.show_view);
         initUi();
     }
+
     LinearLayout break_rules_button_id;
 
     public void initUi() {
@@ -151,7 +147,6 @@ public class ShowVideoActivity extends Activity {
                 finish();
             }
         });
-
 
 
         TextView title = (TextView) findViewById(R.id.title);
@@ -178,29 +173,38 @@ public class ShowVideoActivity extends Activity {
         animation_drawable_id_left = (ImageView) findViewById(R.id.animation_drawable_id_left);
         animation_button_id = (ImageView) findViewById(R.id.animation_button_id);
 
-         break_rules_button_id = (LinearLayout) findViewById(R.id.break_rules_button_id);
-         report_next = (TextView) findViewById(R.id.report_next);
+        break_rules_button_id = (LinearLayout) findViewById(R.id.break_rules_button_id);
+        report_next = (TextView) findViewById(R.id.report_next);
 
+
+//        break_rules_button_id.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if(setChooseId.size()>0) {
+//
+//                    report_next.setVisibility(View.VISIBLE);
+//                }
+//                else{
+//                    Util.Toast(ShowVideoActivity.this,"请先选择图片",null);
+//                }
+//            }
+//        });
 
         break_rules_button_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(setChooseId.size()>0) {
+                if (setChooseId.size() == 0) {
 
-                    report_next.setVisibility(View.VISIBLE);
-                }
-                else{
-                    Util.Toast(ShowVideoActivity.this,"请先选择图片",null);
-                }
-            }
-        });
 
-        report_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                List<JobImageJson> jobImageJsonListChoose=new ArrayList<JobImageJson>();
-                for(int chooseId:setChooseId){
+                    Util.Toast(ShowVideoActivity.this, "请先选择图片", null);
+                    return;
+                }
+
+
+                List<JobImageJson> jobImageJsonListChoose = new ArrayList<JobImageJson>();
+                for (int chooseId : setChooseId) {
 
                     jobImageJsonListChoose.add(jobImageJsonList.get(chooseId));
 
@@ -209,7 +213,7 @@ public class ShowVideoActivity extends Activity {
 
                 MainApp mainApp = (MainApp) getApplicationContext();
 
-                 mainApp.jobImageJsonList=jobImageJsonListChoose;
+                mainApp.jobImageJsonList = jobImageJsonListChoose;
 
                 Intent intent = new Intent(ShowVideoActivity.this, UpdateJobInfoActivity_.class);
                 if (boolFromVideoSecondFragment) {
@@ -221,7 +225,6 @@ public class ShowVideoActivity extends Activity {
                 finish();
             }
         });
-
 
 
         boolFromVideoSecondFragment = getIntent().getBooleanExtra("FromVideoSecondFragment", false);
@@ -276,137 +279,123 @@ public class ShowVideoActivity extends Activity {
         );
 
     }
+
     /**
      * Bitmap --> byte[]
      *
      * @param bmp
      * @return
      */
-    private static byte[] readBitmap(Bitmap bmp)
-    {
+    private static byte[] readBitmap(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        try
-        {
+        try {
             baos.flush();
             baos.close();
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return baos.toByteArray();
     }
 
     public static Bitmap getBitmap(Bitmap bitmap, int screenWidth,
-                                   int screenHight)
-    {
+                                   int screenHight) {
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
-        Log.e("getBitmap","w:"+w+",h:"+h);
+        Log.e("getBitmap", "w:" + w + ",h:" + h);
 
         Matrix matrix = new Matrix();
-        float scale,scale2;
-        if(w>h){
-             scale = (float) screenWidth / w;
-             scale2 = (float) screenHight / h;
-        }else{
-             scale = (float) screenWidth / h;
-             scale2 = (float) screenHight / w;
+        float scale, scale2;
+        if (w > h) {
+            scale = (float) screenWidth / w;
+            scale2 = (float) screenHight / h;
+        } else {
+            scale = (float) screenWidth / h;
+            scale2 = (float) screenHight / w;
         }
 
 //        float scale = (float) screenWidth / w;
 //        float scale2 = (float) screenHight / h;
         // scale = scale < scale2 ? scale : scale2;
 
-        Log.e("getBitmap","scale:"+scale+",scale2:"+scale2);
-if(scale>1&&scale2>1) {
-    matrix.postScale(scale, scale2);
-}else{
-    matrix.postScale(1, 1);
+        Log.e("getBitmap", "scale:" + scale + ",scale2:" + scale2);
+        if (scale > 1 && scale2 > 1) {
+            matrix.postScale(scale, scale2);
+        } else {
+            matrix.postScale(1, 1);
 
-}
+        }
         Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
-        if (bitmap != null && !bitmap.equals(bmp) && !bitmap.isRecycled())
-        {
+        if (bitmap != null && !bitmap.equals(bmp) && !bitmap.isRecycled()) {
             bitmap.recycle();
             bitmap = null;
         }
 
 
-
         return bmp;// Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
     }
+
     /**
      * 图片的质量压缩方法
      *
      * @param image
      * @return
      */
-    public static Bitmap compressImage(Bitmap image)
-    {
+    public static Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 100;
 
-        while (baos.toByteArray().length / 1024 > 1024)
-        { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-            Log.e("while image size",""+baos.toByteArray().length);
+        while (baos.toByteArray().length / 1024 > 1024) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            Log.e("while image size", "" + baos.toByteArray().length);
 
             baos.reset();// 重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
-            Log.e("old image size",""+baos.toByteArray().length+",options:"+options);
+            Log.e("old image size", "" + baos.toByteArray().length + ",options:" + options);
 
             options -= 10;// 每次都减少10
 
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
-        if (baos != null)
-        {
-            try
-            {
+        if (baos != null) {
+            try {
                 baos.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        if (isBm != null)
-        {
-            try
-            {
+        if (isBm != null) {
+            try {
                 isBm.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        if (image != null && !image.isRecycled())
-        {
+        if (image != null && !image.isRecycled()) {
             image.recycle();
             image = null;
         }
         return bitmap;
     }
+
     /**
      * 图片按比例大小压缩方法(根据Bitmap图片压缩)
      *
      * @param image
      * @return
      */
-    public static Bitmap getImage(Bitmap image,float ww,float hh)
-    {
+    public static Bitmap getImage(Bitmap image, float ww, float hh) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        Log.e("old image size",""+baos.toByteArray().length);
-        if (baos.toByteArray().length / 1024 > 2048)
-        {// 判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        Log.e("old image size", "" + baos.toByteArray().length);
+        if (baos.toByteArray().length / 1024 > 2048) {// 判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             baos.reset();// 重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 50, baos);// 这里压缩50%，把压缩后的数据存放到baos中
 
-            Log.e("old image size then",""+baos.toByteArray().length);
+            Log.e("old image size then", "" + baos.toByteArray().length);
 
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
@@ -422,38 +411,32 @@ if(scale>1&&scale2>1) {
 //        float ww = 480f;// 这里设置宽度为480f
         // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 1;// be=1表示不缩放
-        if (w > h && w > ww)
-        {// 如果宽度大的话根据宽度固定大小缩放
+        if (w > h && w > ww) {// 如果宽度大的话根据宽度固定大小缩放
             be = (int) (w / ww);
-        } else if (w < h && h > hh)
-        {// 如果高度高的话根据宽度固定大小缩放
+        } else if (w < h && h > hh) {// 如果高度高的话根据宽度固定大小缩放
             be = (int) (h / hh);
         }
         if (be <= 0)
             be = 1;
         newOpts.inSampleSize = be;// 设置缩放比例
-        Log.e("old Options size","w:"+w+",h:"+h+",inSampleSize:"+be);
+        Log.e("old Options size", "w:" + w + ",h:" + h + ",inSampleSize:" + be);
 
         // 重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
         isBm = new ByteArrayInputStream(baos.toByteArray());
-        Bitmap    bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
-        if (isBm != null)
-        {
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        if (isBm != null) {
 
-            try
-            {
+            try {
 
-                if(baos!=null)
-                baos.close();
+                if (baos != null)
+                    baos.close();
                 isBm.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        if (image != null && !image.isRecycled())
-        {
+        if (image != null && !image.isRecycled()) {
             image.recycle();
             image = null;
         }
@@ -461,9 +444,10 @@ if(scale>1&&scale2>1) {
         return bitmap;
 //        return compressImage(bitmap);// 压缩好比例大小后再进行质量压缩
     }
+
     String remoteBaseUrl;
     LinearLayout country_line;
-    Integer scrollFirst=0;
+    Integer scrollFirst = 0;
 
     public void startAnimationDrawable() {
 
@@ -473,19 +457,18 @@ if(scale>1&&scale2>1) {
 
         jobImageJsonList = mainApp.jobImageJsonList;
 
-      JobJson  jobJson=mainApp.jobJson;
+        JobJson jobJson = mainApp.jobJson;
         if (boolFromVideoSecondFragment) {
-            if(jobJson!=null&&"1".equals(jobJson.state)) {
+            if (jobJson != null && "1".equals(jobJson.state)) {
 
                 break_rules_button_id.setVisibility(View.VISIBLE);
-            }
-            else{
+            } else {
                 break_rules_button_id.setVisibility(View.GONE);
 
             }
         } else {
 //            if(jobJson!=null&&"2".equals(jobJson.state)){
-                break_rules_button_id.setVisibility(View.VISIBLE);
+            break_rules_button_id.setVisibility(View.VISIBLE);
 
 //            }else{
 //                break_rules_button_id.setVisibility(View.GONE);
@@ -500,7 +483,7 @@ if(scale>1&&scale2>1) {
 
         country = (WheelView) findViewById(R.id.country);
 
-        country_line= (LinearLayout) findViewById(R.id.country_line);
+        country_line = (LinearLayout) findViewById(R.id.country_line);
 
         country.setVisibleItems(5);
         //   country.setVisibility(View.GONE);
@@ -514,7 +497,7 @@ if(scale>1&&scale2>1) {
             public void onScrollingFinished(WheelView wheel) {
 //                scrolling = false;
                 isScroll = true;
-                scrollFirst=wheel.getCurrentItem();
+                scrollFirst = wheel.getCurrentItem();
                 Log.i("onScrollingFinished", wheel.getCurrentItem() + "");
 //                updateCities(city, cities, country.getCurrentItem());
                 imageLoader.displayImage(remoteBaseUrl + jobImageJsonList.get(country.getCurrentItem()).bigPicUrl, animation_drawable_id_left, options);
@@ -525,16 +508,23 @@ if(scale>1&&scale2>1) {
         country.addClickingListener(new OnWheelClickedListener() {
             @Override
             public void onItemClicked(WheelView wheel, int itemIndex) {
-                if(setChooseId.contains(itemIndex)){
+                if (setChooseId.contains(itemIndex)) {
 //                    Log.e("remove", (itemIndex) + "");
 
                     setChooseId.remove(itemIndex);
-                }else{
+                } else {
 //                    Log.e("add", (itemIndex) + "");
 
                     setChooseId.add(itemIndex);
                 }
 
+                if (setChooseId.size() > 0) {
+                    report_next.setBackgroundDrawable(ContextCompat.getDrawable(ShowVideoActivity.this, R.drawable.rounded_apply_use));
+
+                } else {
+                    report_next.setBackgroundDrawable(ContextCompat.getDrawable(ShowVideoActivity.this, R.drawable.rounded_apply));
+
+                }
 
                 country.invalidateWheel(true);
 
@@ -567,10 +557,8 @@ if(scale>1&&scale2>1) {
                     int width = metric.widthPixels;     // 屏幕宽度（像素）
                     int height = metric.heightPixels;   // 屏幕高度（像素）
 
-                   Log.e("DisplayMetrics","width:"+width+",height:"+height);
-Bitmap smallBitmap=getBitmap(bitmap,width,height);
-
-
+                    Log.e("DisplayMetrics", "width:" + width + ",height:" + height);
+                    Bitmap smallBitmap = getBitmap(bitmap, width, height);
 
 
                     imageLoader.loadImageSync(remoteBaseUrl + jobImageJson.minPicUrl, options);
@@ -579,12 +567,12 @@ Bitmap smallBitmap=getBitmap(bitmap,width,height);
                     Drawable drawable = new BitmapDrawable(smallBitmap);
                     animationDrawable.addFrame(drawable, duration);
                     Log.d("run:", "run:" + i++);
-                    Message msg=new Message();
-                    Bundle date =new Bundle();// 存放数据
-                    int count=jobImageJsonList.size();
-                    date.putString("comment", "剩余"+(count-i)+"张加载");
+                    Message msg = new Message();
+                    Bundle date = new Bundle();// 存放数据
+                    int count = jobImageJsonList.size();
+                    date.putString("comment", "剩余" + (count - i) + "张加载");
                     msg.setData(date);
-                    msg.what=0;
+                    msg.what = 0;
                     Log.d("ThreadId", "POST:"
                             + String.valueOf(Thread.currentThread().getId()));
 //                    myHandler.sendMessage(msg);
@@ -599,7 +587,7 @@ Bitmap smallBitmap=getBitmap(bitmap,width,height);
         }).start();
     }
 
-public Set<Integer> setChooseId=new HashSet<Integer>();
+    public Set<Integer> setChooseId = new HashSet<Integer>();
 
     public void startAnimationDrawableHandler() {
 
@@ -714,7 +702,6 @@ public Set<Integer> setChooseId=new HashSet<Integer>();
     }
 
 
-
     //***************************************
 
     /**
@@ -741,9 +728,9 @@ public Set<Integer> setChooseId=new HashSet<Integer>();
 
 
             RelativeLayout flag_rel = (RelativeLayout) view.findViewById(R.id.flag_rel);
-            if(setChooseId.contains(index)) {
+            if (setChooseId.contains(index)) {
                 flag_rel.setBackground(getResources().getDrawable(R.drawable.rounded_image_gallery));
-            }else{
+            } else {
                 flag_rel.setBackground(getResources().getDrawable(R.color.black));
 
             }
@@ -763,7 +750,6 @@ public Set<Integer> setChooseId=new HashSet<Integer>();
 
             return view;
         }
-
 
 
         @Override

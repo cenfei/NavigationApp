@@ -1,20 +1,26 @@
 package com.yj.navigation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yj.navigation.R;
 import com.yj.navigation.adapter.NewMyVideoFragmentPageAdapter;
 import com.yj.navigation.base.BaseFragmentActivity;
+import com.yj.navigation.fragment.NewAccidentVideoFragment;
+import com.yj.navigation.fragment.NewUploadVideoFragment;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Util;
+import com.ywl5320.pickaddress.DatePickerDialog;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -84,22 +90,77 @@ public class NewMyVideoListActivity extends BaseFragmentActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-
-
     }
+
+
+    @Click(R.id.right_title_line)
+    public void clickCheckDate() {
+        // TODO Auto-generated method stub
+        DatePickerDialog mChangeBirthDialog = new DatePickerDialog(this);
+        // mChangeBirthDialog.setDate(2015, 03, 29);
+
+        mChangeBirthDialog
+                .setDialogMode(DatePickerDialog.DIALOG_MODE_BOTTOM);
+
+        mChangeBirthDialog.show();
+        mChangeBirthDialog
+                .setDatePickListener(new DatePickerDialog.OnDatePickListener() {
+
+                    @Override
+                    public void onClick(String year, String month,
+                                        String day) {
+                        // TODO Auto-generated method stub
+//                        Toast.makeText(NewMyVideoListActivity.this,
+//                                year + "-" + month + "-" + day,
+//                                Toast.LENGTH_LONG).show();
+
+                        StringBuffer sb=new StringBuffer();
+                        sb.append(year);
+                        if(month.length()==1){
+                            sb.append("0");
+
+                        }
+                        sb.append(month);
+                        if(day.length()==1){
+                            sb.append("0");
+
+                        }
+                        sb.append(day);
+
+
+                        String DATE_CHOOSE = sb.toString();
+                        if (mPager.getCurrentItem() == 0) {
+
+                            Intent intent = new Intent(NewUploadVideoFragment.MYACTION_UPDATE_UPVIDEO);
+                            Log.i("Broadcast  UPVIDEO", "change UPVIDEO ");
+                            intent.putExtra("DATE_CHOOSE", DATE_CHOOSE);
+                            sendBroadcast(intent);
+
+                        } else {
+                            Intent intent = new Intent(NewAccidentVideoFragment.MYACTION_UPDATE_ACCIDENT_VIDEO);
+                            Log.i("Broadcast  ACCIDENT", "change ACCIDENT ");
+                            intent.putExtra("DATE_CHOOSE", DATE_CHOOSE);
+
+                            sendBroadcast(intent);
+
+                        }
+
+                    }
+                });
+    }
+
 
     private void InitViewPager() {
         mPager = (ViewPager) findViewById(R.id.vPager);
 
 
         FragmentManager fm = getSupportFragmentManager();
-        NewMyVideoFragmentPageAdapter myFragmentPageAdapter=new NewMyVideoFragmentPageAdapter(fm);
+        NewMyVideoFragmentPageAdapter myFragmentPageAdapter = new NewMyVideoFragmentPageAdapter(fm);
 
         mPager.setAdapter(myFragmentPageAdapter);
         mPager.setOnPageChangeListener(new MyOnPageChangeListener());
@@ -167,13 +228,13 @@ public class NewMyVideoListActivity extends BaseFragmentActivity {
 
         LinearLayout right_title_line = (LinearLayout) findViewById(R.id.right_title_line);
 
-        right_title_line.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        right_title_line.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
         InitViewPager();
     }

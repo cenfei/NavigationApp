@@ -59,7 +59,7 @@ this.img_count_id=img_count_id;
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		final int Height = 400;
+		final int Height = 330;
 		final int Width = 330;
 
 		img_count_id.setText(""+(position+1)+"/"+jobImageJsonList.size());

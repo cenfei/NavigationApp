@@ -152,7 +152,7 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
         passwordView = (EditText) findViewById(R.id.password_info_id);
         againPasswordView = (EditText) findViewById(R.id.again_password_info_id);
 
-        nameView = (TextView) findViewById(R.id.name_info_id);
+        nameView = (EditText) findViewById(R.id.name_info_id);
         cardnoView = (EditText) findViewById(R.id.cardno_info_id);
 
 
@@ -164,7 +164,7 @@ public class ChangeCompleteInfoActivity extends BaseActivity {
 
     }
 
-    TextView nameView;
+    EditText nameView;
     EditText passwordView, againPasswordView , cardnoView;
 
     @AfterViews

@@ -86,12 +86,15 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:src="@drawable/img_report" />
 
         <TextView
             android:id="@+id/address_comment"
             android:layout_width="wrap_content"
+            android:visibility="gone"
+
             android:layout_height="wrap_content"
             android:layout_below="@+id/image"
             android:layout_centerHorizontal="true"
@@ -101,23 +104,24 @@
             android:textColor="@color/white"
             android:textSize="13sp" />
 
+
+        <TextView
+            android:id="@+id/report_next"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+
+            android:gravity="center"
+            android:background="@drawable/rounded_apply"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
     </LinearLayout>
     </RelativeLayout>
 
 
 
-    <TextView
-        android:id="@+id/report_next"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
-android:visibility="gone"
-        android:layout_alignParentBottom="true"
-       android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:background="@drawable/rounded_next"
-        android:text="下一步"
-        android:textColor="@color/white"
-        android:textSize="13sp" />
+
 
 </RelativeLayout>
