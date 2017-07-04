@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,10 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 		setContentView(R.layout.activity_camera_preview);
 
 		mp4FileName=getIntent().getStringExtra("mp4FileNameNumber");
+
+		if(TextUtils.isEmpty(mp4FileName)) return;
+
+
 
 		File dirFile = new File(VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE);
 		if (!dirFile.exists()) {

@@ -47,6 +47,8 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created by zhang on 2015/8/7.
@@ -150,7 +152,10 @@ public class MineInfoActivity extends BaseActivity {
             @Override
             public void handleCallBackPayWindowFromLib() {
 
+                Intent intent = new Intent(MineInfoActivity.this, ChangeCashMoneyPwdActivity_.class);
+//        intent.putExtra("FromMineInfoActivity", true);
 
+                startActivity(intent);
             }
         });
 
@@ -452,6 +457,11 @@ public class MineInfoActivity extends BaseActivity {
 
                     byte[] avarByte = Util.getBitmapByte(tempCropBitmap);
                     String avarBase64 = Base64Util.encode(avarByte);
+                    try {
+                        avarBase64=      URLEncoder.encode(avarBase64, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     uploadAvar(avarBase64, "jpg");
 
 //                    ProtocolUtil.updateAvar(this, new AsyncHttpResponseHandler() {

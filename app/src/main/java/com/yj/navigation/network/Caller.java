@@ -1,16 +1,15 @@
 package com.yj.navigation.network;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
-//
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,16 +18,11 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.SocketException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +35,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+
+//
 
 public class Caller {
 
@@ -57,44 +53,6 @@ public class Caller {
 
         try {
 
-//            StringBuffer sb = new StringBuffer();
-//            sb.append(urlStr + "?");
-//
-//            List<Map<String, String>> mapList = null;
-//
-//            String type=(String )params.get("type");
-//            String step=(String )params.get("step");
-//
-//            for (Map.Entry<String, Object> entry : params.entrySet()) {
-//                String key = entry.getKey().toString();
-//
-//
-//
-//                String value = entry.getValue().toString();
-//                if(key.equals("unionid")){
-//                    if(TextUtils.isEmpty(value)){
-//                        value="gost001";
-//                    }
-//
-//                }
-//                if(!TextUtils.isEmpty(type)&&!TextUtils.isEmpty(step)&&type.equals("czgl")&&step.equals("save")) {//需要post
-//
-//                    if(!(key.equals("obj")||key.equals("obj2"))){
-//
-//                        sb.append(key + "=" + value + "&");
-//                    }
-//                }
-//                else {
-//                    sb.append(key + "=" + value + "&");
-//                }
-////                    NameValuePair pair = new BasicNameValuePair(key, value);
-////                    list.add(pair);
-//
-//
-//            }
-//            urlStr=sb.toString().substring(0, sb.toString().length() - 1);
-//            Log.d("输入参数", urlStr);
-
 
 
             // Thread.sleep(5000);
@@ -108,15 +66,12 @@ public class Caller {
                 urlConnection.setDoOutput(true);
                 urlConnection.setDoInput(true);
                 urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//            urlConnection.setRequestProperty("Accept-Charset", "utf-8");
+//            urlConnection.setRequestProperty("contentType", "utf-8");
+
+            urlConnection.setInstanceFollowRedirects(false);
 
 
-//            }else{
-//                urlConnection.setDoOutput(false);
-//
-//                urlConnection.setRequestMethod("GET");
-//                urlConnection.setRequestProperty("Content-Type",
-//                        "text/plain; charset=utf-8"); // "application/json"
-//            }
 
 
 
@@ -176,11 +131,39 @@ public class Caller {
 
 String content= stringBuffer.toString().substring(0, stringBuffer.toString().length() - 1);
 
-            Log.d("输入post参数", content);
-            DataOutputStream out = new DataOutputStream(urlConnection
-                    .getOutputStream());
-            // DataOutputStream.writeBytes将字符串中的16位的unicode字符以8位的字符形式写到流里面
-            out.writeBytes(content);
+//            Log.d("输入post参数", content);
+//            DataOutputStream out = new DataOutputStream(urlConnection
+//                    .getOutputStream());
+//            // DataOutputStream.writeBytes将字符串中的16位的unicode字符以8位的字符形式写到流里面
+////            out.writeBytes(content);
+//            out.write(content.getBytes());
+
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(content.getBytes());
+            //发送请求数据
+
+            DataOutputStream out = new DataOutputStream(urlConnection.getOutputStream());
+            long total = content.getBytes().length;
+            Log.i("request url：", ""+ urlStr);
+
+            Log.i("request param：", ""+ content);
+
+            Log.i("文件大小total：", ""+ total);
+            // 设置每次写入1024bytes
+            int bufferSize = 1024;
+            byte[] buffer = new byte[bufferSize];
+            int length = -1;
+            long progressBarLength = 0;
+            //从文件读取数据至缓冲区
+            while ((length = byteArrayInputStream.read(buffer)) != -1) {
+                //将请求体写入DataOutputStream中
+                out.write(buffer, 0, length);
+                //获取进度
+                progressBarLength += length;
+            }
+
+
+
+
             out.flush();
             out.close();
 
@@ -193,11 +176,13 @@ String content= stringBuffer.toString().substring(0, stringBuffer.toString().len
             int code = urlConnection.getResponseCode();
             Log.d("STATUS code", String.format("%d", code));
             // String string = urlConnection.getResponseMessage();
-            System.out.println(urlConnection.toString());
+//            System.out.println(urlConnection.toString());
             InputStream in = new BufferedInputStream(
                     urlConnection.getInputStream());
             result = convertStreamToString(in);
-            Log.d("INFO", "**RESULT** " + result);
+            Log.i("result ：", "" + result);
+
+//            Log.d("INFO", "**RESULT** " + result);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("tag", "exception >>>>>>>" + e.getLocalizedMessage());
@@ -313,7 +298,6 @@ String content= stringBuffer.toString().substring(0, stringBuffer.toString().len
      * 功能：https post请求
      *
      * @param urlStr
-     * @param params
      * @return
      */
 //    public static String doHttpsPost(String urlStr, Map<String, Object> params) {

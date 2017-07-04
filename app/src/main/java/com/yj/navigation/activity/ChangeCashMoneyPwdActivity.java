@@ -74,7 +74,7 @@ public class ChangeCashMoneyPwdActivity extends BaseActivity {
             Util.Toast(this, "请保持两次密码一致",null);
             return;
         }
-        resetSafePwd(pwd,nowPwd);
+        resetSafePwd(nowPwd,pwd);
         // Util.startActivity(this, IndexActivity_.class);
 
 //        finish();

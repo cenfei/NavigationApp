@@ -212,6 +212,7 @@
         <activity
             android:name="org.camera.activity.CameraSurfaceTextureActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:configChanges="keyboardHidden|orientation|screenSize"
 
             android:screenOrientation="landscape"
           />
@@ -219,7 +220,12 @@
         <activity
             android:name=".activity.MyUpVideoListActivity_"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PlayVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
 
+            android:screenOrientation="landscape"
+            />
         <activity
             android:name=".activity.MyUpWebVideoListActivity_"
             android:screenOrientation="portrait" />

@@ -17,10 +17,8 @@ package com.yj.navigation.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,20 +44,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterfaceView;
-import com.yj.navigation.object.JobImageJson;
-import com.yj.navigation.object.JobJson;
 import com.yj.navigation.util.ImageLoaderUtil;
-import com.yj.navigation.util.Util;
 import com.yj.navigation.wheelview.OnWheelClickedListener;
 import com.yj.navigation.wheelview.OnWheelScrollListener;
 import com.yj.navigation.wheelview.WheelView;
 import com.yj.navigation.wheelview.adapters.AbstractWheelTextAdapter;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -301,10 +292,11 @@ public class ShowVideoUpWebActivity extends Activity {
         // scale = scale < scale2 ? scale : scale2;
 
         Log.e("getBitmap", "scale:" + scale + ",scale2:" + scale2);
-        if (scale > 1 && scale2 > 1) {
-            matrix.postScale(scale, scale2);
+        if (scale < 0.75 && scale2 < 0.75) {
+            matrix.postScale(0.75f, 0.75f);
         } else {
-            matrix.postScale(1, 1);
+//            matrix.postScale(1, 1);
+            matrix.postScale(3*scale/4, 3*scale2/4);
 
         }
         Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
@@ -359,7 +351,7 @@ public class ShowVideoUpWebActivity extends Activity {
 
         country_line = (LinearLayout) findViewById(R.id.country_line);
 
-        country.setVisibleItems(5);
+        country.setVisibleItems(1);
         //   country.setVisibility(View.GONE);
         final CountryAdapter countryAdapter = new CountryAdapter(ShowVideoUpWebActivity.this);
         country.setViewAdapter(countryAdapter);
@@ -499,7 +491,7 @@ public class ShowVideoUpWebActivity extends Activity {
         animation_drawable_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                clickCountry=true;
                 country_line.setVisibility(View.VISIBLE);
                 country.setVisibility(View.VISIBLE);
                 animation_drawable_id_left.setVisibility(View.VISIBLE);
@@ -574,9 +566,11 @@ public class ShowVideoUpWebActivity extends Activity {
         return returnCode;
 
     }
-
+boolean clickCountry=false;
 
     //***************************************
+
+
 
     /**
      * Adapter for countries

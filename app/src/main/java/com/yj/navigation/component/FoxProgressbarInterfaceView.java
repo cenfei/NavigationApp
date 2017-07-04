@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yj.navigation.R;
-import com.yj.navigation.gridpasswordview.Util;
 
 /**
  * Created by foxcen on 15/8/28.
@@ -36,7 +35,7 @@ public class FoxProgressbarInterfaceView {
 
                 stopProgressBar();
 
-                com.yj.navigation.util.Util.Toast(context,"图片加载超时",null);
+//                com.yj.navigation.util.Util.Toast(context,"图片加载超时",null);
                 writehandler.removeCallbacks(runnable);
 
             }

@@ -45,7 +45,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
-import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.component.FoxProgressbarInterfaceView;
 import com.yj.navigation.object.JobImageJson;
 import com.yj.navigation.object.JobJson;
@@ -302,6 +301,7 @@ public class ShowVideoActivity extends Activity {
                                    int screenHight) {
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
+
         Log.e("getBitmap", "w:" + w + ",h:" + h);
 
         Matrix matrix = new Matrix();
@@ -319,10 +319,11 @@ public class ShowVideoActivity extends Activity {
         // scale = scale < scale2 ? scale : scale2;
 
         Log.e("getBitmap", "scale:" + scale + ",scale2:" + scale2);
-        if (scale > 1 && scale2 > 1) {
-            matrix.postScale(scale, scale2);
+        if (scale < 0.75 && scale2 < 0.75) {
+            matrix.postScale(0.75f, 0.75f);
         } else {
-            matrix.postScale(1, 1);
+//            matrix.postScale(1, 1);
+            matrix.postScale(3*scale/4, 3*scale2/4);
 
         }
         Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
@@ -486,6 +487,7 @@ public class ShowVideoActivity extends Activity {
         country_line = (LinearLayout) findViewById(R.id.country_line);
 
         country.setVisibleItems(5);
+        country.setCurrentItem(2);
         //   country.setVisibility(View.GONE);
         final CountryAdapter countryAdapter = new CountryAdapter(ShowVideoActivity.this);
         country.setViewAdapter(countryAdapter);
@@ -520,9 +522,11 @@ public class ShowVideoActivity extends Activity {
 
                 if (setChooseId.size() > 0) {
                     report_next.setBackgroundDrawable(ContextCompat.getDrawable(ShowVideoActivity.this, R.drawable.rounded_apply_use));
+                    break_rules_button_id.setVisibility(View.VISIBLE);
 
                 } else {
                     report_next.setBackgroundDrawable(ContextCompat.getDrawable(ShowVideoActivity.this, R.drawable.rounded_apply));
+                    break_rules_button_id.setVisibility(View.GONE);
 
                 }
 
@@ -535,9 +539,10 @@ public class ShowVideoActivity extends Activity {
 
         country.setVisibility(View.GONE);
         country_line.setVisibility(View.GONE);
+        break_rules_button_id.setVisibility(View.GONE);
 
 
-        country.setCurrentItem(1);
+        country.setCurrentItem(2);
 
         foxProgressbarInterface = new FoxProgressbarInterfaceView();
         foxProgressbarInterface.startProgressBar(this, "正在生成视频...");
@@ -629,7 +634,7 @@ public class ShowVideoActivity extends Activity {
                 country_line.setVisibility(View.VISIBLE);
                 country.setVisibility(View.VISIBLE);
                 animation_drawable_id_left.setVisibility(View.VISIBLE);
-
+                break_rules_button_id.setVisibility(View.VISIBLE);
                 Drawable drawable = animationDrawable.getCurrent();
                 animation_drawable_id_left.setImageDrawable(drawable);
                 country.setCurrentItem(getCurrentAnimation(drawable));
@@ -647,6 +652,7 @@ public class ShowVideoActivity extends Activity {
                 animation_drawable_id_left.setVisibility(View.GONE);
                 country.setVisibility(View.GONE);
                 country_line.setVisibility(View.GONE);
+                break_rules_button_id.setVisibility(View.GONE);
 
 
             }
@@ -661,6 +667,7 @@ public class ShowVideoActivity extends Activity {
                     country_line.setVisibility(View.GONE);
                     animation_drawable_id.setVisibility(View.VISIBLE);
                     animation_drawable_id_left.setVisibility(View.GONE);
+                    break_rules_button_id.setVisibility(View.GONE);
 
 //                    animation_drawable_id_left.setImageDrawable(getResources().getDrawable(flags[0]));
 //                    country.setCurrentItem(1);
@@ -671,6 +678,7 @@ public class ShowVideoActivity extends Activity {
                     country.setVisibility(View.GONE);
                     country_line.setVisibility(View.GONE);
                     animation_drawable_id.setVisibility(View.VISIBLE);
+                    break_rules_button_id.setVisibility(View.GONE);
 
                     animation_drawable_id_left.setVisibility(View.GONE);
                     animation_button_id.setImageDrawable(getResources().getDrawable(R.drawable.img_pause));

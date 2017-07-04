@@ -1,7 +1,6 @@
 package com.yj.navigation.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.makeramen.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
-import com.yj.navigation.activity.ShowVideoActivity;
 import com.yj.navigation.object.OpesJson;
 import com.yj.navigation.util.ImageLoaderUtil;
 import com.yj.navigation.util.MyStringUtils;
@@ -100,16 +98,16 @@ public class AdapterWorkDetailListView extends BaseAdapter {
 
             //YYMMDD HH:MM:SS  2016-12-24 23:54:20
             String monthDate=null;
-            if(mPersonal.size()==2){
+//            if(mPersonal.size()==2){
                 monthDate = personalRanking.opeDt.substring(5, 10);
                 monthDate = monthDate.replace("-", "月") + "日";
-            }else{
-                monthDate=personalRanking.opeDt.substring(11,16);
-            }
+//            }else{
+                monthDate=monthDate+"\n"+personalRanking.opeDt.substring(11,16);
+//            }
 
             end_time_id.setText(monthDate);
 
-        } else if (position % 2 == 1) {
+        } else {
             convertView = mInflater.inflate(R.layout.mywork_detail_common_item, null);
             TextView common_time_id = (TextView) convertView.findViewById(R.id.common_time_id);
 
@@ -127,47 +125,48 @@ public class AdapterWorkDetailListView extends BaseAdapter {
             //YYyyMMDD HH:MM:SS  20161224 23:54:20
             String monthDate = null;
 
-            if(position==1) {
+//            if(position==1) {
                 monthDate = personalRanking.opeDt.substring(5, 10);
                 monthDate = monthDate.replace("-", "月") + "日";
-            }else{
-                 monthDate=personalRanking.opeDt.substring(11,16);
+//            }else{
+                 monthDate=monthDate+"\n"+personalRanking.opeDt.substring(11,16);
 
-            }
+//            }
             common_time_id.setText(monthDate);
 
-        } else {
-            if(jobImageUrl!=null) {
-                convertView = mInflater.inflate(R.layout.mywork_detail_img_item, null);
-
-                TextView img_time_id = (TextView) convertView.findViewById(R.id.img_time_id);
-
-                RoundedImageView img_avar_id = (RoundedImageView) convertView.findViewById(R.id.img_avar_id);
-                TextView img_name_id = (TextView) convertView.findViewById(R.id.img_name_id);
-                ImageView img_src_id = (ImageView) convertView.findViewById(R.id.img_src_id);
-                img_src_id.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Intent intent = new Intent(context, ShowVideoActivity.class);
-                        intent.putExtra("FromVideoSecondFragment", true);
-                        context.startActivity(intent);
-                    }
-                });
-
-
-                img_name_id.setText(personalRanking.opeMan);
-
-                imageLoader.displayImage(headImg, img_avar_id, options);
-                //YYMMDD HH:MM:SS  2016-12-24 23:54:20
-                String monthDate = personalRanking.opeDt.substring(11, 16);
-                imageLoader.displayImage(jobImageUrl, img_src_id, options);
-
-
-                img_time_id.setText(monthDate);
-            }
-
         }
+//        else {
+//            if(jobImageUrl!=null) {
+//                convertView = mInflater.inflate(R.layout.mywork_detail_img_item, null);
+//
+//                TextView img_time_id = (TextView) convertView.findViewById(R.id.img_time_id);
+//
+//                RoundedImageView img_avar_id = (RoundedImageView) convertView.findViewById(R.id.img_avar_id);
+//                TextView img_name_id = (TextView) convertView.findViewById(R.id.img_name_id);
+//                ImageView img_src_id = (ImageView) convertView.findViewById(R.id.img_src_id);
+//                img_src_id.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                        Intent intent = new Intent(context, ShowVideoActivity.class);
+//                        intent.putExtra("FromVideoSecondFragment", true);
+//                        context.startActivity(intent);
+//                    }
+//                });
+//
+//
+//                img_name_id.setText(personalRanking.opeMan);
+//
+//                imageLoader.displayImage(headImg, img_avar_id, options);
+//                //YYMMDD HH:MM:SS  2016-12-24 23:54:20
+//                String monthDate = personalRanking.opeDt.substring(11, 16);
+//                imageLoader.displayImage(jobImageUrl, img_src_id, options);
+//
+//
+//                img_time_id.setText(monthDate);
+//            }
+//
+//        }
 
 
 //            viewholder.design_room_title = (TextView) convertView.findViewById(R.id.design_room_content);
