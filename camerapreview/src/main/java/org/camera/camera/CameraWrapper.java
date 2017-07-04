@@ -127,6 +127,9 @@ public class CameraWrapper {
 			this.mCamera.release();
 			this.mCamera = null;
 		}
+		if (mDetectThread != null) {
+			mDetectThread.stopRun();
+		}
 	}
 
 	private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {

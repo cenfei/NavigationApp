@@ -1,6 +1,8 @@
 package com.yj.navigation.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,14 +94,38 @@ public class AdapterUpVideoItemView extends BaseAdapter {
 
         viewholder.video_title_id.setText(personalRanking);
        String mp4Num=personalRanking.substring(0,personalRanking.indexOf(".mp4"));
-        String imgUrl= VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+mp4Num+"/"+mp4Num+".jpg";
+
+        String imgUrl="file:///mnt"+ VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+mp4Num+"/1.jpg";
+
+
+//        imgUrl=String.format("file:///mnt"+VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+"s%/s%.jpg",mp4Num,mp4Num);
+
         Log.e("video:imgurl",imgUrl);
 
-        viewholder.video_img_id.setImageBitmap(ReadFile.getDiskBitmap(imgUrl));
+//        String imgUrl = "file:///mnt/sdcard/Movies/mp4/2/1.jpg";
 
+        imageLoader.displayImage(imgUrl,viewholder.video_img_id,options);
+//        viewholder.video_img_id.setImageBitmap(ReadFile.getDiskBitmap(imgUrl));
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ReadFile.getDiskBitmap(imgUrl);
+//            }
+//        }).start();
 
         return convertView;
     }
+
+    Handler handler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            return false;
+        }
+    });
+
+
+
 
     private static class ViewHolder {
         ImageView video_img_id;

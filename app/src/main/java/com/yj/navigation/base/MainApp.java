@@ -35,7 +35,11 @@ public class MainApp extends Application {
     public Map<String, String> parmaMap;
     public    List<JobImageJson> jobImageJsonList;
     public    String  remoteBaseUrl;
-public JobJson jobJson;
+
+
+    public    List<String> upImageJsonList;
+
+    public JobJson jobJson;
     public BankInfoJson choosebankInfoJson;
 
     public BankCardInfoJson chooseBankCardInfoJson;

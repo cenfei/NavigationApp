@@ -2,8 +2,6 @@ package com.yj.navigation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +15,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yj.navigation.R;
 import com.yj.navigation.adapter.AdapterUpVideoItemView;
+import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.ReadFile;
@@ -37,8 +36,8 @@ import java.util.List;
 /**
  * Created by zhang on 2015/8/7.
  */
-@EActivity(R.layout.myupvideo_list_view)
-public class MyUpVideoListActivity extends BaseActivity {
+@EActivity(R.layout.myupwebvideo_list_view)
+public class MyUpWebVideoListActivity extends BaseActivity {
 
 
     @Pref
@@ -69,29 +68,20 @@ public class MyUpVideoListActivity extends BaseActivity {
 
     int i = 0;
 
-    @Click(R.id.logining_btn_rel_id)
-    void onlogining_btn_rel_id() {
-
-        Util.startActivity(this, CameraSurfaceTextureActivity.class);
-        Intent intent = new Intent(this, CameraSurfaceTextureActivity.class);
-        intent.putExtra("mp4FileNameNumber", "" + (designRoomInfos.size() + 1));
-        startActivity(intent);
-    }
+//    @Click(R.id.logining_btn_rel_id)
+//    void onlogining_btn_rel_id() {
+//
+//        Util.startActivity(this, CameraSurfaceTextureActivity.class);
+//        Intent intent = new Intent(this, CameraSurfaceTextureActivity.class);
+//        intent.putExtra("mp4FileNameNumber", "" + (designRoomInfos.size() + 1));
+//        startActivity(intent);
+//    }
 
 
     @Click(R.id.left_title_line)
     void onLeftTitleLine() {
 
         finish();
-
-    }
-
-    @Click(R.id.right_title_line)
-    void onright_title_line() {
-
-        Intent intent = new Intent(MyUpVideoListActivity.this, MyUpWebVideoListActivity_.class);
-
-        startActivity(intent);
 
     }
 
@@ -142,43 +132,43 @@ public class MyUpVideoListActivity extends BaseActivity {
         left_title_icon.setVisibility(View.VISIBLE);
         TextView left_title = (TextView) findViewById(R.id.left_title);
         left_title.setVisibility(View.VISIBLE);
-        left_title.setText("返回");
+        left_title.setText("我的上传列表");
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon3);
         right_title_icon.setVisibility(View.GONE);
         Util.setBackgroundOfVersion(right_title_icon, getResources().getDrawable(R.drawable.new_add_code));
 
         TextView right_title = (TextView) findViewById(R.id.right_title);
 
-        right_title.setVisibility(View.VISIBLE);
-        right_title.setText("上传列表");
-        right_title.setTextColor(getResources().getColor(R.color.font_titie2));
+        right_title.setVisibility(View.GONE);
+//        right_title.setText("筛选");
+//        right_title.setTextColor(getResources().getColor(R.color.white));
 
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
-        title.setText("我的违章");
+        title.setText("我的上传");
 //        title.setTextColor(getResources().getColor(R.color.white));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
 
 
-//        LinearLayout right_title_line = (LinearLayout) findViewById(R.id.right_title_line);
-//
-//        right_title_line.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        LinearLayout right_title_line = (LinearLayout) findViewById(R.id.right_title_line);
+
+        right_title_line.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
         designRoomInfos = new ArrayList<String>();
 
 //
-        String  mp4Dir= VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE;
+        String mp4Dir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE;
         try {
-            designRoomInfos=    ReadFile.readfileOnlyFile(mp4Dir);
+            designRoomInfos = ReadFile.readfileOnlyFile(mp4Dir);
 //            handler.sendEmptyMessage(0);
         } catch (IOException e) {
             e.printStackTrace();
@@ -203,7 +193,7 @@ public class MyUpVideoListActivity extends BaseActivity {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 String label = DateUtils.formatDateTime(
-                        MyUpVideoListActivity.this,
+                        MyUpWebVideoListActivity.this,
                         System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_TIME
                                 | DateUtils.FORMAT_SHOW_DATE
@@ -240,15 +230,32 @@ public class MyUpVideoListActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                //选中的银行卡 还code
-
                 String bankInfoJson = designRoomInfos.get(position - 1);//mp4的名字
+                String mp4Num = bankInfoJson.substring(0, bankInfoJson.indexOf(".mp4"));
 
-                Intent intent = new Intent(MyUpVideoListActivity.this, PlayVideoActivity.class);
-                String  filename= VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+bankInfoJson;
+                //跳转到 show 页面
+                String mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num+"/";
+                List<String> listImageName = null;
+                try {
+                    listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
+//            handler.sendEmptyMessage(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-                intent.putExtra("filename", filename);
+                MainApp mainApp = (MainApp) getApplicationContext();
+                List<String> listImage = new ArrayList<String>();
+
+                for (String imgname : listImageName) {
+                    String imgUrl = "file:///mnt" + VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num+"/" + imgname;
+                    listImage.add(imgUrl);
+                }
+
+                mainApp.upImageJsonList = listImage;
+
+
+                Intent intent = new Intent(MyUpWebVideoListActivity.this, ShowVideoUpWebActivity.class);
+
                 startActivity(intent);
 
 

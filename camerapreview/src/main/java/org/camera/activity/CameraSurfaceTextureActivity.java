@@ -99,13 +99,18 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		Thread openThread = new Thread() {
-//			@Override
-//			public void run() {
-//				CameraWrapper.getInstance().doStopCamera();
-//			}
-//		};
-//		openThread.start();
+		Thread openThread = new Thread() {
+			@Override
+			public void run() {
+				CameraWrapper.getInstance().doStopCamera();
+			}
+		};
+		openThread.start();
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
 	}
 
 	@Override

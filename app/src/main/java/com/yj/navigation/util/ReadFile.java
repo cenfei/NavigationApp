@@ -61,7 +61,11 @@ public class ReadFile {
                         System.out.println("name=" + readfile.getName());
                         if(readfile.getName().contains(".mp4")) {
 
-                            fileList.add(readfile.getName());
+                            fileList.add(readfile.getName().substring(1));
+                        }
+                        if(readfile.getName().contains(".jpg")) {
+
+                            fileList.add(readfile.getName().substring(1));
                         }
                     }
 //                    else if (readfile.isDirectory()) {
