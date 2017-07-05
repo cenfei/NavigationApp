@@ -233,8 +233,8 @@ public class  VideoEncoderFromBuffer {
 				mMediaCodec.release();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-
+			//e.printStackTrace();
+Log.e("exc",""+e.getMessage());
 		}
 		if (mMuxer != null) {
             // TODO: stop() throws an exception if you haven't fed it any data.  Keep track

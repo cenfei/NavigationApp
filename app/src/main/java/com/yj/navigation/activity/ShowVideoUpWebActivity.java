@@ -45,6 +45,7 @@ import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterfaceView;
 import com.yj.navigation.util.ImageLoaderUtil;
+import com.yj.navigation.util.Util;
 import com.yj.navigation.wheelview.OnWheelClickedListener;
 import com.yj.navigation.wheelview.OnWheelScrollListener;
 import com.yj.navigation.wheelview.WheelView;
@@ -426,10 +427,12 @@ public class ShowVideoUpWebActivity extends Activity {
                     Log.e("DisplayMetrics", "width:" + width + ",height:" + height);
                     Bitmap smallBitmap = getBitmap(bitmap, width, height);
 
+                 int  lastindex=   jobImageJson.lastIndexOf("/");
+                    String miniUri=jobImageJson.substring(0,lastindex)+"mini"+jobImageJson.substring(lastindex);
+Log.i("miniurl",""+miniUri);
+                    imageLoader.loadImageSync(miniUri, options);
 
-//                    imageLoader.loadImageSync(remoteBaseUrl + jobImageJson.minPicUrl, options);
-
-//                    bitmap=Util.compressImage(bitmap);
+//                    bitmap= Util.compressImage(bitmap);
                     Drawable drawable = new BitmapDrawable(smallBitmap);
                     animationDrawable.addFrame(drawable, duration);
                     Log.d("run:", "run:" + i++);
@@ -605,11 +608,14 @@ boolean clickCountry=false;
 
 
             ImageView img = (ImageView) view.findViewById(R.id.flag);
-            Bitmap       bitmap=   imageLoader.loadImageSync( jobImageJsonList.get(index),options);
-            Bitmap smallBitmap = getBitmap(bitmap, 120, 70);
-            bitmap.recycle();
-            bitmap=null;
-            Drawable drawable = new BitmapDrawable(smallBitmap);
+String jobImageJson=jobImageJsonList.get(index);
+            int  lastindex=   jobImageJson.lastIndexOf("/");
+            String miniUri=jobImageJson.substring(0,lastindex)+"mini"+jobImageJson.substring(lastindex);
+            Log.i("miniurl",""+miniUri);
+
+            Bitmap       bitmap=   imageLoader.loadImageSync( miniUri,options);
+
+            Drawable drawable = new BitmapDrawable(bitmap);
 //view.setTag(index,img);
 //
 //

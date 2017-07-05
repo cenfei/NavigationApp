@@ -2,8 +2,12 @@ package org.camera.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -15,6 +19,7 @@ import com.example.camerapreview.R;
 
 import org.camera.camera.CameraWrapper;
 import org.camera.camera.CameraWrapper.CamOpenOverCallback;
+import org.camera.camera.MyService;
 import org.camera.encode.VideoEncoderFromSurface;
 import org.camera.preview.CameraTexturePreview;
 
@@ -22,7 +27,7 @@ import java.io.File;
 
 @SuppressLint("NewApi")
 public class CameraSurfaceTextureActivity extends Activity implements CamOpenOverCallback{
-	private static final String TAG = "CameraPreviewActivity";
+	private static final String TAG = "CameraPreviewActivity1";
 	private CameraTexturePreview mCameraTexturePreview;
 	private float mPreviewRate = -1f;
 
@@ -34,7 +39,12 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 		Log.i(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera_preview);
+		if(!TextUtils.isEmpty(mp4FileName)) {
 
+			finish();
+			return;
+
+		}
 		mp4FileName=getIntent().getStringExtra("mp4FileNameNumber");
 
 		if(TextUtils.isEmpty(mp4FileName)) return;
@@ -49,6 +59,7 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 		if (!dirFileIMG.exists()) {
 			dirFileIMG.mkdir();
 		}
+//		mp4FileName=null;
 
 
 		initUI();
@@ -76,6 +87,8 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 				CameraWrapper.getInstance().stopVideo();
 			}
 		});
+//		Intent it = new Intent(this, MyService.class);
+//		startService(it);
 	}
 
 
@@ -99,11 +112,15 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 		};
 		openThread.start();
 
+//		Intent it = new Intent(this, MyService.class);
+//		bindService(it, mServiceConn, BIND_AUTO_CREATE);
+
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+
 		Thread openThread = new Thread() {
 			@Override
 			public void run() {
@@ -116,11 +133,13 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
+//		finish();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+//		unbindService(mServiceConn);
 
 
 	}
@@ -148,9 +167,26 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
         mCameraTexturePreview.setLayoutParams(params);
 	}
 
+//	MyService mService;
 	@Override
 	public void cameraHasOpened() {
 		SurfaceTexture surface = this.mCameraTexturePreview.getSurfaceTexture();
-		CameraWrapper.getInstance().doStartPreview(surface, mPreviewRate);
+		CameraWrapper.getInstance().doStartPreview(surface, mPreviewRate,this);
 	}
+//	public ServiceConnection mServiceConn = new ServiceConnection(){
+//		@Override
+//		public void onServiceConnected(ComponentName name, IBinder service) {
+//			mService = ((MyService.ServiceBinder)service).getService();
+//			Log.d(TAG, "onServiceConnected: mService = " + mService);
+//
+////			if(mService != null){
+////				mService.notifyToActivity(false, true);
+////			}
+//		}
+//
+//		@Override
+//		public void onServiceDisconnected(ComponentName name) {
+//			mService = null;
+//		}
+//	};
 }

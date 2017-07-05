@@ -1,6 +1,8 @@
 package org.camera.camera;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
@@ -96,8 +98,12 @@ public class CameraWrapper {
 		initCamera();
 	}
 
-	public void doStartPreview(SurfaceTexture surface, float previewRate) {
+//	MyService myService;
+Context mcontext;
+	public void doStartPreview(SurfaceTexture surface, float previewRate, Context context) {
 		Log.i(TAG, "doStartPreview()");
+//		this.myService=myService;
+		this.mcontext=context;
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
@@ -118,18 +124,23 @@ public class CameraWrapper {
 
 	public void doStopCamera() {
 		Log.i(TAG, "doStopCamera");
-		if (this.mCamera != null) {
-			mCameraPreviewCallback.close();
-			this.mCamera.setPreviewCallback(null);
-			this.mCamera.stopPreview();
-			this.mIsPreviewing = false;
-			this.mPreviewRate = -1f;
-			this.mCamera.release();
-			this.mCamera = null;
+		try {
+			if (this.mCamera != null) {
+				mCameraPreviewCallback.close();
+				this.mCamera.setPreviewCallback(null);
+				this.mCamera.stopPreview();
+				this.mIsPreviewing = false;
+				this.mPreviewRate = -1f;
+				this.mCamera.release();
+				this.mCamera = null;
+			}
+		}catch (Exception e){
+
+
 		}
-		if (mDetectThread != null) {
-			mDetectThread.stopRun();
-		}
+//		if (mDetectThread != null) {
+//			mDetectThread.stopRun();
+//		}
 	}
 
 	private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
@@ -215,7 +226,7 @@ public class CameraWrapper {
 
 	boolean startVideo = false;
 
-	int countImage=0;
+	int countImage=1;
 
 
 	class CameraPreviewCallback implements Camera.PreviewCallback {
@@ -224,7 +235,7 @@ public class CameraWrapper {
 
 		private CameraPreviewCallback() {
 			start();
-			countImage=0;
+			countImage=1;
 		}
 
 		void close() {
@@ -235,28 +246,43 @@ public class CameraWrapper {
 			//startVideo=true;
 			videoEncoder = new VideoEncoderFromBuffer(CameraWrapper.IMAGE_WIDTH,
 					CameraWrapper.IMAGE_HEIGHT);
-
+//启动service
 
 		}
 
 		@Override
 		public void onPreviewFrame(byte[] data, Camera camera) {
-			Log.i(TAG, "onPreviewFrame");
+//			Log.i(TAG, "onPreviewFrame");
 			if (startVideo) {
 				long startTime = System.currentTimeMillis();
 				videoEncoder.encodeFrame(data/*, encodeData*/);
 				long endTime = System.currentTimeMillis();
 				Log.i(TAG, Integer.toString((int) (endTime - startTime)) + "ms");
 
-if(countImage<30) {
+if(countImage<=30) {
+	Log.i(TAG, "onPreviewFrame"+countImage);
+
 	Camera.Size size = camera.getParameters().getPreviewSize();
-	if (mDetectThread == null) {
-		mDetectThread = new DetectThread();
-		mDetectThread.start();
 
-	}
 
-	mDetectThread.addDetect(data, size.width, size.height);
+			Intent it = new Intent(mcontext, MyService.class);
+
+	//it.putExtra("data",data);
+	it.putExtra("width",size.width);
+	it.putExtra("height",size.height);
+	it.putExtra("countImage",countImage);
+MyService.dataAll=data;
+	mcontext.startService(it);
+
+
+//	myService.addTaskInQueue(data,size.width,size.height,countImage);
+//	if (mDetectThread == null) {
+//		mDetectThread = new DetectThread();
+//		mDetectThread.start();
+//
+//	}
+
+//	mDetectThread.addDetect(data, size.width, size.height);
 	 countImage++;
 }
 			}
@@ -285,7 +311,7 @@ DetectThread mDetectThread;
 		byte[] rawImage = baos.toByteArray();
 		//将rawImage转换成bitmap
 		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+		options.inPreferredConfig = Bitmap.Config.RGB_565;
 		Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
 
 		return bitmap;
