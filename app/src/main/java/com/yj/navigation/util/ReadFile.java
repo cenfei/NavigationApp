@@ -63,7 +63,7 @@ public class ReadFile {
 
                             fileList.add(readfile.getName().substring(1));
                         }
-                        if(readfile.getName().contains(".jpg")) {
+                        if(readfile.getName().contains(".jpg")&&!readfile.getName().contains("mini")) {
 
                             fileList.add(readfile.getName().substring(1));
                         }

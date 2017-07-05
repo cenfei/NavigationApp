@@ -2,12 +2,8 @@ package org.camera.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -19,7 +15,6 @@ import com.example.camerapreview.R;
 
 import org.camera.camera.CameraWrapper;
 import org.camera.camera.CameraWrapper.CamOpenOverCallback;
-import org.camera.camera.MyService;
 import org.camera.encode.VideoEncoderFromSurface;
 import org.camera.preview.CameraTexturePreview;
 
@@ -39,17 +34,20 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 		Log.i(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera_preview);
-		if(!TextUtils.isEmpty(mp4FileName)) {
-
-			finish();
-			return;
-
-		}
+//		if(!TextUtils.isEmpty(mp4FileName)) {
+//
+//			finish();
+//			return;
+//
+//		}
 		mp4FileName=getIntent().getStringExtra("mp4FileNameNumber");
 
 		if(TextUtils.isEmpty(mp4FileName)) return;
 
-
+		File dirFileF = new File("/sdcard/Movies");
+		if (!dirFileF.exists()) {
+			dirFileF.mkdir();
+		}
 
 		File dirFile = new File(VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE);
 		if (!dirFile.exists()) {

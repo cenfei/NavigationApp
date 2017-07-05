@@ -2,8 +2,6 @@ package com.yj.navigation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -151,12 +149,12 @@ public class MyUpVideoListActivity extends BaseActivity {
 
         right_title.setVisibility(View.VISIBLE);
         right_title.setText("上传列表");
-        right_title.setTextColor(getResources().getColor(R.color.font_titie2));
+        right_title.setTextColor(getResources().getColor(R.color.up_video_button_cor));
 
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
-        title.setText("我的违章");
+        title.setText("行车记录视频");
 //        title.setTextColor(getResources().getColor(R.color.white));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);

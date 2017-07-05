@@ -1,6 +1,5 @@
 package com.yj.navigation.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -14,8 +13,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.yj.navigation.R;
-import com.yj.navigation.adapter.AdapterUpVideoItemView;
-import com.yj.navigation.base.MainApp;
+import com.yj.navigation.adapter.AdapterWebUpVideoItemView;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.ReadFile;
@@ -26,7 +24,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.camera.activity.CameraSurfaceTextureActivity;
 import org.camera.encode.VideoEncoderFromSurface;
 
 import java.io.IOException;
@@ -54,7 +51,7 @@ public class MyUpWebVideoListActivity extends BaseActivity {
 
     private PullToRefreshListView pullToRefreshListView;
 
-    private AdapterUpVideoItemView adapterHomeDesignListView;
+    private AdapterWebUpVideoItemView adapterHomeDesignListView;
 
     private List<String> designRoomInfos;
 
@@ -132,7 +129,7 @@ public class MyUpWebVideoListActivity extends BaseActivity {
         left_title_icon.setVisibility(View.VISIBLE);
         TextView left_title = (TextView) findViewById(R.id.left_title);
         left_title.setVisibility(View.VISIBLE);
-        left_title.setText("我的上传列表");
+        left_title.setText("行车记录视频");
         ImageView right_title_icon = (ImageView) findViewById(R.id.right_title_icon3);
         right_title_icon.setVisibility(View.GONE);
         Util.setBackgroundOfVersion(right_title_icon, getResources().getDrawable(R.drawable.new_add_code));
@@ -146,7 +143,7 @@ public class MyUpWebVideoListActivity extends BaseActivity {
 
         TextView title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
-        title.setText("我的上传");
+        title.setText("上传列表");
 //        title.setTextColor(getResources().getColor(R.color.white));
         View title_line_id = (View) findViewById(R.id.title_line_id);
         title_line_id.setVisibility(View.GONE);
@@ -175,7 +172,7 @@ public class MyUpWebVideoListActivity extends BaseActivity {
         }
 
 
-        adapterHomeDesignListView = new AdapterUpVideoItemView(this, designRoomInfos);
+        adapterHomeDesignListView = new AdapterWebUpVideoItemView(this, designRoomInfos);
 
         pullToRefreshListView.setAdapter(adapterHomeDesignListView);
 
@@ -231,32 +228,32 @@ public class MyUpWebVideoListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 String bankInfoJson = designRoomInfos.get(position - 1);//mp4的名字
-                String mp4Num = bankInfoJson.substring(0, bankInfoJson.indexOf(".mp4"));
-
-                //跳转到 show 页面
-                String mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num+"/";
-                List<String> listImageName = null;
-                try {
-                    listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
-//            handler.sendEmptyMessage(0);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                MainApp mainApp = (MainApp) getApplicationContext();
-                List<String> listImage = new ArrayList<String>();
-
-                for (String imgname : listImageName) {
-                    String imgUrl = "file:///mnt" + VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num+"/" + imgname;
-                    listImage.add(imgUrl);
-                }
-
-                mainApp.upImageJsonList = listImage;
-
-
-                Intent intent = new Intent(MyUpWebVideoListActivity.this, ShowVideoUpWebActivity.class);
-
-                startActivity(intent);
+//                String mp4Num = bankInfoJson.substring(0, bankInfoJson.indexOf(".mp4"));
+//
+//                //跳转到 show 页面
+//                String mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num+"/";
+//                List<String> listImageName = null;
+//                try {
+//                    listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
+////            handler.sendEmptyMessage(0);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                MainApp mainApp = (MainApp) getApplicationContext();
+//                List<String> listImage = new ArrayList<String>();
+//
+//                for (String imgname : listImageName) {
+//                    String imgUrl = "file:///mnt" + VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num+"/" + imgname;
+//                    listImage.add(imgUrl);
+//                }
+//
+//                mainApp.upImageJsonList = listImage;
+//
+//
+//                Intent intent = new Intent(MyUpWebVideoListActivity.this, ShowVideoUpWebActivity.class);
+//
+//                startActivity(intent);
 
 
             }

@@ -408,6 +408,40 @@ public class ProtocolUtil {
     }
 
 
+
+    public static void uploadApplyFunction(Context context,
+                                            Protocol.CallBack callBack,
+                                           String fileNum,String bizType,String fileFormat,String takeDt
+
+
+    ) {
+        Map<String, Object> parmaMap = new HashMap<String, Object>();
+        parmaMap.put("fileNum", fileNum);
+        parmaMap.put("bizType", bizType);
+        parmaMap.put("fileFormat", fileFormat);
+
+        parmaMap.put("takeDt", takeDt);
+
+
+
+
+//公共参数
+//        MainApp mainApp = (MainApp) context.getApplicationContext();
+//        Map<String, String> mapCommon = mainApp.getAppInfo();
+//        String appname = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+//        Log.d("appname:", appname);
+//        parmaMap.put("appName", mapCommon.get("appName"));
+//
+//        parmaMap.put("platform", mapCommon.get("platform"));
+//        parmaMap.put("version", mapCommon.get("version"));
+//
+//        parmaMap.put("deviceNo", mapCommon.get("deviceNo"));
+
+
+        new Protocol(context, API.UPLOAD_APPLY_URL, parmaMap, callBack);
+    }
+
+
     public static void resetSafePwdWithOldpwdFunction(Context context,
                                             Protocol.CallBack callBack,
                                             String token,String oldPassword,String newPassword

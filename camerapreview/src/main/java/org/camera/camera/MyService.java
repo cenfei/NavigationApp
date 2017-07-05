@@ -8,7 +8,6 @@ import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
-import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -20,8 +19,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import static org.camera.preview.CameraSurfacePreview.TAG;
@@ -146,7 +143,7 @@ if(bytedata!=null) {
         //将rawImage转换成bitmap
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        options.inSampleSize=8;
+        options.inSampleSize=10;
         Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
 
         return bitmap;

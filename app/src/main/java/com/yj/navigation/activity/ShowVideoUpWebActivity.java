@@ -45,7 +45,6 @@ import com.yj.navigation.R;
 import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterfaceView;
 import com.yj.navigation.util.ImageLoaderUtil;
-import com.yj.navigation.util.Util;
 import com.yj.navigation.wheelview.OnWheelClickedListener;
 import com.yj.navigation.wheelview.OnWheelScrollListener;
 import com.yj.navigation.wheelview.WheelView;
@@ -427,7 +426,7 @@ public class ShowVideoUpWebActivity extends Activity {
                     Log.e("DisplayMetrics", "width:" + width + ",height:" + height);
                     Bitmap smallBitmap = getBitmap(bitmap, width, height);
 
-                 int  lastindex=   jobImageJson.lastIndexOf("/");
+                    int  lastindex=   jobImageJson.lastIndexOf("/")+1;
                     String miniUri=jobImageJson.substring(0,lastindex)+"mini"+jobImageJson.substring(lastindex);
 Log.i("miniurl",""+miniUri);
                     imageLoader.loadImageSync(miniUri, options);
@@ -609,7 +608,7 @@ boolean clickCountry=false;
 
             ImageView img = (ImageView) view.findViewById(R.id.flag);
 String jobImageJson=jobImageJsonList.get(index);
-            int  lastindex=   jobImageJson.lastIndexOf("/");
+            int  lastindex=   jobImageJson.lastIndexOf("/")+1;
             String miniUri=jobImageJson.substring(0,lastindex)+"mini"+jobImageJson.substring(lastindex);
             Log.i("miniurl",""+miniUri);
 
