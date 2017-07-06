@@ -21,7 +21,7 @@ public interface API {
 
     public String GET_URL="GET_URL";
 
-    public String UPLOAD_APPLY_URL = "http://114.55.254.6:8082/app/job/upload/apply";
+    public String UPLOAD_APPLY_URL =serverApp+"/job/upload/apply";
 
 
 

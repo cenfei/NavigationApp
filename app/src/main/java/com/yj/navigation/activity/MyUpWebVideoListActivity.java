@@ -172,7 +172,7 @@ public class MyUpWebVideoListActivity extends BaseActivity {
         }
 
 
-        adapterHomeDesignListView = new AdapterWebUpVideoItemView(this, designRoomInfos);
+        adapterHomeDesignListView = new AdapterWebUpVideoItemView(this, designRoomInfos,configPref.userToken().get());
 
         pullToRefreshListView.setAdapter(adapterHomeDesignListView);
 

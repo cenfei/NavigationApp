@@ -3,6 +3,8 @@ package com.yj.navigation.network;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.mining.app.zxing.decoding.Intents;
+import com.yj.navigation.util.Base64Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -120,7 +122,15 @@ public class Caller {
 
                 } else {
                     String value = entry.getValue().toString();
+//                    if(key.contains("takeDt")){
+//                        value = value.replace(" ","+");
+//                    }
+
+
                     stringBuffer.append(key + "=" + value + "&");
+
+
+
 //                    NameValuePair pair = new BasicNameValuePair(key, value);
 //                    list.add(pair);
                 }
@@ -130,6 +140,8 @@ public class Caller {
 
 
 String content= stringBuffer.toString().substring(0, stringBuffer.toString().length() - 1);
+
+//                    content = Base64Util.encode(content);
 
 //            Log.d("输入post参数", content);
 //            DataOutputStream out = new DataOutputStream(urlConnection

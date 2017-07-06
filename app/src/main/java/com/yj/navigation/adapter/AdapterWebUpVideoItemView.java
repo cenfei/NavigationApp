@@ -2,6 +2,7 @@ package com.yj.navigation.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.session.MediaSession;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yj.navigation.R;
@@ -20,6 +22,8 @@ import com.yj.navigation.base.MainApp;
 import com.yj.navigation.component.FoxProgressbarInterface;
 import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
+import com.yj.navigation.object.UpWebInfoJson;
+import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.ImageLoaderUtil;
 import com.yj.navigation.util.MyStringUtils;
 import com.yj.navigation.util.ReadFile;
@@ -43,9 +47,11 @@ public class AdapterWebUpVideoItemView extends BaseAdapter {
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
 
+    private String tokenm;
 
-    public AdapterWebUpVideoItemView(Context context, List<String> personalList) {
+    public AdapterWebUpVideoItemView(Context context, List<String> personalList,String token) {
         super();
+        this.tokenm=token;
         this.context = context;
         this.mPersonal = personalList;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -197,7 +203,7 @@ public class AdapterWebUpVideoItemView extends BaseAdapter {
 
 
 
-        ProtocolUtil.uploadApplyFunction(context, new MyJobListHandler(),filenum,biztype,fileFormat,date );
+        ProtocolUtil.uploadApplyFunction(context, new MyJobListHandler(),tokenm,filenum,biztype,fileFormat,date );
 
 
     }
@@ -216,10 +222,13 @@ public class AdapterWebUpVideoItemView extends BaseAdapter {
         if (resp != null && !resp.equals("")) {
 
 
-//            BankListJson baseJson = new Gson().fromJson(resp, BankListJson.class);
-//            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
-//
-//            }
+            UpWebInfoJson baseJson = new Gson().fromJson(resp, UpWebInfoJson.class);
+            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
+                //aliyun sdk
+
+
+
+            }
 
         }
     }
