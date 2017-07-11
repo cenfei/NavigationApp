@@ -13,6 +13,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.ClientConfiguration;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.common.OSSLog;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -26,11 +33,15 @@ import com.yj.navigation.object.UpWebInfoJson;
 import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.ImageLoaderUtil;
 import com.yj.navigation.util.MyStringUtils;
+import com.yj.navigation.util.PutObjectSamples;
 import com.yj.navigation.util.ReadFile;
 
 import org.camera.encode.VideoEncoderFromSurface;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -161,7 +172,7 @@ public class AdapterWebUpVideoItemView extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //上传图片参数
-
+                selectMp4=personalRanking;
                 getJobListFromServerForMsg();
 
             }
@@ -178,6 +189,7 @@ public class AdapterWebUpVideoItemView extends BaseAdapter {
     });
 
 
+    private String selectMp4=null;
 
 
     private static class ViewHolder {
@@ -216,20 +228,106 @@ public class AdapterWebUpVideoItemView extends BaseAdapter {
         }
     }
 
-
+    UpWebInfoJson baseJson;
     public void myJobListHandler(String resp) {
         foxProgressbarInterface.stopProgressBar();
         if (resp != null && !resp.equals("")) {
 
 
-            UpWebInfoJson baseJson = new Gson().fromJson(resp, UpWebInfoJson.class);
+             baseJson = new Gson().fromJson(resp, UpWebInfoJson.class);
             if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
                 //aliyun sdk
 
+endpoint=baseJson.endpoint;
+                accessKeyId=baseJson.accessKeyId;
+                accessKeySecret=baseJson.accessKeySecret;
+                testBucket=baseJson.bucketName;
+                uploadObject=baseJson.fileDir;
+                accessToken=baseJson.securityToken;
+                initOss();
 
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String mp4Num = selectMp4.substring(0, selectMp4.indexOf(".mp4"));
+
+                        //跳转到 show 页面
+                        String mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num + "/";
+                        List<String> listImageName = null;
+                        try {
+                            listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
+//            handler.sendEmptyMessage(0);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        for(String imgname:listImageName) {
+
+                            uploadAliyun(imgname,mp4ImgDir+imgname);
+                        }
+                    }
+                }).start();
 
             }
 
         }
     }
+
+    private OSS oss;
+
+    // 运行sample前需要配置以下字段为有效的值
+    private static  String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
+    private static  String accessKeyId = "STS.Mbw95rG1RyAiCV3haghQeVmaR";
+    private static  String accessKeySecret = "7uyBDBuNvqtrLNTMUBpsGaujDitFCVfEq4QZhQAFYyAv";
+    private static  String uploadFilePath = "<upload_file_path>";
+
+    private static  String testBucket = "tjh-test";
+    private static  String uploadObject = "A17071015072621710000/";
+    private static  String downloadObject = "sampleObject";
+
+    private static  String  accessToken="";
+
+    private final String DIR_NAME = "oss";
+    private final String FILE_NAME = "caifang.m4a";
+
+    public void initOss(){
+
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(accessKeyId, accessKeySecret, accessToken);
+
+//        OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
+
+//        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(accessKeyId, accessKeySecret);
+
+        ClientConfiguration conf = new ClientConfiguration();
+        conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+        conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
+        conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+        OSSLog.enableLog();
+        oss = new OSSClient(context.getApplicationContext(), endpoint, credentialProvider, conf);
+    }
+
+
+
+    public void uploadAliyun(String filename,String filepath){
+
+
+
+
+        uploadFilePath=filepath;
+//        uploadFilePath="/sdcard/Movies/mp4/1/"+filename;
+        uploadObject=uploadObject+filename;
+        try {
+            Log.i("MainActivity : ", "uploadFilePath : " + uploadFilePath);
+            File uploadFile = new File(uploadFilePath);
+            InputStream input = new FileInputStream(uploadFile);
+            long fileLength = uploadFile.length();
+            Log.i("MainActivity : ", "fileLength : " + fileLength);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//                new PutObjectSamples(oss, testBucket, uploadObject, uploadFilePath).asyncPutObjectFromLocalFile();
+        new PutObjectSamples(oss, testBucket, uploadObject, uploadFilePath).asyncPutObjectWithServerCallback(baseJson,filename);
+
+    }
+
 }
