@@ -242,7 +242,7 @@ endpoint=baseJson.endpoint;
                 accessKeyId=baseJson.accessKeyId;
                 accessKeySecret=baseJson.accessKeySecret;
                 testBucket=baseJson.bucketName;
-                uploadObject=baseJson.fileDir;
+        final    String      uploadObject=baseJson.fileDir;
                 accessToken=baseJson.securityToken;
                 initOss();
 
@@ -262,7 +262,7 @@ endpoint=baseJson.endpoint;
                         }
                         for(String imgname:listImageName) {
 
-                            uploadAliyun(imgname,mp4ImgDir+imgname);
+                            uploadAliyun(imgname,mp4ImgDir+imgname,uploadObject);
                         }
                     }
                 }).start();
@@ -281,8 +281,8 @@ endpoint=baseJson.endpoint;
     private static  String uploadFilePath = "<upload_file_path>";
 
     private static  String testBucket = "tjh-test";
-    private static  String uploadObject = "A17071015072621710000/";
-    private static  String downloadObject = "sampleObject";
+//    private static  String uploadObject = "A17071015072621710000/";
+//    private static  String downloadObject = "sampleObject";
 
     private static  String  accessToken="";
 
@@ -308,14 +308,14 @@ endpoint=baseJson.endpoint;
 
 
 
-    public void uploadAliyun(String filename,String filepath){
+    public void uploadAliyun(String filename,String filepath,String uploadObject0){
 
 
 
 
-        uploadFilePath=filepath;
+    String    uploadFilePath=filepath;
 //        uploadFilePath="/sdcard/Movies/mp4/1/"+filename;
-        uploadObject=uploadObject+filename;
+    String    uploadObject=uploadObject0+filename;
         try {
             Log.i("MainActivity : ", "uploadFilePath : " + uploadFilePath);
             File uploadFile = new File(uploadFilePath);
