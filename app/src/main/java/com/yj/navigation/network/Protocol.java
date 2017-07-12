@@ -103,6 +103,8 @@ public class Protocol {
 //                        call.getMessage(result, url);
                     } else if (return_code.equals("10")) {
                         Log.i("return_code", "参数错误");
+                        Util.Toast(context, returnMsg,null);
+
                         call.getMessage(result, url);
 
                     } else if (return_code.equals("11")) {
@@ -112,6 +114,8 @@ public class Protocol {
 
                     } else if (return_code.equals("12")) {
                         Log.i("return_code", "验证码错误");
+                        Util.Toast(context, returnMsg,null);
+
                         call.getMessage(result, url);
 
                     } else if (return_code.equals("13")) {
@@ -125,11 +129,15 @@ public class Protocol {
                     } else if (return_code.equals("-3")) {
                         Log.i("return_code", "用户未登录");
                         //跳转登录页面
+                        Util.Toast(context, returnMsg,null);
+
                         Intent intent = new Intent(context, RegActivity_.class);
                         context.startActivity(intent);
 
                     } else if (return_code.equals("-4")) {
                         Log.i("return_code", "没有访问权限");
+                        Util.Toast(context, returnMsg,null);
+
                         call.getMessage(result, url);
 
                     } else if (return_code.equals("-1")) {

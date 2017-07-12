@@ -263,6 +263,7 @@ endpoint=baseJson.endpoint;
                         for(String imgname:listImageName) {
 
                             uploadAliyun(imgname,mp4ImgDir+imgname,uploadObject);
+                            break;//fox测试
                         }
                     }
                 }).start();

@@ -239,7 +239,12 @@
             <action android:name="org.camera.camera.MyService.Service"/>
         </intent-filter>
         </service>
-
+        <activity
+            android:name=".activity.SetSafeQuestionActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.newSafeQuestionActivity_"
+            android:screenOrientation="portrait" />
         <!--JPUSH************************************************************************-->
 
 

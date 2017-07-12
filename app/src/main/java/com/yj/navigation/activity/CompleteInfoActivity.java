@@ -217,7 +217,7 @@ public class CompleteInfoActivity extends BaseActivity {
                 configPref.userName().put(baseJson.userName);
                 configPref.userToken().put(baseJson.accessToken);
                configPref.userNickname().put(baseJson.nickname);
-                Util.startActivity(this, SafeQuestionActivity_.class);
+                Util.startActivity(this, SetSafeQuestionActivity_.class);
 
 //                Util.startActivity(CompleteInfoActivity.this, IndexActivity_.class);
                 finish();

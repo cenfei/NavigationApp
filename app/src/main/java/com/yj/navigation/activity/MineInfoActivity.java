@@ -31,6 +31,8 @@ import com.yj.navigation.network.ProtocolUtil;
 import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.BaseJson;
 import com.yj.navigation.object.ImageAvarJson;
+import com.yj.navigation.object.Question;
+import com.yj.navigation.object.QuestionJson;
 import com.yj.navigation.object.RegisterCompleteson;
 import com.yj.navigation.prefs.ConfigPref_;
 import com.yj.navigation.util.Base64Util;
@@ -49,6 +51,8 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhang on 2015/8/7.
@@ -63,6 +67,11 @@ public class MineInfoActivity extends BaseActivity {
     @ViewById(R.id.image_avar_id)
     ImageView image_avar_id;
 
+    @ViewById(R.id.set_safequestion_rel_id)
+    RelativeLayout set_safequestion_rel_id;
+
+    @ViewById(R.id.set_safequestion_view_id)
+    View set_safequestion_view_id;
 
     @Click(R.id.left_title_line)
     void onLeftTitleLine() {
@@ -70,6 +79,17 @@ public class MineInfoActivity extends BaseActivity {
         finish();
 
     }
+
+    @Click(R.id.set_safequestion_rel_id)
+    void onsetSafeQuestion() {
+
+        Intent intent = new Intent(MineInfoActivity.this, newSafeQuestionActivity_.class);
+//        intent.putExtra("FromMineInfoActivity", true);
+
+        startActivity(intent);
+
+    }
+
 
     public void updateUi(){
         String headImg=configPref.userHeadImg().get();
@@ -271,6 +291,7 @@ public class MineInfoActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         updateUi();
+        getQuestionListServerForMsg();
     }
 
 
@@ -437,6 +458,61 @@ public class MineInfoActivity extends BaseActivity {
 
                 Util.Toast(this, "安全密码设置成功",null);
             }
+        }
+    }
+
+
+
+    //获取安全问题列表
+    public void getQuestionListServerForMsg() {
+//        foxProgressbarInterface = new FoxProgressbarInterface();
+//        foxProgressbarInterface.startProgressBar(this, "加载中...");
+
+
+        ProtocolUtil.queryQustionFunction(this, new GetQueryQuestionHandler(), configPref.userToken().get());
+
+
+    }
+
+
+    private class GetQueryQuestionHandler extends RowMessageHandler {
+        @Override
+        protected void handleResp(String resp) {
+            getQueryQuestionHandler(resp);
+        }
+    }
+
+    List<Question> questionList = new ArrayList<Question>();
+
+    public void getQueryQuestionHandler(String resp) {
+//        foxProgressbarInterface.stopProgressBar();
+        if (resp != null && !resp.equals("")) {
+
+
+            QuestionJson baseJson = new Gson().fromJson(resp, QuestionJson.class);
+            if (baseJson.retCode.equals(Constant.RES_SUCCESS)) {
+
+                questionList = baseJson.data;
+
+                //添加测试数据----
+                //********************
+                if (questionList == null || questionList.size() == 0) {
+
+                    set_safequestion_rel_id.setVisibility(View.VISIBLE);
+                    set_safequestion_view_id.setVisibility(View.VISIBLE);
+                }else{
+                    set_safequestion_rel_id.setVisibility(View.GONE);
+                    set_safequestion_view_id.setVisibility(View.GONE);
+                }
+
+                //********************
+
+
+
+
+
+            }
+
         }
     }
 
