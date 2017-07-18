@@ -2,7 +2,6 @@ package com.yj.navigation.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.session.MediaSession;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -18,7 +17,6 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -203,20 +201,31 @@ public class AdapterWebUpVideoItemView extends BaseAdapter {
 
     //**********获取筛选的后的list***************/
     FoxProgressbarInterface foxProgressbarInterface;
-
+    List<String> listImageName = null;
+    String mp4ImgDir=null;
     public void getJobListFromServerForMsg() {
-        foxProgressbarInterface = new FoxProgressbarInterface();
-        foxProgressbarInterface.startProgressBar(context, "加载中...");
 
-        String filenum="20";
-        String biztype="1";
-        String fileFormat= "jpg";
-        String date=MyStringUtils.getNowTimeFormat2(new Date());
+        String mp4Num = selectMp4.substring(0, selectMp4.indexOf(".mp4"));
+
+        //跳转到 show 页面
+         mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num + "/";
+        try {
+            listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
+//            handler.sendEmptyMessage(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(listImageName!=null&&listImageName.size()>0) {
+            foxProgressbarInterface = new FoxProgressbarInterface();
+            foxProgressbarInterface.startProgressBar(context, "加载中...");
+            String filenum = listImageName.size() + "";
+            String biztype = "1";
+            String fileFormat = "jpg";
+            String date = MyStringUtils.getNowTimeFormat2(new Date());
 
 
-
-        ProtocolUtil.uploadApplyFunction(context, new MyJobListHandler(),tokenm,filenum,biztype,fileFormat,date );
-
+            ProtocolUtil.uploadApplyFunction(context, new MyJobListHandler(), tokenm, filenum, biztype, fileFormat, date);
+        }
 
     }
 
@@ -249,21 +258,11 @@ endpoint=baseJson.endpoint;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String mp4Num = selectMp4.substring(0, selectMp4.indexOf(".mp4"));
 
-                        //跳转到 show 页面
-                        String mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num + "/";
-                        List<String> listImageName = null;
-                        try {
-                            listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
-//            handler.sendEmptyMessage(0);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                         for(String imgname:listImageName) {
 
                             uploadAliyun(imgname,mp4ImgDir+imgname,uploadObject);
-                            break;//fox测试
+//                            break;//fox测试
                         }
                     }
                 }).start();
@@ -299,8 +298,8 @@ endpoint=baseJson.endpoint;
 //        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(accessKeyId, accessKeySecret);
 
         ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+        conf.setConnectionTimeout(450 * 1000); // 连接超时，默认15秒
+        conf.setSocketTimeout(450 * 1000); // socket超时，默认15秒
         conf.setMaxConcurrentRequest(5); // 最大并发请求书，默认5个
         conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
         OSSLog.enableLog();

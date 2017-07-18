@@ -18,6 +18,11 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.yj.navigation.object.UpWebInfoJson;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
@@ -176,7 +181,36 @@ public class PutObjectSamples {
             }
         });
     }
+    public static byte[] toByteArray(String filename) throws IOException {
 
+        File f = new File(filename);
+        if (!f.exists()) {
+            throw new FileNotFoundException(filename);
+        }
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream((int) f.length());
+        BufferedInputStream in = null;
+        try {
+            in = new BufferedInputStream(new FileInputStream(f));
+            int buf_size = 1024;
+            byte[] buffer = new byte[buf_size];
+            int len = 0;
+            while (-1 != (len = in.read(buffer, 0, buf_size))) {
+                bos.write(buffer, 0, len);
+            }
+            return bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bos.close();
+        }
+    }
     // 上传文件可以设置server回调
     public void asyncPutObjectWithServerCallback(final UpWebInfoJson upWebInfoJson,final String filename) {
         // 构造上传请求
@@ -184,14 +218,20 @@ public class PutObjectSamples {
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType("application/octet-stream");
+//        put.up
 
+        try {
+            put.setUploadData(toByteArray(uploadFilePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         put.setMetadata(metadata);
 
         put.setCallbackParam(new HashMap<String, String>() {
             {
                 put("callbackUrl", upWebInfoJson.callbackUrl);
                 put("callbackBodyType", "application/json");
-                put("callbackBody","{\"mimeType\":${mimeType},\"size\":${size},\"x:applySn\":${x:applySn},\"x:bizType\":${x:bizType},\"x:fileName\":${x:fileName}");
+                put("callbackBody","{\"mimeType\":${mimeType},\"size\":${size},\"x:applySn\":${x:applySn},\"x:bizType\":${x:bizType},\"x:fileName\":${x:fileName}}");
             }
         });
 
