@@ -46,8 +46,23 @@ public class FileUtil {
            Log.e("file", "文件存在");
        }  
        return filePath;  
-   }  
-   
+   }
+    public static void deleteAll(File file) {
+        if (file == null || file.list() == null) return;
+        if (file.isFile() || file.list().length == 0) {
+            file.delete();
+        } else {
+            File[] files = file.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                deleteAll(files[i]);
+                files[i].delete();
+            }
+
+
+            if (file.exists())         //如果文件本身就是目录 ，就要删除目录
+                file.delete();
+        }
+    }
    
    public static int getExifOrientation(String filepath) {
        int degree = 0;

@@ -212,7 +212,8 @@ public class PutObjectSamples {
         }
     }
     // 上传文件可以设置server回调
-    public void asyncPutObjectWithServerCallback(final UpWebInfoJson upWebInfoJson,final String filename) {
+    public void asyncPutObjectWithServerCallback(final UpWebInfoJson upWebInfoJson,final String filename,OSSProgressCallback<PutObjectRequest> ossProgressCallback
+    ,OSSCompletedCallback<PutObjectRequest, PutObjectResult> ossCompletedCallback) {
         // 构造上传请求
         final PutObjectRequest put = new PutObjectRequest(testBucket, testObject, uploadFilePath);
 
@@ -244,40 +245,45 @@ public class PutObjectSamples {
             }
         });
         // 异步上传时可以设置进度回调
-        put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-            @Override
-            public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                Log.d("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
-            }
-        });
+//        put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
+//            @Override
+//            public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
+//                Log.d("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
+//            }
+//        });
 
-        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-            @Override
-            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                Log.d("PutObject", "UploadSuccess");
+        put.setProgressCallback(ossProgressCallback);
 
-                // 只有设置了servercallback，这个值才有数据
-                String serverCallbackReturnJson = result.getServerCallbackReturnBody();
+        OSSAsyncTask task = oss.asyncPutObject(put,ossCompletedCallback);
 
-                Log.d("servercallback", serverCallbackReturnJson);
-            }
 
-            @Override
-            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                // 请求异常
-                if (clientExcepion != null) {
-                    // 本地异常如网络异常等
-                    clientExcepion.printStackTrace();
-                }
-                if (serviceException != null) {
-                    // 服务异常
-                    Log.e("ErrorCode", serviceException.getErrorCode());
-                    Log.e("RequestId", serviceException.getRequestId());
-                    Log.e("HostId", serviceException.getHostId());
-                    Log.e("RawMessage", serviceException.getRawMessage());
-                }
-            }
-        });
+//        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+//            @Override
+//            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+//                Log.d("PutObject", "UploadSuccess");
+//
+//                // 只有设置了servercallback，这个值才有数据
+//                String serverCallbackReturnJson = result.getServerCallbackReturnBody();
+//
+//                Log.d("servercallback", serverCallbackReturnJson);
+//            }
+//
+//            @Override
+//            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+//                // 请求异常
+//                if (clientExcepion != null) {
+//                    // 本地异常如网络异常等
+//                    clientExcepion.printStackTrace();
+//                }
+//                if (serviceException != null) {
+//                    // 服务异常
+//                    Log.e("ErrorCode", serviceException.getErrorCode());
+//                    Log.e("RequestId", serviceException.getRequestId());
+//                    Log.e("HostId", serviceException.getHostId());
+//                    Log.e("RawMessage", serviceException.getRawMessage());
+//                }
+//            }
+//        });
     }
 
     public void asyncPutObjectWithMD5Verify() {
