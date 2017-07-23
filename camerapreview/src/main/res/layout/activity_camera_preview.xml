@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/camera_content_id"
+    android:background="#00000000"
     android:layout_height="match_parent" >
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#00000000"
+
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" >
         
@@ -17,32 +21,57 @@
             android:layout_height="0dip" />
 
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
-        <Button
-            android:id="@+id/camera_textureview_btn"
 
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="拍照"
-            android:gravity="bottom|center_horizontal"
 
-            android:textColor="#898989"
-            />
-        <Button
-            android:id="@+id/camera_textureview_stop_btn"
 
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="停止拍照"
-            android:gravity="bottom|center_horizontal"
 
-            android:textColor="#898989"
-            />
-</LinearLayout>
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="60dp">
+
+    <ImageView
+        android:id="@+id/left_title_icon3"
+        android:layout_width="16dp"
+        android:layout_height="24dp"
+
+
+
+        android:src="@drawable/back"
+
+        android:tint="#ffffff" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/camera_textureview_btn"
+
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/img_play"
+        />
+
+
+    <TextView
+        android:id="@+id/comment_time_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="30dp"
+        android:text="点击开始播放开始录制"
+        android:textColor="#ffffff"
+        android:textSize="13sp" />
 
 </RelativeLayout>

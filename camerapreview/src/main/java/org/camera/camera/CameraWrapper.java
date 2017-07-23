@@ -193,6 +193,7 @@ Context mcontext;
 			Log.e("prosize:", "w:" + IMAGE_WIDTH + ",H:" + IMAGE_HEIGHT);
 
 			this.mCameraParamters.setPreviewSize(IMAGE_WIDTH, IMAGE_HEIGHT);
+			this.mCameraParamters.setPictureSize(IMAGE_WIDTH, IMAGE_HEIGHT);
 
 //			this.mCamera.setDisplayOrientation(90);
 			mCameraPreviewCallback = new CameraPreviewCallback();

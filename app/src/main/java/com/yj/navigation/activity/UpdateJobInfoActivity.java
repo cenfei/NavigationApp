@@ -89,6 +89,9 @@ public class UpdateJobInfoActivity extends BaseActivity {
         String sn = jobJson.sn;
         String cardNo = cardno_info_id.getText().toString();
         String content = password_info_id.getText().toString();
+        String address_comment_val = address_comment_id.getText().toString();
+
+
         if (sn == null || sn.equals("")) {
 
             Util.Toast(this, "序列号为空",null);
@@ -108,6 +111,14 @@ public class UpdateJobInfoActivity extends BaseActivity {
 
             return;
         }
+        if (address_comment_val == null || address_comment_val.equals("")||address_comment_val.contains("选择")) {
+
+            Util.Toast(this, "请输入地址",null);
+
+            return;
+        }
+
+
         List<JobImageJson> jobImageJsonListApp = mainApp.jobImageJsonList;
         StringBuffer sb = new StringBuffer();
         for (JobImageJson jobImageJson : jobImageJsonListApp) {
@@ -138,7 +149,7 @@ public class UpdateJobInfoActivity extends BaseActivity {
     }
 
     boolean boolFromVideoSecondFragment = false;
-
+    EditText address_comment_id;
     public void initUi() {
         boolFromVideoSecondFragment = getIntent().getBooleanExtra("FromVideoSecondFragment", false);
 
@@ -170,7 +181,7 @@ public class UpdateJobInfoActivity extends BaseActivity {
             }
         });
 
-        TextView address_comment_id = (TextView) findViewById(R.id.address_comment_id);
+         address_comment_id = (EditText) findViewById(R.id.address_comment_id);
         TextView time_comment_id = (TextView) findViewById(R.id.time_comment_id);
 
         cardno_info_id = (EditText) findViewById(R.id.cardno_info_id);
@@ -186,6 +197,10 @@ public class UpdateJobInfoActivity extends BaseActivity {
         if (jobJson.address != null && !jobJson.address.equals("")) {
             address_comment_id.setText(jobJson.address);
         }
+//        else{
+//            address_comment_id.setText("无具体地址");
+//
+//        }
 
 
         GalleryView galleryView = (GalleryView) findViewById(R.id.mygallery);

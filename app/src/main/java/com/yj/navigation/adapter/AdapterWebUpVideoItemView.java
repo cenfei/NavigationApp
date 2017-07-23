@@ -37,6 +37,7 @@ import com.yj.navigation.network.RowMessageHandler;
 import com.yj.navigation.object.UpWebInfoJson;
 import com.yj.navigation.util.Constant;
 import com.yj.navigation.util.FileUtil;
+import com.yj.navigation.util.GpsLocation;
 import com.yj.navigation.util.ImageLoaderUtil;
 import com.yj.navigation.util.MyStringUtils;
 import com.yj.navigation.util.PutObjectSamples;
@@ -132,7 +133,25 @@ TextView updateTextview=null;
         viewholder.time_web_text.setText(personalRanking);
         final String mp4Num = personalRanking.substring(0, personalRanking.indexOf(".mp4"));
 
-        String imgUrl = "file:///mnt" + VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num + "/1.jpg";
+//        String imgUrl = "file:///mnt" + VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num + "/1.jpg";
+        String mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num + "/";
+        List<String> listImageName = null;
+        try {
+            listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
+//            handler.sendEmptyMessage(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        String imgUrl="file:///mnt"+ VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+mp4Num+"/"+listImageName.get(0);
+
+
+
+
 
 
 //        imgUrl=String.format("file:///mnt"+VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+"s%/s%.jpg",mp4Num,mp4Num);
@@ -199,12 +218,13 @@ TextView updateTextview=null;
         String mp4Num = mp4filename.substring(0, mp4filename.indexOf(".mp4"));
 
         File mpFile = new File(VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4filename);
-        FileUtil.deleteAll(mpFile);
+        if (mpFile.exists())         //如果文件本身就是目录 ，就要删除目录
+            mpFile.delete();
         File mpImgFile = new File(VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num);
         FileUtil.deleteAll(mpImgFile);
 
     }
-
+Integer lastprocess=0;
 
     Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -212,10 +232,16 @@ TextView updateTextview=null;
 switch (message.what){
 
     case 1:
-
         String process=message.getData().getString("process");
+        Integer nowProcess=Integer.valueOf(process);
 
-        updateTextview.setText("正上传"+process+"%");
+        if(nowProcess>lastprocess){
+
+            updateTextview.setText("正上传"+process+"%");
+            lastprocess=nowProcess;
+        }
+
+
 
         break;
     case 2:
@@ -271,9 +297,15 @@ switch (message.what){
             String biztype = "1";
             String fileFormat = "jpg";
             String date = MyStringUtils.getNowTimeFormat2(new Date());
+            GpsLocation.initLocation(context);
+//获取经纬度
+            Log.d("经度：",GpsLocation.longitude+"");
+            Log.d("纬度：",GpsLocation.latitude+"");
 
 
-            ProtocolUtil.uploadApplyFunction(context, new MyJobListHandler(), tokenm, filenum, biztype, fileFormat, date);
+
+            ProtocolUtil.uploadApplyFunction(context, new MyJobListHandler(), tokenm, filenum, biztype, fileFormat, date
+            ,GpsLocation.latitude+"",GpsLocation.longitude+"");
         }
 
     }
@@ -305,12 +337,17 @@ switch (message.what){
                 accessToken = baseJson.securityToken;
                 initOss();
 
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+        for (String imgname : listImageName) {
 
-                for (String imgname : listImageName) {
-
-                    uploadAliyun(imgname, mp4ImgDir + imgname, uploadObject);
+            uploadAliyun(imgname, mp4ImgDir + imgname, uploadObject);
 //                            break;//fox测试
-                }
+        }
+    }
+}).start();
+
 
             }
 

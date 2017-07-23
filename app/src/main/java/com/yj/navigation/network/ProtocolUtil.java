@@ -414,7 +414,7 @@ public class ProtocolUtil {
                                           String token, String fileNum,String bizType,String fileFormat,String takeDt
 
 
-    ) {
+   ,String latitude,String longitude ) {
         Map<String, Object> parmaMap = new HashMap<String, Object>();
         parmaMap.put("token", token);
 
@@ -424,9 +424,9 @@ public class ProtocolUtil {
 
         parmaMap.put("takeDt", takeDt);
 
-        parmaMap.put("latitude", "111.0");
+        parmaMap.put("latitude", latitude);
 
-        parmaMap.put("longitude", "112.0");
+        parmaMap.put("longitude", longitude);
 
 
 

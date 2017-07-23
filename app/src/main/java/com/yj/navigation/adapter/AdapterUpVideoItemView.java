@@ -19,6 +19,7 @@ import com.yj.navigation.util.ReadFile;
 
 import org.camera.encode.VideoEncoderFromSurface;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -95,7 +96,24 @@ public class AdapterUpVideoItemView extends BaseAdapter {
         viewholder.video_title_id.setText(personalRanking);
        String mp4Num=personalRanking.substring(0,personalRanking.indexOf(".mp4"));
 
-        String imgUrl="file:///mnt"+ VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+mp4Num+"/1.jpg";
+
+//        String mp4Num = personalRanking.substring(0, personalRanking.indexOf(".mp4"));
+
+        //跳转到 show 页面
+        String mp4ImgDir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE + mp4Num + "/";
+        List<String> listImageName = null;
+        try {
+            listImageName = ReadFile.readfileOnlyFile(mp4ImgDir);
+//            handler.sendEmptyMessage(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        String imgUrl="file:///mnt"+ VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+mp4Num+"/"+listImageName.get(0);
 
 
 //        imgUrl=String.format("file:///mnt"+VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+"s%/s%.jpg",mp4Num,mp4Num);

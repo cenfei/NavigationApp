@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -154,9 +155,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ShowVideoActivity"
-
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" />
+            android:configChanges="keyboardHidden|orientation|screenSize|layoutDirection"
+            android:screenOrientation="landscape" />
 
         <activity
             android:name=".activity.BindCardActivity_"
@@ -211,7 +211,6 @@
 
         <activity
             android:name="org.camera.activity.CameraSurfaceTextureActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:configChanges="keyboardHidden|orientation|screenSize|layoutDirection"
             android:screenOrientation="landscape"
           />

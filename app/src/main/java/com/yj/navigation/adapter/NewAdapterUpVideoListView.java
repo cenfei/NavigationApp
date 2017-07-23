@@ -96,6 +96,9 @@ public class NewAdapterUpVideoListView extends BaseAdapter {
         if(!TextUtils.isEmpty(personalRanking.address)){
             viewholder.upvideo_title_id.setText(personalRanking.address);
 
+        }else{
+            viewholder.upvideo_title_id.setText("无具体位置");
+
         }
         if(!TextUtils.isEmpty(personalRanking.takedt)){
             viewholder.upvideo_time_id.setText(personalRanking.takedt+"");

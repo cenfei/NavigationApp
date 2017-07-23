@@ -165,19 +165,22 @@ android:paddingTop="15dp"
                     android:textSize="15sp" />
 
 
-                <TextView
+
+                <EditText
                     android:id="@+id/address_comment_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:layout_marginLeft="50dp"
-                    android:gravity="right"
+                    android:background="#00ffffff"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入地址"
+                    android:maxLength="200"
                     android:textAlignment="center"
                     android:textColor="@color/line_hot_all"
+                    android:textColorHint="@color/font_titie2"
                     android:textSize="15sp" />
-
 
             </RelativeLayout>
 
@@ -226,7 +229,7 @@ android:paddingTop="15dp"
 
                 <TextView
                     android:id="@+id/password_info_id"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
 

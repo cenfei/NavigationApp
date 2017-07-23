@@ -386,6 +386,14 @@ public class IndexActivity extends BaseActivity {
                 Manifest.permission.CAMERA)) {
             plist.add(Manifest.permission.CAMERA);
         }
+        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            plist.add(Manifest.permission.CAMERA);
+        }
+        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            plist.add(Manifest.permission.CAMERA);
+        }
 
 //        if (ContextCompat.checkSelfPermission(this,
 //                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {

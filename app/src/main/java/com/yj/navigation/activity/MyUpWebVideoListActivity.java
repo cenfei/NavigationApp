@@ -1,6 +1,11 @@
 package com.yj.navigation.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -159,7 +164,7 @@ public class MyUpWebVideoListActivity extends BaseActivity {
             }
         });
 
-
+        permissionAll();
         designRoomInfos = new ArrayList<String>();
 
 //
@@ -318,7 +323,47 @@ public class MyUpWebVideoListActivity extends BaseActivity {
 
     }
 
+    int  MY_PERMISSIONS_REQUEST_ACCESS_ALL=5005;
+    public void permissionAll() {
 
+        List<String> plist=new ArrayList<String>();
+        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            plist.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            plist.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+
+        if(plist.size()>0) {
+            String[] toBeStored = plist.toArray(new String[plist.size()]);
+
+//请求权限
+            ActivityCompat.requestPermissions(this, toBeStored,
+                    MY_PERMISSIONS_REQUEST_ACCESS_ALL);
+//判断是否需要 向用户解释，为什么要申请该权限
+        }else{
+            postStart();
+
+        }
+
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+            grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_ACCESS_ALL) {
+            postStart();
+        }
+
+
+    }
+
+    public void postStart(){
+
+    }
 }
 
 

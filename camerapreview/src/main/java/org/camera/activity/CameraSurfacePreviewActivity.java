@@ -1,21 +1,17 @@
 package org.camera.activity;
 
-import com.example.camerapreview.R;
-
 import android.app.Activity;
-import android.graphics.Point;
-import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
+
+import com.example.camerapreview.R;
 
 import org.camera.camera.CameraWrapper;
 import org.camera.camera.CameraWrapper.CamOpenOverCallback;
-import org.camera.preview.*;
+import org.camera.preview.CameraSurfacePreview;
 
 public class CameraSurfacePreviewActivity extends Activity implements CamOpenOverCallback{
 	private static final String TAG = "CameraPreviewActivity";
@@ -30,24 +26,24 @@ public class CameraSurfacePreviewActivity extends Activity implements CamOpenOve
 		initUI();
 		initViewParams();
 
-		Button	camera_textureview_btn = (Button) findViewById(R.id.camera_textureview_btn);
-		camera_textureview_btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				CameraWrapper.getInstance().doOpenCamera(CameraSurfacePreviewActivity.this);
-			}
-		});
-
-
-		Button	camera_textureview_stop_btn = (Button) findViewById(R.id.camera_textureview_stop_btn);
-		camera_textureview_stop_btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				CameraWrapper.getInstance().doStopCamera();
-			}
-		});
+//		Button	camera_textureview_btn = (Button) findViewById(R.id.camera_textureview_btn);
+//		camera_textureview_btn.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//
+//				CameraWrapper.getInstance().doOpenCamera(CameraSurfacePreviewActivity.this);
+//			}
+//		});
+//
+//
+//		Button	camera_textureview_stop_btn = (Button) findViewById(R.id.camera_textureview_stop_btn);
+//		camera_textureview_stop_btn.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//
+//				CameraWrapper.getInstance().doStopCamera();
+//			}
+//		});
 	}
 	
 	@Override  

@@ -24,7 +24,7 @@ public class FoxProgressbarInterfaceView {
         public void run() {
             // TODO Auto-generated method stub
             //要做的事情
-            if (process <= 30) {
+            if (process <= 60) {
 
 
 
