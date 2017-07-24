@@ -1,2 +1,2 @@
-include ':app', ':pulltorefresh', ':QRCodeScan', ':library_PullToRefreshSwipeMenuListView', ':camerapreview', ':PickDateTimeAndAddress'
+include ':app', ':pulltorefresh', ':QRCodeScan', ':library_PullToRefreshSwipeMenuListView', ':camerapreview', ':PickDateTimeAndAddress', ':oss-android-sdk'
 

@@ -244,6 +244,11 @@
         <activity
             android:name=".activity.newSafeQuestionActivity_"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PlayVideo2Activity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+             />
         <!--JPUSH************************************************************************-->
 
 

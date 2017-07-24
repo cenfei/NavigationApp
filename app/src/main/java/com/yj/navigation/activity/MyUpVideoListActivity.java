@@ -243,7 +243,7 @@ public class MyUpVideoListActivity extends BaseActivity {
 
                 String bankInfoJson = designRoomInfos.get(position - 1);//mp4的名字
 
-                Intent intent = new Intent(MyUpVideoListActivity.this, PlayVideoActivity.class);
+                Intent intent = new Intent(MyUpVideoListActivity.this, PlayVideo2Activity.class);
                 String  filename= VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+bankInfoJson;
 
                 intent.putExtra("filename", filename);
