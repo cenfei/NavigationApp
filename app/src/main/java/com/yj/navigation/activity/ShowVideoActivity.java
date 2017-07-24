@@ -487,7 +487,7 @@ public class ShowVideoActivity extends Activity {
         country_line = (LinearLayout) findViewById(R.id.country_line);
 
         country.setVisibleItems(5);
-        country.setCurrentItem(2);
+//        country.setCyclic(t);
         //   country.setVisibility(View.GONE);
         final CountryAdapter countryAdapter = new CountryAdapter(ShowVideoActivity.this);
         country.setViewAdapter(countryAdapter);
@@ -542,7 +542,6 @@ public class ShowVideoActivity extends Activity {
         break_rules_button_id.setVisibility(View.GONE);
 
 
-        country.setCurrentItem(2);
 
         foxProgressbarInterface = new FoxProgressbarInterfaceView();
         foxProgressbarInterface.startProgressBar(this, "正在生成视频...");

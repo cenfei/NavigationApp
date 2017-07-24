@@ -2,6 +2,7 @@ package com.yj.navigation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,10 +69,13 @@ public class UpdateJobInfoActivity extends BaseActivity {
                 new DialogWheelArrayInfo.IWheelCallBack() {
                     @Override
                     public void getWheelCallBack(String chooseValue) {
-                        chooseDistrict = chooseValue;
+
+                        if(!TextUtils.isEmpty(chooseValue)) {
+                            chooseDistrict = chooseValue;
 //
-                        password_info_id.setText(chooseValue);
-                        Log.e("chooseValue", chooseValue);
+                            password_info_id.setText(chooseValue);
+                            Log.e("chooseValue", chooseValue);
+                        }
 //                        Util.Toast(DesignPersonalActivity.this, "" + chooseValue);
                     }
                 });
