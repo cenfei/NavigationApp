@@ -40,7 +40,7 @@
 
             <EditText
                 android:id="@+id/password_info_id"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -85,7 +85,7 @@
             <EditText
                 android:id="@+id/again_password_info_id"
 
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -149,7 +149,7 @@ android:visibility="gone"
             <EditText
                 android:id="@+id/name_info_id"
 
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -194,7 +194,7 @@ android:visibility="gone"
             <EditText
                 android:id="@+id/cardno_info_id"
 
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -237,7 +237,7 @@ android:visibility="gone"
                 android:textSize="17sp" />
 
             <EditText
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
