@@ -1,12 +1,10 @@
 package com.yj.navigation.activity;
 
-import android.media.AudioManager;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -54,14 +52,19 @@ public class PlayVideo2Activity  extends AppCompatActivity {
 //                Glide.with(PlayVideo2Activity.this).load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg").into(player.thumbImageView);
             }
             player.startFullscreen(this, JCVideoPlayerStandard.class, filename, ""); //模拟用户点击开始按钮，NORMAL状态下点击开始播放视频，播放中点击暂停视频
+            player.changeUiToCompleteShow();
+
              player.startButton.performClick();
 //            JCVideoPlayerStandard.startFullscreen(this, JCVideoPlayerStandard.class,filename, "本地视频");
-
-
         }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        finish();
+    }
 
     @Override
     public void onBackPressed() {

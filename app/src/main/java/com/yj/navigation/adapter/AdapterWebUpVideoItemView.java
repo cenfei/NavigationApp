@@ -196,6 +196,11 @@ TextView updateTextview=null;
             @Override
             public void onClick(View view) {//删除当前上传图片---以及mp4
                 delFileMp4AndImg(personalRanking);
+                selectMp4 = personalRanking;
+                mPersonal.remove(selectMp4);
+
+                notifyDataSetChanged();
+
 
             }
         });

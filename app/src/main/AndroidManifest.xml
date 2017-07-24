@@ -217,6 +217,7 @@
 
         <activity
             android:name=".activity.MyUpVideoListActivity_"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PlayVideoActivity"
@@ -247,7 +248,7 @@
         <activity
             android:name=".activity.PlayVideo2Activity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
              />
         <!--JPUSH************************************************************************-->
 

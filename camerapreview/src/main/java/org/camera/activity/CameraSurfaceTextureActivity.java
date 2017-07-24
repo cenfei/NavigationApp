@@ -15,7 +15,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.camerapreview.R;
 
@@ -100,8 +99,9 @@ public class CameraSurfaceTextureActivity extends Activity implements CamOpenOve
 				camera_content_id.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						new FoxToastInterface().startProgressBar(CameraSurfaceTextureActivity.this,"保存成功",null);
 
-						Toast.makeText(CameraSurfaceTextureActivity.this,"保存成功",Toast.LENGTH_LONG);
+
 						CameraWrapper.getInstance().stopVideo();
 					}
 				});

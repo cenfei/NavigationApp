@@ -119,7 +119,7 @@ public class MyUpVideoListActivity extends BaseActivity {
 
 //
 
-//        getJobListFromServerForMsg();
+        getJobListFromServerForMsg();
 
 
     }
@@ -174,13 +174,13 @@ public class MyUpVideoListActivity extends BaseActivity {
         designRoomInfos = new ArrayList<String>();
 
 //
-        String  mp4Dir= VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE;
-        try {
-            designRoomInfos=    ReadFile.readfileOnlyFile(mp4Dir);
-//            handler.sendEmptyMessage(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        String  mp4Dir= VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE;
+//        try {
+//            designRoomInfos=    ReadFile.readfileOnlyFile(mp4Dir);
+////            handler.sendEmptyMessage(0);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         adapterHomeDesignListView = new AdapterUpVideoItemView(this, designRoomInfos);
@@ -284,11 +284,11 @@ public class MyUpVideoListActivity extends BaseActivity {
     FoxProgressbarInterface foxProgressbarInterface;
 
     public void getJobListFromServerForMsg() {
-
+        designRoomInfos.clear();
 
         String mp4Dir = VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE;
         try {
-            designRoomInfos = ReadFile.readfileOnlyFile(mp4Dir);
+            designRoomInfos.addAll( ReadFile.readfileOnlyFile(mp4Dir));
 //            handler.sendEmptyMessage(0);
         } catch (IOException e) {
             e.printStackTrace();

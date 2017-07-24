@@ -32,7 +32,7 @@
     <RelativeLayout
         android:id="@+id/no_data_id"
         android:visibility="gone"
-
+android:layout_marginTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

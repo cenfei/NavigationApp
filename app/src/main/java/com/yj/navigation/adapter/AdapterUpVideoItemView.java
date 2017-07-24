@@ -111,7 +111,7 @@ public class AdapterUpVideoItemView extends BaseAdapter {
 
 
 
-
+if(listImageName==null||listImageName.size()==0) return convertView;
 
         String imgUrl="file:///mnt"+ VideoEncoderFromSurface.DEBUG_FILE_NAME_BASE+mp4Num+"/"+listImageName.get(0);
 
